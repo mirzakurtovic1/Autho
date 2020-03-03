@@ -51,6 +51,10 @@
             this.btnCameraStart = new MetroFramework.Controls.MetroButton();
             this.scaning = new System.Windows.Forms.Timer(this.components);
             this.scaning_Interval = new System.Windows.Forms.Timer(this.components);
+            this.lblBefore = new MetroFramework.Controls.MetroLabel();
+            this.lblAfter = new MetroFramework.Controls.MetroLabel();
+            this.btnScan = new MetroFramework.Controls.MetroButton();
+            this.face_recognition = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbCamera)).BeginInit();
             this.metroPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -60,12 +64,12 @@
             // 
             // pbCamera
             // 
-            this.pbCamera.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.pbCamera.BackColor = System.Drawing.Color.White;
             this.pbCamera.Image = ((System.Drawing.Image)(resources.GetObject("pbCamera.Image")));
             this.pbCamera.Location = new System.Drawing.Point(4, 41);
             this.pbCamera.Name = "pbCamera";
             this.pbCamera.Size = new System.Drawing.Size(454, 394);
-            this.pbCamera.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbCamera.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbCamera.TabIndex = 0;
             this.pbCamera.TabStop = false;
             // 
@@ -275,11 +279,46 @@
             this.scaning_Interval.Interval = 250;
             this.scaning_Interval.Tick += new System.EventHandler(this.scaning_Interval_Tick);
             // 
+            // lblBefore
+            // 
+            this.lblBefore.AutoSize = true;
+            this.lblBefore.Location = new System.Drawing.Point(308, 460);
+            this.lblBefore.Name = "lblBefore";
+            this.lblBefore.Size = new System.Drawing.Size(40, 19);
+            this.lblBefore.TabIndex = 25;
+            this.lblBefore.Text = "Event";
+            // 
+            // lblAfter
+            // 
+            this.lblAfter.AutoSize = true;
+            this.lblAfter.Location = new System.Drawing.Point(308, 488);
+            this.lblAfter.Name = "lblAfter";
+            this.lblAfter.Size = new System.Drawing.Size(40, 19);
+            this.lblAfter.TabIndex = 26;
+            this.lblAfter.Text = "Event";
+            // 
+            // btnScan
+            // 
+            this.btnScan.Location = new System.Drawing.Point(485, 450);
+            this.btnScan.Name = "btnScan";
+            this.btnScan.Size = new System.Drawing.Size(156, 29);
+            this.btnScan.TabIndex = 27;
+            this.btnScan.Text = "Scan";
+            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
+            // 
+            // face_recognition
+            // 
+            this.face_recognition.Interval = 250;
+            this.face_recognition.Tick += new System.EventHandler(this.face_recognition_Tick);
+            // 
             // frmAuth
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 468);
+            this.ClientSize = new System.Drawing.Size(837, 546);
+            this.Controls.Add(this.btnScan);
+            this.Controls.Add(this.lblAfter);
+            this.Controls.Add(this.lblBefore);
             this.Controls.Add(this.metroPanel2);
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.pbCamera);
@@ -294,6 +333,7 @@
             this.metroPanel2.ResumeLayout(false);
             this.metroPanel2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -320,5 +360,9 @@
         private MetroFramework.Controls.MetroLabel lblTicks;
         private MetroFramework.Controls.MetroLabel metroLabel5;
         private MetroFramework.Controls.MetroLabel lblEvent;
+        private MetroFramework.Controls.MetroLabel lblBefore;
+        private MetroFramework.Controls.MetroLabel lblAfter;
+        private MetroFramework.Controls.MetroButton btnScan;
+        private System.Windows.Forms.Timer face_recognition;
     }
 }

@@ -105,6 +105,11 @@ namespace AuthoAPI.Models
 
                 entity.Property(e => e.EventEndingTime).HasColumnType("datetime");
 
+                entity.Property(e => e.EventGroupId)
+                    .IsRequired()
+                    .HasMaxLength(32)
+                    .HasDefaultValueSql("('TxKgr3')");
+
                 entity.Property(e => e.EventName)
                     .IsRequired()
                     .HasMaxLength(64);

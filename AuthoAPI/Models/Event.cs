@@ -22,6 +22,7 @@ namespace AuthoAPI.Models
         public int UserCanEnterBeforeEventMi { get; set; }
         public int UserCanEnterAfterEventSta { get; set; }
         public int EventTypeId { get; set; }
+        public string EventGroupId { get; set; }
 
         public virtual EventType EventType { get; set; }
         public virtual ICollection<Enterance> Enterance { get; set; }

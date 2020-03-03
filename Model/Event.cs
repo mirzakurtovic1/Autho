@@ -16,10 +16,8 @@ namespace Model
         public int UserCanEnterBeforeEventMi { get; set; }
         public int UserCanEnterAfterEventSta { get; set; }
         public int EventTypeId { get; set; }
-
+        public string EventGroupId { get; set; }
         public virtual EventType EventType { get; set; }
-
-
 
         public string EventStartingTimeShortString { get { return EventStartingTime.ToString("hh:mm");} }
     }

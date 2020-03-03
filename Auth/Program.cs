@@ -16,7 +16,7 @@ namespace Auth
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Event.frmPresenceList());
+            Application.Run(new Event.frmEvent());
         }
     }
 }

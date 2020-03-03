@@ -54,9 +54,23 @@
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.btnStartEvent = new MetroFramework.Controls.MetroButton();
             this.btnEnforceFaceDetection = new MetroFramework.Controls.MetroCheckBox();
+            this.cbCreateMultipleEvents = new MetroFramework.Controls.MetroCheckBox();
+            this.cblDates = new System.Windows.Forms.CheckedListBox();
+            this.btnCustomDate = new MetroFramework.Controls.MetroButton();
+            this.cbRepeatType = new MetroFramework.Controls.MetroComboBox();
+            this.metroLabel10 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
+            this.dtpCustomdate = new System.Windows.Forms.DateTimePicker();
+            this.lblEventGroup = new MetroFramework.Controls.MetroLabel();
+            this.panelMultipleDates = new System.Windows.Forms.Panel();
+            this.nudEvents = new System.Windows.Forms.NumericUpDown();
+            this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
+            this.lblEventGroupId = new MetroFramework.Controls.MetroLabel();
             ((System.ComponentModel.ISupportInitialize)(this.numUserCanEnterBefore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUserCanEnterAfter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelMultipleDates.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEvents)).BeginInit();
             this.SuspendLayout();
             // 
             // metroLabel1
@@ -80,9 +94,10 @@
             this.txtDescription.Location = new System.Drawing.Point(23, 139);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(322, 88);
+            this.txtDescription.Size = new System.Drawing.Size(334, 88);
             this.txtDescription.TabIndex = 3;
             this.txtDescription.Text = "Event description";
+            this.txtDescription.Click += new System.EventHandler(this.txtDescription_Click);
             // 
             // metroLabel2
             // 
@@ -105,7 +120,7 @@
             // metroLabel4
             // 
             this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(26, 381);
+            this.metroLabel4.Location = new System.Drawing.Point(26, 403);
             this.metroLabel4.Name = "metroLabel4";
             this.metroLabel4.Size = new System.Drawing.Size(85, 19);
             this.metroLabel4.TabIndex = 6;
@@ -114,7 +129,7 @@
             // metroLabel8
             // 
             this.metroLabel8.AutoSize = true;
-            this.metroLabel8.Location = new System.Drawing.Point(26, 512);
+            this.metroLabel8.Location = new System.Drawing.Point(26, 534);
             this.metroLabel8.Name = "metroLabel8";
             this.metroLabel8.Size = new System.Drawing.Size(253, 19);
             this.metroLabel8.TabIndex = 12;
@@ -131,7 +146,7 @@
             // dtpStartingTime
             // 
             this.dtpStartingTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpStartingTime.Location = new System.Drawing.Point(27, 403);
+            this.dtpStartingTime.Location = new System.Drawing.Point(27, 425);
             this.dtpStartingTime.Name = "dtpStartingTime";
             this.dtpStartingTime.ShowUpDown = true;
             this.dtpStartingTime.Size = new System.Drawing.Size(155, 20);
@@ -139,14 +154,14 @@
             // 
             // numUserCanEnterBefore
             // 
-            this.numUserCanEnterBefore.Location = new System.Drawing.Point(27, 534);
+            this.numUserCanEnterBefore.Location = new System.Drawing.Point(27, 556);
             this.numUserCanEnterBefore.Name = "numUserCanEnterBefore";
             this.numUserCanEnterBefore.Size = new System.Drawing.Size(155, 20);
             this.numUserCanEnterBefore.TabIndex = 15;
             // 
             // numUserCanEnterAfter
             // 
-            this.numUserCanEnterAfter.Location = new System.Drawing.Point(27, 578);
+            this.numUserCanEnterAfter.Location = new System.Drawing.Point(27, 600);
             this.numUserCanEnterAfter.Name = "numUserCanEnterAfter";
             this.numUserCanEnterAfter.Size = new System.Drawing.Size(155, 20);
             this.numUserCanEnterAfter.TabIndex = 17;
@@ -154,7 +169,7 @@
             // metroLabel9
             // 
             this.metroLabel9.AutoSize = true;
-            this.metroLabel9.Location = new System.Drawing.Point(26, 556);
+            this.metroLabel9.Location = new System.Drawing.Point(26, 578);
             this.metroLabel9.Name = "metroLabel9";
             this.metroLabel9.Size = new System.Drawing.Size(241, 19);
             this.metroLabel9.TabIndex = 16;
@@ -163,7 +178,7 @@
             // cbEveryoneCanEnter
             // 
             this.cbEveryoneCanEnter.AutoSize = true;
-            this.cbEveryoneCanEnter.Location = new System.Drawing.Point(27, 474);
+            this.cbEveryoneCanEnter.Location = new System.Drawing.Point(27, 496);
             this.cbEveryoneCanEnter.Name = "cbEveryoneCanEnter";
             this.cbEveryoneCanEnter.Size = new System.Drawing.Size(123, 15);
             this.cbEveryoneCanEnter.TabIndex = 18;
@@ -172,7 +187,7 @@
             // 
             // btnSumbit
             // 
-            this.btnSumbit.Location = new System.Drawing.Point(26, 604);
+            this.btnSumbit.Location = new System.Drawing.Point(26, 626);
             this.btnSumbit.Name = "btnSumbit";
             this.btnSumbit.Size = new System.Drawing.Size(156, 29);
             this.btnSumbit.TabIndex = 20;
@@ -181,7 +196,7 @@
             // 
             // btnViewAttendees
             // 
-            this.btnViewAttendees.Location = new System.Drawing.Point(188, 604);
+            this.btnViewAttendees.Location = new System.Drawing.Point(188, 626);
             this.btnViewAttendees.Name = "btnViewAttendees";
             this.btnViewAttendees.Size = new System.Drawing.Size(156, 29);
             this.btnViewAttendees.TabIndex = 21;
@@ -190,9 +205,10 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(373, 110);
+            this.pictureBox1.Location = new System.Drawing.Point(411, 84);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(260, 271);
+            this.pictureBox1.Size = new System.Drawing.Size(200, 200);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 22;
             this.pictureBox1.TabStop = false;
             // 
@@ -218,7 +234,7 @@
             // 
             // btnViewQRCode
             // 
-            this.btnViewQRCode.Location = new System.Drawing.Point(188, 639);
+            this.btnViewQRCode.Location = new System.Drawing.Point(188, 661);
             this.btnViewQRCode.Name = "btnViewQRCode";
             this.btnViewQRCode.Size = new System.Drawing.Size(156, 29);
             this.btnViewQRCode.TabIndex = 25;
@@ -246,7 +262,7 @@
             // dtpEndingTime
             // 
             this.dtpEndingTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpEndingTime.Location = new System.Drawing.Point(27, 448);
+            this.dtpEndingTime.Location = new System.Drawing.Point(27, 470);
             this.dtpEndingTime.Name = "dtpEndingTime";
             this.dtpEndingTime.ShowUpDown = true;
             this.dtpEndingTime.Size = new System.Drawing.Size(155, 20);
@@ -255,7 +271,7 @@
             // metroLabel6
             // 
             this.metroLabel6.AutoSize = true;
-            this.metroLabel6.Location = new System.Drawing.Point(26, 426);
+            this.metroLabel6.Location = new System.Drawing.Point(26, 448);
             this.metroLabel6.Name = "metroLabel6";
             this.metroLabel6.Size = new System.Drawing.Size(79, 19);
             this.metroLabel6.TabIndex = 28;
@@ -263,7 +279,7 @@
             // 
             // btnStartEvent
             // 
-            this.btnStartEvent.Location = new System.Drawing.Point(26, 639);
+            this.btnStartEvent.Location = new System.Drawing.Point(26, 661);
             this.btnStartEvent.Name = "btnStartEvent";
             this.btnStartEvent.Size = new System.Drawing.Size(156, 29);
             this.btnStartEvent.TabIndex = 30;
@@ -273,18 +289,168 @@
             // btnEnforceFaceDetection
             // 
             this.btnEnforceFaceDetection.AutoSize = true;
-            this.btnEnforceFaceDetection.Location = new System.Drawing.Point(27, 495);
+            this.btnEnforceFaceDetection.Location = new System.Drawing.Point(27, 517);
             this.btnEnforceFaceDetection.Name = "btnEnforceFaceDetection";
             this.btnEnforceFaceDetection.Size = new System.Drawing.Size(141, 15);
             this.btnEnforceFaceDetection.TabIndex = 31;
             this.btnEnforceFaceDetection.Text = "Enforce face detection";
             this.btnEnforceFaceDetection.UseVisualStyleBackColor = true;
             // 
+            // cbCreateMultipleEvents
+            // 
+            this.cbCreateMultipleEvents.AutoSize = true;
+            this.cbCreateMultipleEvents.Location = new System.Drawing.Point(27, 385);
+            this.cbCreateMultipleEvents.Name = "cbCreateMultipleEvents";
+            this.cbCreateMultipleEvents.Size = new System.Drawing.Size(113, 15);
+            this.cbCreateMultipleEvents.TabIndex = 32;
+            this.cbCreateMultipleEvents.Text = "Repeatable event";
+            this.cbCreateMultipleEvents.UseVisualStyleBackColor = true;
+            this.cbCreateMultipleEvents.CheckedChanged += new System.EventHandler(this.cbCreateMultipleEvents_CheckedChanged);
+            // 
+            // cblDates
+            // 
+            this.cblDates.FormattingEnabled = true;
+            this.cblDates.Location = new System.Drawing.Point(184, 27);
+            this.cblDates.Name = "cblDates";
+            this.cblDates.Size = new System.Drawing.Size(215, 109);
+            this.cblDates.TabIndex = 34;
+            // 
+            // btnCustomDate
+            // 
+            this.btnCustomDate.Enabled = false;
+            this.btnCustomDate.Location = new System.Drawing.Point(184, 168);
+            this.btnCustomDate.Name = "btnCustomDate";
+            this.btnCustomDate.Size = new System.Drawing.Size(155, 20);
+            this.btnCustomDate.TabIndex = 35;
+            this.btnCustomDate.Text = "add custom date";
+            this.btnCustomDate.Click += new System.EventHandler(this.btnCustomDate_Click);
+            // 
+            // cbRepeatType
+            // 
+            this.cbRepeatType.FormattingEnabled = true;
+            this.cbRepeatType.ItemHeight = 23;
+            this.cbRepeatType.Items.AddRange(new object[] {
+            "Daily",
+            "Every working day",
+            "Weekly",
+            "Every other week",
+            "Monthly"});
+            this.cbRepeatType.Location = new System.Drawing.Point(3, 27);
+            this.cbRepeatType.Name = "cbRepeatType";
+            this.cbRepeatType.Size = new System.Drawing.Size(158, 29);
+            this.cbRepeatType.TabIndex = 37;
+            this.cbRepeatType.SelectedValueChanged += new System.EventHandler(this.cbRepeatType_SelectedValueChanged);
+            // 
+            // metroLabel10
+            // 
+            this.metroLabel10.AutoSize = true;
+            this.metroLabel10.Location = new System.Drawing.Point(3, 5);
+            this.metroLabel10.Name = "metroLabel10";
+            this.metroLabel10.Size = new System.Drawing.Size(82, 19);
+            this.metroLabel10.TabIndex = 36;
+            this.metroLabel10.Text = "Event repeat";
+            this.metroLabel10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // metroLabel11
+            // 
+            this.metroLabel11.AutoSize = true;
+            this.metroLabel11.Location = new System.Drawing.Point(184, 5);
+            this.metroLabel11.Name = "metroLabel11";
+            this.metroLabel11.Size = new System.Drawing.Size(170, 19);
+            this.metroLabel11.TabIndex = 38;
+            this.metroLabel11.Text = "Event dates(up to 15 events)";
+            this.metroLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.metroLabel11.Click += new System.EventHandler(this.metroLabel11_Click);
+            // 
+            // dtpCustomdate
+            // 
+            this.dtpCustomdate.Enabled = false;
+            this.dtpCustomdate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpCustomdate.Location = new System.Drawing.Point(184, 142);
+            this.dtpCustomdate.Name = "dtpCustomdate";
+            this.dtpCustomdate.Size = new System.Drawing.Size(155, 20);
+            this.dtpCustomdate.TabIndex = 39;
+            // 
+            // lblEventGroup
+            // 
+            this.lblEventGroup.AutoSize = true;
+            this.lblEventGroup.Location = new System.Drawing.Point(23, 52);
+            this.lblEventGroup.Name = "lblEventGroup";
+            this.lblEventGroup.Size = new System.Drawing.Size(102, 19);
+            this.lblEventGroup.TabIndex = 40;
+            this.lblEventGroup.Text = "Event group Id: ";
+            this.lblEventGroup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblEventGroup.Click += new System.EventHandler(this.metroLabel12_Click);
+            // 
+            // panelMultipleDates
+            // 
+            this.panelMultipleDates.Controls.Add(this.nudEvents);
+            this.panelMultipleDates.Controls.Add(this.metroLabel12);
+            this.panelMultipleDates.Controls.Add(this.btnCustomDate);
+            this.panelMultipleDates.Controls.Add(this.cblDates);
+            this.panelMultipleDates.Controls.Add(this.dtpCustomdate);
+            this.panelMultipleDates.Controls.Add(this.metroLabel10);
+            this.panelMultipleDates.Controls.Add(this.metroLabel11);
+            this.panelMultipleDates.Controls.Add(this.cbRepeatType);
+            this.panelMultipleDates.Location = new System.Drawing.Point(226, 333);
+            this.panelMultipleDates.Name = "panelMultipleDates";
+            this.panelMultipleDates.Size = new System.Drawing.Size(406, 199);
+            this.panelMultipleDates.TabIndex = 41;
+            this.panelMultipleDates.Visible = false;
+            this.panelMultipleDates.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // nudEvents
+            // 
+            this.nudEvents.Location = new System.Drawing.Point(4, 79);
+            this.nudEvents.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.nudEvents.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudEvents.Name = "nudEvents";
+            this.nudEvents.Size = new System.Drawing.Size(157, 20);
+            this.nudEvents.TabIndex = 42;
+            this.nudEvents.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // metroLabel12
+            // 
+            this.metroLabel12.AutoSize = true;
+            this.metroLabel12.Location = new System.Drawing.Point(3, 56);
+            this.metroLabel12.Name = "metroLabel12";
+            this.metroLabel12.Size = new System.Drawing.Size(147, 19);
+            this.metroLabel12.TabIndex = 41;
+            this.metroLabel12.Text = "Number of events(0-15)";
+            this.metroLabel12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.metroLabel12.Click += new System.EventHandler(this.metroLabel12_Click_1);
+            // 
+            // lblEventGroupId
+            // 
+            this.lblEventGroupId.AutoSize = true;
+            this.lblEventGroupId.Location = new System.Drawing.Point(116, 52);
+            this.lblEventGroupId.Name = "lblEventGroupId";
+            this.lblEventGroupId.Size = new System.Drawing.Size(15, 19);
+            this.lblEventGroupId.TabIndex = 42;
+            this.lblEventGroupId.Text = "-";
+            this.lblEventGroupId.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // frmEvent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(646, 711);
+            this.ClientSize = new System.Drawing.Size(644, 725);
+            this.Controls.Add(this.lblEventGroupId);
+            this.Controls.Add(this.panelMultipleDates);
+            this.Controls.Add(this.lblEventGroup);
+            this.Controls.Add(this.cbCreateMultipleEvents);
             this.Controls.Add(this.btnEnforceFaceDetection);
             this.Controls.Add(this.btnStartEvent);
             this.Controls.Add(this.dtpEndingTime);
@@ -316,6 +482,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numUserCanEnterBefore)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUserCanEnterAfter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelMultipleDates.ResumeLayout(false);
+            this.panelMultipleDates.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEvents)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -348,5 +517,17 @@
         private MetroFramework.Controls.MetroLabel metroLabel6;
         private MetroFramework.Controls.MetroButton btnStartEvent;
         private MetroFramework.Controls.MetroCheckBox btnEnforceFaceDetection;
+        private MetroFramework.Controls.MetroCheckBox cbCreateMultipleEvents;
+        private System.Windows.Forms.CheckedListBox cblDates;
+        private MetroFramework.Controls.MetroButton btnCustomDate;
+        private MetroFramework.Controls.MetroComboBox cbRepeatType;
+        private MetroFramework.Controls.MetroLabel metroLabel10;
+        private MetroFramework.Controls.MetroLabel metroLabel11;
+        private System.Windows.Forms.DateTimePicker dtpCustomdate;
+        private MetroFramework.Controls.MetroLabel lblEventGroup;
+        private System.Windows.Forms.Panel panelMultipleDates;
+        private MetroFramework.Controls.MetroLabel metroLabel12;
+        private System.Windows.Forms.NumericUpDown nudEvents;
+        private MetroFramework.Controls.MetroLabel lblEventGroupId;
     }
 }

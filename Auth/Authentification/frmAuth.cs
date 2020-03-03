@@ -35,7 +35,13 @@ namespace Auth.Authentification
         APIService apiService_Event = new APIService("Event");
         APIService apiService_Presence = new APIService("Presence");
         CascadeClassifier face = new CascadeClassifier("haarcascade_frontalface_default.xml");
+        //current user
+        Model.AuthUser user = null;
 
+
+        //debug
+        int numberBefore = 0;
+        int numberAfter = 0;
         int ticks = 0;
         #endregion variables
 
@@ -108,8 +114,7 @@ namespace Auth.Authentification
             //beep if possible.//change message if possible
 
 
-            if (scaning_Interval.Enabled == false)
-                scaning_Interval.Enabled = true;
+
 
         }
 
@@ -189,12 +194,13 @@ namespace Auth.Authentification
 
         private async void scaning_Interval_Tick(object sender, EventArgs e)
         {
+            numberBefore++;
+            lblBefore.Text = numberBefore.ToString();
             //taking frame from picturebox pbCamera
             Bitmap frame = pbCamera.Image.Clone() as Bitmap;
             bool savingActive = false;
             //convert frame to grayscale maybe... 
             //readQR returns null if user with given qr code does not exist
-            Model.AuthUser user = null;
             if (frame != null)
             {
                 if (act == action.idle || act == action.qr_recognition)
@@ -209,53 +215,67 @@ namespace Auth.Authentification
                         lblLastUser.Text = user.FirstName + " " + user.LastName;
                         ticks += 1;
                         lblTicks.Text = ticks.ToString();
-                        lblAction.Text = act.ToString();
                         act = action.face_detection;
-                        return;
+                        lblAction.Text = act.ToString();
+                        scaning_Interval.Dispose();
+                        face_recognition.Start();
                     }
                 }
-                if (act == action.face_detection)
-                {
-                    Image<Gray, Byte> frameGray = new Image<Gray, Byte>(frame);
-                    var rect = detectFace(frameGray);
-                    //face not found
-                    if (rect == null)
-                        return;
-                    else
-                    {
-                        //face found
-                        Image<Bgr, Byte> frameBgr = new Image<Bgr, Byte>(frame);
-                        var userImage = cutImage(frameBgr,(Rectangle)rect);
-                        var bitmapUserImage = userImage.Bitmap;
-                        pbUser.Image = bitmapUserImage;
-                        act = action.face_recognition;
-                    }
-                }
-                if (act == action.face_recognition)
-                { 
-                //not implemented
-                }
-                if (act == action.saving)
-                {
-                    if (savingActive == false)
-                    {
-                        //saving started
-                        savingActive = true;
-                        //Get existing presence based on event and user
-                        var presenceSearchRequest = new PresenceSearchRequest() { UserId = user.Id,EventId = eventId};
-                        var presenceList = await apiService_Presence.Get<List<Model.Presence>>(presenceSearchRequest);
-                        var presence = presenceList[0];
-                        //Update existing presence
-                        presence.PresenceAttendingDateTime = DateTime.Now;
-                        var result = await apiService_Presence.Update<Model.Presence>(presence.Id,presence);
+            
+                //if (act == action.face_detection)
+                //{
+                //    Image<Gray, Byte> frameGray = new Image<Gray, Byte>(frame);
+                //    var rect = detectFace(frameGray);
+                //    //face not found
+                //    if (rect == null)
+                //        return;
+                //    else
+                //    {
+                //        //face found
+                //        Image<Bgr, Byte> frameBgr = new Image<Bgr, Byte>(frame);
+                //        var userImage = cutImage(frameBgr,(Rectangle)rect);
+                //        var bitmapUserImage = userImage.Bitmap;
+                //        pbUser.Image = bitmapUserImage;
+                //        act = action.face_recognition;
+                //        lblAction.Text = act.ToString();
+                //        scaning_Interval.Dispose();
+                //        scaning_Interval.Start();
+                //    }
+                //}
+                //if (act == action.face_recognition)
+                //{
+                //    //not implemented
+                //    act = action.saving;
+                //    lblAction.Text = act.ToString();
+                //}
+                //if (act == action.saving)
+                //{
+                //    if (savingActive == true)//FIXXXXXXXX
+                //    {
+                //        //saving started
+                //        savingActive = true;
+                //        //Get existing presence based on event and user
+                //        var presenceSearchRequest = new PresenceSearchRequest() { UserId = user.Id,EventId = eventId};
+                //        var presenceList = await apiService_Presence.Get<List<Model.Presence>>(presenceSearchRequest);
+                //        var presence = presenceList[0];
+                //        //Update existing presence
+                //        presence.PresenceAttendingDateTime = DateTime.Now;
+                //        var result = await apiService_Presence.Update<Model.Presence>(presence.Id,presence);
 
-                        //Saving is done
-                        savingActive = false;
-                        act = action.idle;
-                    }
-                }
+                //        //Saving is done
+                //        savingActive = false;
+                //        lblAction.Text = act.ToString();
+                //    }
+                //    act = action.idle;
+                //    scaning_Interval.Dispose();
+                //    scaning_Interval.Start();
+                //}
             }
+            numberAfter++;
+            lblAfter.Text = numberAfter.ToString();
         }
+
+
 
         #endregion scaning interval
 
@@ -278,5 +298,35 @@ namespace Auth.Authentification
             return cutImage;
         }
 
+        private void btnScan_Click(object sender, EventArgs e)
+        {
+            if (scaning_Interval.Enabled == false)
+                scaning_Interval.Enabled = true;
+        }
+
+        private void face_recognition_Tick(object sender, EventArgs e)
+        {
+            Bitmap frame = pbCamera.Image.Clone() as Bitmap;
+
+            if (act == action.face_detection)
+            {
+                Image<Gray, Byte> frameGray = new Image<Gray, Byte>(frame);
+                var rect = detectFace(frameGray);
+                //face not found
+                if (rect == null)
+                    return;
+                else
+                {
+                    //face found
+                    Image<Bgr, Byte> frameBgr = new Image<Bgr, Byte>(frame);
+                    var userImage = cutImage(frameBgr, (Rectangle)rect);
+                    var bitmapUserImage = userImage.Bitmap;
+                    pbUser.Image = bitmapUserImage;
+                    act = action.idle;
+                    lblAction.Text = act.ToString();
+                    face_recognition.Dispose();
+                }
+            }
+        }
     }
 }

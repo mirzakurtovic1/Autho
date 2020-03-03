@@ -45,12 +45,14 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
             this.metroButton1 = new MetroFramework.Controls.MetroButton();
-            this.metroButton2 = new MetroFramework.Controls.MetroButton();
             this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
             this.txtPassword = new MetroFramework.Controls.MetroTextBox();
             this.btnChangePassword = new MetroFramework.Controls.MetroButton();
             this.btnGeneratePassword = new MetroFramework.Controls.MetroButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtFirstName
@@ -186,14 +188,6 @@
             this.metroButton1.TabIndex = 16;
             this.metroButton1.Text = "Upload image";
             // 
-            // metroButton2
-            // 
-            this.metroButton2.Location = new System.Drawing.Point(23, 425);
-            this.metroButton2.Name = "metroButton2";
-            this.metroButton2.Size = new System.Drawing.Size(137, 31);
-            this.metroButton2.TabIndex = 17;
-            this.metroButton2.Text = "Show qr code";
-            // 
             // metroLabel8
             // 
             this.metroLabel8.AutoSize = true;
@@ -227,16 +221,36 @@
             this.btnGeneratePassword.Text = "generate password";
             this.btnGeneratePassword.Click += new System.EventHandler(this.btnGeneratePassword_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(384, 84);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 25;
+            this.pictureBox1.TabStop = false;
+            // 
+            // metroLabel7
+            // 
+            this.metroLabel7.AutoSize = true;
+            this.metroLabel7.Location = new System.Drawing.Point(384, 222);
+            this.metroLabel7.Name = "metroLabel7";
+            this.metroLabel7.Size = new System.Drawing.Size(100, 19);
+            this.metroLabel7.TabIndex = 26;
+            this.metroLabel7.Text = "Active QR code";
+            // 
             // frmUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(407, 466);
+            this.ClientSize = new System.Drawing.Size(530, 426);
+            this.Controls.Add(this.metroLabel7);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnGeneratePassword);
             this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.metroLabel8);
             this.Controls.Add(this.txtPassword);
-            this.Controls.Add(this.metroButton2);
             this.Controls.Add(this.metroButton1);
             this.Controls.Add(this.metroTextBox1);
             this.Controls.Add(this.pictureBox2);
@@ -258,6 +272,7 @@
             this.TransparencyKey = System.Drawing.Color.Lavender;
             this.Load += new System.EventHandler(this.frmUsers_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,10 +296,11 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private MetroFramework.Controls.MetroTextBox metroTextBox1;
         private MetroFramework.Controls.MetroButton metroButton1;
-        private MetroFramework.Controls.MetroButton metroButton2;
         private MetroFramework.Controls.MetroLabel metroLabel8;
         private MetroFramework.Controls.MetroTextBox txtPassword;
         private MetroFramework.Controls.MetroButton btnChangePassword;
         private MetroFramework.Controls.MetroButton btnGeneratePassword;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private MetroFramework.Controls.MetroLabel metroLabel7;
     }
 }

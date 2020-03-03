@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Model.SearchRequest;
 
 namespace AuthoAPI.Controllers
 {
@@ -25,13 +26,16 @@ namespace AuthoAPI.Controllers
 
             // GET: api/Roles
             [HttpGet]
-            public async Task<ActionResult<List<Model.Event>>> Get()
+            public async Task<ActionResult<List<Model.Event>>> Get([FromQuery] EventSearchRequest search)
             {
                 var list = await _context.Event.ToListAsync();
 
-                //
-                //Search request here...
-                //
+                //Search request
+                if (search != null)
+                {
+                    if (search.EventGroupId != null)
+                        list = list.Where(e => e.EventGroupId == search.EventGroupId).ToList();
+                }
 
                 return _mapper.Map<List<Model.Event>>(list);
             }

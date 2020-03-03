@@ -111,14 +111,18 @@
             this.metroLabel2.Name = "metroLabel2";
             this.metroLabel2.Size = new System.Drawing.Size(150, 19);
             this.metroLabel2.TabIndex = 29;
-            this.metroLabel2.Text = "Presence attending date";
+            this.metroLabel2.Text = "Presence attending time";
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dateTimePicker1.Location = new System.Drawing.Point(25, 232);
             this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.ShowUpDown = true;
             this.dateTimePicker1.Size = new System.Drawing.Size(197, 20);
             this.dateTimePicker1.TabIndex = 28;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // metroLabel7
             // 
@@ -131,8 +135,10 @@
             // 
             // dateTimePicker2
             // 
+            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dateTimePicker2.Location = new System.Drawing.Point(25, 282);
             this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.ShowUpDown = true;
             this.dateTimePicker2.Size = new System.Drawing.Size(197, 20);
             this.dateTimePicker2.TabIndex = 30;
             // 
