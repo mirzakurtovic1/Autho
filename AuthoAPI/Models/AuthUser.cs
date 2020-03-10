@@ -7,6 +7,8 @@ namespace AuthoAPI.Models
     {
         public AuthUser()
         {
+            AuthUserFace = new HashSet<AuthUserFace>();
+            AuthUserImage = new HashSet<AuthUserImage>();
             AuthUserUserGroup = new HashSet<AuthUserUserGroup>();
             EventMaster = new HashSet<EventMaster>();
             Presence = new HashSet<Presence>();
@@ -25,6 +27,8 @@ namespace AuthoAPI.Models
         public string QrCode { get; set; }
 
         public virtual Role Role { get; set; }
+        public virtual ICollection<AuthUserFace> AuthUserFace { get; set; }
+        public virtual ICollection<AuthUserImage> AuthUserImage { get; set; }
         public virtual ICollection<AuthUserUserGroup> AuthUserUserGroup { get; set; }
         public virtual ICollection<EventMaster> EventMaster { get; set; }
         public virtual ICollection<Presence> Presence { get; set; }

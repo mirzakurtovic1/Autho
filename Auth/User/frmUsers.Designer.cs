@@ -42,16 +42,17 @@
             this.cbRole = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.btnSubmit = new MetroFramework.Controls.MetroButton();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this.pbImage = new System.Windows.Forms.PictureBox();
+            this.txtImageSource = new MetroFramework.Controls.MetroTextBox();
+            this.btnUploadImage = new MetroFramework.Controls.MetroButton();
             this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
             this.txtPassword = new MetroFramework.Controls.MetroTextBox();
             this.btnChangePassword = new MetroFramework.Controls.MetroButton();
             this.btnGeneratePassword = new MetroFramework.Controls.MetroButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -164,29 +165,33 @@
             this.btnSubmit.Text = "Submit changes";
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
-            // pictureBox2
+            // pbImage
             // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(231, 84);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(128, 128);
-            this.pictureBox2.TabIndex = 14;
-            this.pictureBox2.TabStop = false;
+            this.pbImage.Image = ((System.Drawing.Image)(resources.GetObject("pbImage.Image")));
+            this.pbImage.Location = new System.Drawing.Point(231, 84);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(128, 128);
+            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbImage.TabIndex = 14;
+            this.pbImage.TabStop = false;
             // 
-            // metroTextBox1
+            // txtImageSource
             // 
-            this.metroTextBox1.Location = new System.Drawing.Point(231, 218);
-            this.metroTextBox1.Name = "metroTextBox1";
-            this.metroTextBox1.Size = new System.Drawing.Size(128, 23);
-            this.metroTextBox1.TabIndex = 15;
+            this.txtImageSource.Location = new System.Drawing.Point(231, 218);
+            this.txtImageSource.Name = "txtImageSource";
+            this.txtImageSource.ReadOnly = true;
+            this.txtImageSource.Size = new System.Drawing.Size(128, 23);
+            this.txtImageSource.TabIndex = 15;
+            this.txtImageSource.Click += new System.EventHandler(this.metroTextBox1_Click);
             // 
-            // metroButton1
+            // btnUploadImage
             // 
-            this.metroButton1.Location = new System.Drawing.Point(231, 247);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(128, 27);
-            this.metroButton1.TabIndex = 16;
-            this.metroButton1.Text = "Upload image";
+            this.btnUploadImage.Location = new System.Drawing.Point(231, 247);
+            this.btnUploadImage.Name = "btnUploadImage";
+            this.btnUploadImage.Size = new System.Drawing.Size(128, 27);
+            this.btnUploadImage.TabIndex = 16;
+            this.btnUploadImage.Text = "Upload image";
+            this.btnUploadImage.Click += new System.EventHandler(this.btnUploadImage_Click);
             // 
             // metroLabel8
             // 
@@ -224,7 +229,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(384, 84);
+            this.pictureBox1.Location = new System.Drawing.Point(379, 84);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(128, 128);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -234,11 +239,15 @@
             // metroLabel7
             // 
             this.metroLabel7.AutoSize = true;
-            this.metroLabel7.Location = new System.Drawing.Point(384, 222);
+            this.metroLabel7.Location = new System.Drawing.Point(379, 222);
             this.metroLabel7.Name = "metroLabel7";
             this.metroLabel7.Size = new System.Drawing.Size(100, 19);
             this.metroLabel7.TabIndex = 26;
             this.metroLabel7.Text = "Active QR code";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // frmUsers
             // 
@@ -251,9 +260,9 @@
             this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.metroLabel8);
             this.Controls.Add(this.txtPassword);
-            this.Controls.Add(this.metroButton1);
-            this.Controls.Add(this.metroTextBox1);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.btnUploadImage);
+            this.Controls.Add(this.txtImageSource);
+            this.Controls.Add(this.pbImage);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.metroLabel6);
             this.Controls.Add(this.cbRole);
@@ -271,7 +280,7 @@
             this.Text = "User detailes";
             this.TransparencyKey = System.Drawing.Color.Lavender;
             this.Load += new System.EventHandler(this.frmUsers_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -293,14 +302,15 @@
         private MetroFramework.Controls.MetroComboBox cbRole;
         private MetroFramework.Controls.MetroLabel metroLabel6;
         private MetroFramework.Controls.MetroButton btnSubmit;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private MetroFramework.Controls.MetroTextBox metroTextBox1;
-        private MetroFramework.Controls.MetroButton metroButton1;
+        private System.Windows.Forms.PictureBox pbImage;
+        private MetroFramework.Controls.MetroTextBox txtImageSource;
+        private MetroFramework.Controls.MetroButton btnUploadImage;
         private MetroFramework.Controls.MetroLabel metroLabel8;
         private MetroFramework.Controls.MetroTextBox txtPassword;
         private MetroFramework.Controls.MetroButton btnChangePassword;
         private MetroFramework.Controls.MetroButton btnGeneratePassword;
         private System.Windows.Forms.PictureBox pictureBox1;
         private MetroFramework.Controls.MetroLabel metroLabel7;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

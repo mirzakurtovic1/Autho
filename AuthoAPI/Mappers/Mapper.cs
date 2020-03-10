@@ -14,6 +14,8 @@ namespace AuthoAPI.Mappers
             CreateMap<AuthoAPI.Models.Presence, Model.Presence>().ReverseMap();
             CreateMap<Model.InsertRequests.PresenceInsertRequest, AuthoAPI.Models.Presence>().ReverseMap();
             CreateMap<AuthoAPI.Models.UserGroup, Model.UserGroup>().ReverseMap();
+            CreateMap<AuthoAPI.Models.AuthUserImage, Model.AuthUserImage>().ReverseMap();
+            CreateMap<AuthoAPI.Models.AuthUserFace, Model.AuthUserFace>().ReverseMap();
             //...
         }
     }

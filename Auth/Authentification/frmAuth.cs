@@ -16,6 +16,7 @@ using Emgu.CV.Structure;
 using Emgu.CV;
 using System.IO;
 using Model.SearchRequest;
+using Emgu.CV.Face;
 
 namespace Auth.Authentification
 {
@@ -25,24 +26,54 @@ namespace Auth.Authentification
     public partial class frmAuth : MetroForm
     {
         #region variables
+        //current event
         private Model.Event Event = null;
         private int? eventId = null;
+        //camera stuff
         private FilterInfoCollection CaptureDevice;
         private VideoCaptureDevice FinalFrame;
+        //qr code coder-decoder
         private QRCodeHelper QRCodeHelper = new QRCodeHelper();
-        private action act= action.idle;
+        //current form action
+        private action act = action.idle;
+        //api services
         APIService apiService_AuthUser = new APIService("AuthUser");
         APIService apiService_Event = new APIService("Event");
         APIService apiService_Presence = new APIService("Presence");
+        APIService apiService_AuthUserFace = new APIService("AuthUserFace");
+        //face detection
         CascadeClassifier face = new CascadeClassifier("haarcascade_frontalface_default.xml");
+        //eigenface recognition
+        public EigenFaceRecognizer FaceRecognition { get; set; }
+        //face detection
+        public CascadeClassifier FaceDetection { get; set; }
+        //current video frame for face detection-recognition
+        public Mat Frame { get; set; }
+        //list of faces for eigen training
+        public List<Image<Gray, byte>> Faces;
+        //list of Ids for eigen training
+        public List<int> IDs { get; set; }
+        //Number of images requiered
+        public int NumberOfTestImages { get; set; } = 21;
+        public int NumberOfUserImages { get; set; } = 10;
+        public bool AddedCurrentUserImages { get; set; } = false;
+        //wanted image height and width
+        public const int ProcessedImageWidth = 100;
+        public const int ProcessedImageHeight = 100;
         //current user
         Model.AuthUser user = null;
-
-
+        //unknown images file path
+        public string YMLPath { get; set; } = @"../../data/trainingData.yml";
         //debug
         int numberBefore = 0;
         int numberAfter = 0;
         int ticks = 0;
+        //face recognition timer
+        public int TimerCounter { get; set; } = 0;
+        public int TimerLimit { get; set; } = 0;
+        public Timer Timer { get; set; }
+        public bool FaceSquare { get; set; } = true;
+        public bool EyeSquare { get; set; } = false;
         #endregion variables
 
 
@@ -62,11 +93,53 @@ namespace Auth.Authentification
             #region initialization
             if (eventId != null)
                 this.eventId = eventId;
+
+            //FaceDetection = new CascadeClassifier(System.IO.Path.GetFullPath(@"../../Authentification/data/haarcascade_frontalface_default.xml"));
+            FaceRecognition = new EigenFaceRecognizer();
+            Frame = new Mat();
+            Faces = new List<Image<Gray, byte>>();
+            IDs = new List<int>();
             #endregion initialization
+
+            #region eigen_list
+            try
+            {
+                //Loading previously added images(negativ results)
+                string Labelsinfo = File.ReadAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt");
+                var labels = Labelsinfo.Split('%');
+                foreach (string label in labels)
+                    IDs.Add(Convert.ToInt32(label));
+                IDs.RemoveAt(0);
+                NumberOfTestImages = Convert.ToInt16(labels[0]);
+
+                string faceString = "";
+                for (int i = 1; i < NumberOfTestImages + 1; i++)
+                {
+                    faceString = "face" + i + ".bmp";
+                    Faces.Add(new Image<Gray, byte>(Application.StartupPath + "/TrainedFaces/" + faceString));
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error with loading data static data", "Loading error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            var arrayLength = Faces.Count;
+            NumberOfTestImages = arrayLength;
+            Mat[] mats = new Mat[Faces.Count];
+            int[] newIds = new int[Faces.Count];
+            for (int i = 0; i < Faces.Count; i++)
+            {
+                mats[i] = Faces[i].Mat;
+                newIds[i] = IDs[i];
+            }
+            //FaceRecognition.Train(mats, newIds);
+            //var result = FaceRecognition.Predict(mats[0]);
+            #endregion eigen_list
 
         }
 
-        #region stuff
         private async void frmAuth_Load(object sender, EventArgs e)
         {
             if (this.eventId != null)
@@ -77,6 +150,8 @@ namespace Auth.Authentification
             else
                 lblEvent.Text = "None";
         }
+
+        #region stuff
 
         private void metroPanel1_Paint(object sender, PaintEventArgs e)
         {
@@ -112,10 +187,6 @@ namespace Auth.Authentification
             else
                 MessageBox.Show("Camera required!", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //beep if possible.//change message if possible
-
-
-
-
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -154,7 +225,6 @@ namespace Auth.Authentification
         #endregion camera new frame
 
         #region qr code recognition
-
         private async Task<Model.AuthUser> readQR(Image img,APIService apiService)
         {
             var result = QRCodeHelper.DecodeQRCode(img);
@@ -163,12 +233,11 @@ namespace Auth.Authentification
             {
                 var search = new Model.SearchRequest.AuthUserSearchRequest() { qrCode = result };
                 var user = await apiService.Get<List<Model.AuthUser>>(search);
+                if(user.Count>0)
                 return user[0];
             }
-
             return null;
         }
-
         #endregion qr code recognition
 
         #region face detection
@@ -189,9 +258,50 @@ namespace Auth.Authentification
 
         #endregion face detection
 
+        #region face recognition
 
-        #region scaning interval
+        private async Task<int?> recognizeFace(Image<Gray, Byte> img,int AuthUserId)
+        {
 
+            if (AddedCurrentUserImages == false)
+            {
+                var search = new AuthUserFaceSearchRequest() { AuthUserId = AuthUserId };
+                var AuthUserFaces = await apiService_AuthUserFace.Get<List<Model.AuthUserFace>>(search);
+                int counter=0;
+                int totalImages = Faces.Count + AuthUserFaces.Count;
+                Mat[] mats = new Mat[totalImages];
+                int[] newIds = new int[totalImages];
+                for (int i = 0; i < NumberOfTestImages; i++)
+                {
+                    mats[i] = Faces[i].Mat;
+                    newIds[i] = IDs[i];
+                    counter+=1;
+                }
+                foreach (var face in AuthUserFaces)
+                {
+                    byte[] depthPixelData = new byte[ProcessedImageWidth * ProcessedImageHeight]; // your data
+                    Image<Gray, byte> depthImage = new Image<Gray, byte>(ProcessedImageWidth, ProcessedImageHeight);
+                    depthImage.Bytes = face.Face;
+
+
+                    mats[counter] = depthImage.Mat;
+                    newIds[counter] =(int)face.AuthUserId;
+                    counter++;
+
+                    FaceRecognition.Train(mats, newIds);
+                }
+                
+                AddedCurrentUserImages = true;
+            }
+
+
+            var result = FaceRecognition.Predict(img.Mat);
+            return (int)result.Label;
+        }
+
+        #endregion face recognition
+
+        #region scaning interval qr code
         private async void scaning_Interval_Tick(object sender, EventArgs e)
         {
             numberBefore++;
@@ -277,10 +387,9 @@ namespace Auth.Authentification
 
 
 
-        #endregion scaning interval
+        #endregion scaning interval qr code
 
-
-
+        #region converters
         public static byte[] ImageToByte2(Image img)
         {
             using (var stream = new MemoryStream())
@@ -289,7 +398,7 @@ namespace Auth.Authentification
                 return stream.ToArray();
             }
         }
-        public Image<Bgr, Byte> cutImage(Image<Bgr, Byte> image, Rectangle rectangle)
+        public Image<Gray, Byte> cutImage(Image<Gray, Byte> image, Rectangle rectangle)
         {
             image.ROI = rectangle;
             var cutImage = image.Copy();
@@ -297,6 +406,7 @@ namespace Auth.Authentification
 
             return cutImage;
         }
+        #endregion converters
 
         private void btnScan_Click(object sender, EventArgs e)
         {
@@ -304,7 +414,7 @@ namespace Auth.Authentification
                 scaning_Interval.Enabled = true;
         }
 
-        private void face_recognition_Tick(object sender, EventArgs e)
+        private async void face_recognition_Tick(object sender, EventArgs e)
         {
             Bitmap frame = pbCamera.Image.Clone() as Bitmap;
 
@@ -318,13 +428,24 @@ namespace Auth.Authentification
                 else
                 {
                     //face found
-                    Image<Bgr, Byte> frameBgr = new Image<Bgr, Byte>(frame);
-                    var userImage = cutImage(frameBgr, (Rectangle)rect);
+                    var userImage = cutImage(frameGray, (Rectangle)rect);
                     var bitmapUserImage = userImage.Bitmap;
                     pbUser.Image = bitmapUserImage;
-                    act = action.idle;
-                    lblAction.Text = act.ToString();
-                    face_recognition.Dispose();
+
+                    Image<Gray,byte> result = userImage.Copy().Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
+                    if (user != null)
+                    {
+                        var id = await recognizeFace(result, user.Id);
+                        if ((int)id > 0)
+                        {
+                            act = action.idle;
+                            lblAction.Text = act.ToString();
+                            face_recognition.Dispose();
+                        }
+                    }
+                    //lblAction.Text = act.ToString();
+                    //face_recognition.Dispose();
+                    //scaning_Interval.Start();
                 }
             }
         }

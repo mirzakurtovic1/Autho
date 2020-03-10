@@ -16,6 +16,8 @@ namespace AuthoAPI.Models
         }
 
         public virtual DbSet<AuthUser> AuthUser { get; set; }
+        public virtual DbSet<AuthUserFace> AuthUserFace { get; set; }
+        public virtual DbSet<AuthUserImage> AuthUserImage { get; set; }
         public virtual DbSet<AuthUserUserGroup> AuthUserUserGroup { get; set; }
         public virtual DbSet<Enterance> Enterance { get; set; }
         public virtual DbSet<Event> Event { get; set; }
@@ -69,6 +71,30 @@ namespace AuthoAPI.Models
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__AuthUser__RoleId__46E78A0C");
+            });
+
+            modelBuilder.Entity<AuthUserFace>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasOne(d => d.AuthUser)
+                    .WithMany(p => p.AuthUserFace)
+                    .HasForeignKey(d => d.AuthUserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__AuthUserF__AuthU__3E1D39E1");
+            });
+
+            modelBuilder.Entity<AuthUserImage>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.AuthUserImage1).HasColumnName("AuthUserImage");
+
+                entity.HasOne(d => d.AuthUser)
+                    .WithMany(p => p.AuthUserImage)
+                    .HasForeignKey(d => d.AuthUserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__AuthUserI__AuthU__40F9A68C");
             });
 
             modelBuilder.Entity<AuthUserUserGroup>(entity =>

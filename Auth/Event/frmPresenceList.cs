@@ -18,7 +18,10 @@ namespace Auth.Event
     {
         APIService apiService_presence = new APIService("Presence");
         APIService apiService_authUser = new APIService("AuthUser");
+        APIService apiService_event = new APIService("Event");
         LoadComboBoxes loadComboBoxes = new LoadComboBoxes();
+        Model.Event userEvent = null;
+        List<Model.DateBasic> dates = new List<Model.DateBasic>();
         int eventId;
 
         public frmPresenceList(int eventId = 2)
@@ -29,12 +32,13 @@ namespace Auth.Event
 
         private void frmPresenceList_Load(object sender, EventArgs e)
         {
-
+            this.Enabled = false;
             //filling comboboxes with data
             loadComboBoxes.loadGroups(cbGroup);
             loadComboBoxes.loadRoles(cbRole);
             //filling data grid view with data based on filter data
             loadData();
+            this.Enabled = true;
         }
 
         private void btnFilter_Click(object sender, EventArgs e)
@@ -42,9 +46,42 @@ namespace Auth.Event
             loadData();
         }
 
-        #region load data from api into data grid view
+        #region load_data
         async void loadData()
         {
+            userEvent = await apiService_event.GetById<Model.Event>(eventId);
+            lblEventGroupId.Text = userEvent.EventGroupId;
+
+            #region load_dates
+            var eventSearch = new EventSearchRequest() { EventGroupId = userEvent.EventGroupId };
+            var eventSearchResult =  await apiService_event.Get<List<Model.Event>>(eventSearch);
+            //taking only events that did not happen 
+            eventSearchResult = eventSearchResult.Where(e => e.EventDate >= DateTime.Now).OrderBy(e=>e.EventDate).ToList();
+            if (eventSearchResult.Count <= 1)
+            {
+                cbMultiple.Checked = false;
+                cbMultiple.Visible = false;
+                panelMultipleDates.Visible = false;
+            }
+            else
+            {
+                foreach (var x in eventSearchResult)
+                {
+                    var d = new Model.DateBasic() { Date = x.EventDate, eventId = x.Id};
+                    dates.Add(d);
+                }
+
+
+                for (int i = 0; i < dates.Count; i++)
+                {
+                    cblDates.Items.Add(dates[i]);
+                    cblDates.SetItemChecked(i, true);
+                }
+                cblDates.DisplayMember = "Display";
+
+            }
+            #endregion load_dates
+
             var presenceSearch = new Model.SearchRequest.PresenceSearchRequest(){ EventId = eventId };
             #region search parametres
 
@@ -79,7 +116,7 @@ namespace Auth.Event
             }
             dgvPresence.DataSource = data;
         }
-        #endregion load data from api into data grid view
+        #endregion load_data
 
         private async void dgvPresence_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -88,44 +125,89 @@ namespace Auth.Event
                 var row = dgvPresence.Rows[e.RowIndex];
                 var userId = Convert.ToInt32(row.Cells[0].Value);
                 var invited = Convert.ToBoolean(row.Cells[4].Value);
-
+                //var selectedDates = dates.checkedItems;
                 if (invited == true)
                 {
-                    //add invitation
-                    var presenceInsertRequest = new PresenceInsertRequest()
-                    {
-                        PresenceCreatingDateTime = DateTime.Now,
-                        PresenceAttendingDateTime = null,
-                        PresenceLeavingDateTime = null,
-                        Notes = null,
-                        AttendedWholeEvent = null,
-                        UserId = userId,
-                        EventId = eventId,
-                    };
+                    //remove invitation for one or move events
+                    if (cbMultiple.Checked == true)
+                        foreach (Model.DateBasic x in cblDates.CheckedItems)
+                            await addPresenceAsync(userId, (int)x.eventId);
+                    else
+                        await addPresenceAsync(userId, eventId);
 
-                   var result = await apiService_presence.Insert<Model.Presence>(presenceInsertRequest);
-                 
                 }
                 else
                 {
-                    //remove invitation
-                    var presenceSearchRequest = new PresenceSearchRequest()
-                    {
-                        EventId = eventId,
-                        UserId = userId,
-                    };
-                    var presenceList = await apiService_presence.Get<List<Model.Presence>>(presenceSearchRequest);
-                    var presenceId = presenceList[0].Id;
-                    var result = await apiService_presence.Delete<Model.Presence>(presenceId);
+                    //remove invitation for one or move events
+                    if (cbMultiple.Checked == true)
+                        foreach (Model.DateBasic x in cblDates.CheckedItems)
+                            await removePresenceAsync(userId,(int)x.eventId);
+                    else
+                        await removePresenceAsync(userId, eventId);
                 }
 
                 dgvPresence.EndEdit();
             }
         }
+        #region add_remove_presence
 
+
+
+        async Task addPresenceAsync(int userId, int eventId)
+        {
+            var presenceInsertRequest = new PresenceInsertRequest()
+            {
+                PresenceCreatingDateTime = DateTime.Now,
+                PresenceAttendingDateTime = null,
+                PresenceLeavingDateTime = null,
+                Notes = null,
+                AttendedWholeEvent = null,
+                UserId = userId,
+                EventId = eventId,
+            };
+
+            await apiService_presence.Insert<Model.Presence>(presenceInsertRequest);
+        }
+
+        async Task removePresenceAsync(int userId, int eventId)
+        {
+            var presenceSearchRequest = new PresenceSearchRequest()
+            {
+                EventId = eventId,
+                UserId = userId,
+            };
+            var presenceList = await apiService_presence.Get<List<Model.Presence>>(presenceSearchRequest);
+            if (presenceList.Count <= 0) return;
+            var presenceId = presenceList[0].Id;
+            await apiService_presence.Delete<Model.Presence>(presenceId);
+        }
+        #endregion add_remove_presence
+
+        private void cbMultiple_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbMultiple.Checked == true)
+                panelMultipleDates.Visible = true;
+            else
+                panelMultipleDates.Visible = false;
+        }
+
+
+
+        #region delete
         private void dgvPresence_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
+
+        private void metroLabel6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metroLabel5_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion delete
     }
 }

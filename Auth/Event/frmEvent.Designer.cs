@@ -446,7 +446,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(644, 725);
+            this.ClientSize = new System.Drawing.Size(654, 725);
             this.Controls.Add(this.lblEventGroupId);
             this.Controls.Add(this.panelMultipleDates);
             this.Controls.Add(this.lblEventGroup);

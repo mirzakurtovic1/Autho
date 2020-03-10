@@ -24,7 +24,7 @@ namespace Auth.Event
         private int? userEventId = null;
         #endregion variables
 
-        public frmEvent(int? id = 17)
+        public frmEvent(int? id = 2)
         {
             this.userEventId = id;
             InitializeComponent();
