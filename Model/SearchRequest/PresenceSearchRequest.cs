@@ -9,5 +9,7 @@ namespace Model.SearchRequest
         public bool? hasNotes = null;
         public int? UserId = null;
         public int? EventId = null;
+        public bool? FaceRecognized { get; set; }
+        public bool? FaceDetected { get; set; }
     }
 }

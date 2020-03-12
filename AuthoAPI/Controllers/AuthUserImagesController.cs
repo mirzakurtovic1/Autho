@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AuthoAPI.Models;
 using AutoMapper;
+using Model.InsertRequests;
 
 namespace AuthoAPI.Controllers
 {
@@ -54,17 +55,14 @@ namespace AuthoAPI.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAuthUserImage(int id, AuthUserImage authUserImage)
+        public async Task<IActionResult> PutAuthUserImage(int id, Model.AuthUserImage insert)
         {
-            if (id != authUserImage.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(authUserImage).State = EntityState.Modified;
-
+            
             try
             {
+                var result = _mapper.Map<AuthUserImage>(insert);
+                result.Id = id;
+                _context.Entry(result).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -86,16 +84,19 @@ namespace AuthoAPI.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<AuthUserImage>> PostAuthUserImage(AuthUserImage authUserImage)
+        public async Task<ActionResult<Model.AuthUserImage>> PostAuthUserImage(Model.AuthUserImage insert)
         {
-            _context.AuthUserImage.Add(authUserImage);
+
+            var result = _mapper.Map<AuthUserImage>(insert);
             try
             {
+                _context.AuthUserImage.Add(result);
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (AuthUserImageExists(authUserImage.Id))
+                if (AuthUserImageExists(result.Id))
                 {
                     return Conflict();
                 }
@@ -105,7 +106,7 @@ namespace AuthoAPI.Controllers
                 }
             }
 
-            return CreatedAtAction("GetAuthUserImage", new { id = authUserImage.Id }, authUserImage);
+            return CreatedAtAction("GetAuthUserImage", new { id = result.Id }, result);
         }
 
         // DELETE: api/AuthUserImages/5

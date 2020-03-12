@@ -17,6 +17,7 @@ using Emgu.CV;
 using System.IO;
 using Model.SearchRequest;
 using Emgu.CV.Face;
+using Model.InsertRequests;
 
 namespace Auth.Authentification
 {
@@ -40,7 +41,7 @@ namespace Auth.Authentification
         APIService apiService_AuthUser = new APIService("AuthUser");
         APIService apiService_Event = new APIService("Event");
         APIService apiService_Presence = new APIService("Presence");
-        APIService apiService_AuthUserFace = new APIService("AuthUserFace");
+        APIService apiService_AuthUserFace = new APIService("AuthUserFaces");
         //face detection
         CascadeClassifier face = new CascadeClassifier("haarcascade_frontalface_default.xml");
         //eigenface recognition
@@ -62,6 +63,8 @@ namespace Auth.Authentification
         public const int ProcessedImageHeight = 100;
         //current user
         Model.AuthUser user = null;
+        //current user presence
+        Model.Presence presence = null;
         //unknown images file path
         public string YMLPath { get; set; } = @"../../data/trainingData.yml";
         //debug
@@ -69,6 +72,9 @@ namespace Auth.Authentification
         int numberAfter = 0;
         int ticks = 0;
         //face recognition timer
+        public bool EigenTrained { get; set; } = false;
+        public int FaceRecognitionTicks { get; set; } = 0;
+        public int FaceRecognitionTotalTicks { get; set; } = 0;
         public int TimerCounter { get; set; } = 0;
         public int TimerLimit { get; set; } = 0;
         public Timer Timer { get; set; }
@@ -77,7 +83,7 @@ namespace Auth.Authentification
         #endregion variables
 
 
-        public frmAuth(int? eventId = null)
+        public frmAuth(int? eventId = 20)
         {
             InitializeComponent();
 
@@ -260,43 +266,79 @@ namespace Auth.Authentification
 
         #region face recognition
 
-        private async Task<int?> recognizeFace(Image<Gray, Byte> img,int AuthUserId)
+        //private async Task<int?> recognizeFace(Image<Gray, Byte> img,int AuthUserId)
+        //{
+            
+        //    if (AddedCurrentUserImages == false)
+        //    {
+        //        AddedCurrentUserImages = true;
+        //        var search = new AuthUserFaceSearchRequest() { AuthUserId = AuthUserId };
+        //        var AuthUserFaces = await apiService_AuthUserFace.Get<List<Model.AuthUserFace>>(search);
+        //        int counter=0;
+        //        int totalImages = Faces.Count + AuthUserFaces.Count;
+        //        Mat[] mats = new Mat[totalImages];
+        //        int[] newIds = new int[totalImages];
+        //        for (int i = 0; i < NumberOfTestImages; i++)
+        //        {
+        //            mats[i] = Faces[i].Mat;
+        //            newIds[i] = IDs[i];
+        //            counter+=1;
+        //        }
+        //        foreach (var face in AuthUserFaces)
+        //        {
+        //            //byte[] depthPixelData = new byte[ProcessedImageHeight * ProcessedImageWidth]; // your data
+        //            //Image<Gray, byte> depthImage = new Image<Gray, byte>(ProcessedImageHeight, ProcessedImageWidth);
+        //            //depthImage.Bytes = face.Face;
+
+        //            var r = new Image<Gray,byte>(ByteToImage(face.Face));
+        //            Image<Gray, byte> re = r.Copy().Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
+        //            mats[counter] = re.Mat;
+        //            newIds[counter] =(int)face.AuthUserId;
+        //            counter++;
+
+
+        //        }
+        //        FaceRecognition.Train(mats, newIds);
+        //        AddedCurrentUserImages = true;
+        //        EigenTrained = true;
+
+          
+        //    }
+
+        //    if (EigenTrained == true)
+        //    {
+        //        var result = FaceRecognition.Predict(img.Mat);
+        //        return (int)result.Label;
+        //    }
+        //    return 0;
+        //}
+
+
+        private async Task<bool> trainRecognizer(int AuthUserId)
         {
-
-            if (AddedCurrentUserImages == false)
+            var search = new AuthUserFaceSearchRequest() { AuthUserId = AuthUserId };
+            var AuthUserFaces = await apiService_AuthUserFace.Get<List<Model.AuthUserFace>>(search);
+            int counter = 0;
+            int totalImages = Faces.Count + AuthUserFaces.Count;
+            Mat[] mats = new Mat[totalImages];
+            int[] newIds = new int[totalImages];
+            for (int i = 0; i < NumberOfTestImages; i++)
             {
-                var search = new AuthUserFaceSearchRequest() { AuthUserId = AuthUserId };
-                var AuthUserFaces = await apiService_AuthUserFace.Get<List<Model.AuthUserFace>>(search);
-                int counter=0;
-                int totalImages = Faces.Count + AuthUserFaces.Count;
-                Mat[] mats = new Mat[totalImages];
-                int[] newIds = new int[totalImages];
-                for (int i = 0; i < NumberOfTestImages; i++)
-                {
-                    mats[i] = Faces[i].Mat;
-                    newIds[i] = IDs[i];
-                    counter+=1;
-                }
-                foreach (var face in AuthUserFaces)
-                {
-                    byte[] depthPixelData = new byte[ProcessedImageWidth * ProcessedImageHeight]; // your data
-                    Image<Gray, byte> depthImage = new Image<Gray, byte>(ProcessedImageWidth, ProcessedImageHeight);
-                    depthImage.Bytes = face.Face;
-
-
-                    mats[counter] = depthImage.Mat;
-                    newIds[counter] =(int)face.AuthUserId;
-                    counter++;
-
-                    FaceRecognition.Train(mats, newIds);
-                }
-                
-                AddedCurrentUserImages = true;
+                mats[i] = Faces[i].Mat;
+                newIds[i] = IDs[i];
+                counter += 1;
             }
+            foreach (var face in AuthUserFaces)
+            {
+                var r = new Image<Gray, byte>(ByteToImage(face.Face));
+                Image<Gray, byte> re = r.Copy().Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
+                mats[counter] = re.Mat;
+                newIds[counter] = (int)face.AuthUserId;
+                counter++;
+            }
+            FaceRecognition.Train(mats, newIds);
 
-
-            var result = FaceRecognition.Predict(img.Mat);
-            return (int)result.Label;
+            return true;
         }
 
         #endregion face recognition
@@ -322,71 +364,32 @@ namespace Auth.Authentification
                         return;
                     else
                     {
+                        act = action.face_recognition;
+                        lblAction.Text = act.ToString();
                         lblLastUser.Text = user.FirstName + " " + user.LastName;
                         ticks += 1;
                         lblTicks.Text = ticks.ToString();
-                        act = action.face_detection;
-                        lblAction.Text = act.ToString();
                         scaning_Interval.Dispose();
-                        face_recognition.Start();
+                        scaning_Interval.Stop();
+
+                        if (act == action.face_recognition)
+                        {
+                            await trainRecognizer(user.Id);
+                            var presenceList = await apiService_Presence.Get<List<Model.Presence>>(new PresenceSearchRequest() { EventId = eventId, UserId = user.Id });
+                            presence = presenceList[0];
+                            face_recognition.Start();
+                        }
+                        //scaning_Interval.Container.Dispose();
+                        //act = action.face_detection;
+                        //lblAction.Text = act.ToString();
+                        //scaning_Interval.Dispose();
+                        //face_recognition.Start();
                     }
+                    numberAfter++;
+                    lblAfter.Text = numberAfter.ToString();
                 }
-            
-                //if (act == action.face_detection)
-                //{
-                //    Image<Gray, Byte> frameGray = new Image<Gray, Byte>(frame);
-                //    var rect = detectFace(frameGray);
-                //    //face not found
-                //    if (rect == null)
-                //        return;
-                //    else
-                //    {
-                //        //face found
-                //        Image<Bgr, Byte> frameBgr = new Image<Bgr, Byte>(frame);
-                //        var userImage = cutImage(frameBgr,(Rectangle)rect);
-                //        var bitmapUserImage = userImage.Bitmap;
-                //        pbUser.Image = bitmapUserImage;
-                //        act = action.face_recognition;
-                //        lblAction.Text = act.ToString();
-                //        scaning_Interval.Dispose();
-                //        scaning_Interval.Start();
-                //    }
-                //}
-                //if (act == action.face_recognition)
-                //{
-                //    //not implemented
-                //    act = action.saving;
-                //    lblAction.Text = act.ToString();
-                //}
-                //if (act == action.saving)
-                //{
-                //    if (savingActive == true)//FIXXXXXXXX
-                //    {
-                //        //saving started
-                //        savingActive = true;
-                //        //Get existing presence based on event and user
-                //        var presenceSearchRequest = new PresenceSearchRequest() { UserId = user.Id,EventId = eventId};
-                //        var presenceList = await apiService_Presence.Get<List<Model.Presence>>(presenceSearchRequest);
-                //        var presence = presenceList[0];
-                //        //Update existing presence
-                //        presence.PresenceAttendingDateTime = DateTime.Now;
-                //        var result = await apiService_Presence.Update<Model.Presence>(presence.Id,presence);
-
-                //        //Saving is done
-                //        savingActive = false;
-                //        lblAction.Text = act.ToString();
-                //    }
-                //    act = action.idle;
-                //    scaning_Interval.Dispose();
-                //    scaning_Interval.Start();
-                //}
             }
-            numberAfter++;
-            lblAfter.Text = numberAfter.ToString();
         }
-
-
-
         #endregion scaning interval qr code
 
         #region converters
@@ -406,6 +409,16 @@ namespace Auth.Authentification
 
             return cutImage;
         }
+
+        public static Bitmap ByteToImage(byte[] blob)
+        {
+            MemoryStream mStream = new MemoryStream();
+            byte[] pData = blob;
+            mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
+            Bitmap bm = new Bitmap(mStream, false);
+            mStream.Dispose();
+            return bm;
+        }
         #endregion converters
 
         private void btnScan_Click(object sender, EventArgs e)
@@ -418,36 +431,123 @@ namespace Auth.Authentification
         {
             Bitmap frame = pbCamera.Image.Clone() as Bitmap;
 
-            if (act == action.face_detection)
+            Image<Gray, Byte> frameGray = new Image<Gray, Byte>(frame);
+            //detecting face
+            var rect = detectFace(frameGray);
+            //face not found
+            if (rect == null)
+                return;
+            else
             {
-                Image<Gray, Byte> frameGray = new Image<Gray, Byte>(frame);
-                var rect = detectFace(frameGray);
-                //face not found
-                if (rect == null)
-                    return;
+                //face found
+                var userImage = cutImage(frameGray, (Rectangle)rect);
+                //replacing pbImage
+                var bitmapUserImage = userImage.Bitmap;
+                pbUser.Image = bitmapUserImage;
+                //scaling image to 100x100 so face can be recognized
+                Image<Gray, byte> result = userImage.Copy().Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
+                //predicting user based on picture...
+                var predictResult = FaceRecognition.Predict(result.Mat);
+                var id = (int)predictResult.Label;
+                if ((int)id > 0)
+                {
+                    FaceRecognitionTicks = 0;
+                    FaceRecognitionTotalTicks = 0;
+                    act = action.idle;
+                    lblAction.Text = act.ToString();
+                    face_recognition.Dispose();
+
+
+                    var presenceInsertRequest = new PresenceInsertRequest()
+                    {
+                        AttendedWholeEvent = true,
+                        EventId = Event.Id,
+                        UserId = user.Id,
+                        Image = ImageToByte2(result.Bitmap),
+                        Notes = "",
+                        PresenceAttendingDateTime = DateTime.Now,
+                        PresenceCreatingDateTime = presence.PresenceCreatingDateTime,
+                        PresenceLeavingDateTime = null,
+                        FaceDetected = true,
+                        FaceRecognized = true
+                    };
+                    await apiService_Presence.Update<Model.Presence>(presence.Id,presenceInsertRequest);
+
+
+                }
                 else
                 {
-                    //face found
-                    var userImage = cutImage(frameGray, (Rectangle)rect);
-                    var bitmapUserImage = userImage.Bitmap;
-                    pbUser.Image = bitmapUserImage;
-
-                    Image<Gray,byte> result = userImage.Copy().Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
-                    if (user != null)
+                    FaceRecognitionTicks += 1;
+                    if (FaceRecognitionTicks >= 10)
                     {
-                        var id = await recognizeFace(result, user.Id);
-                        if ((int)id > 0)
+                        //save user to prisustvo...
+                        FaceRecognitionTicks = 0;
+                        FaceRecognitionTotalTicks = 0;
+                        act = action.idle;
+                        lblAction.Text = act.ToString();
+                        face_recognition.Dispose();
+                        face_recognition.Stop();
+                        var presenceInsertRequest = new PresenceInsertRequest()
                         {
-                            act = action.idle;
-                            lblAction.Text = act.ToString();
-                            face_recognition.Dispose();
-                        }
+                            AttendedWholeEvent = true,
+                            EventId = Event.Id,
+                            UserId = user.Id,
+                            Image = ImageToByte2(result.Bitmap),
+                            Notes = "",
+                            PresenceAttendingDateTime = DateTime.Now,
+                            PresenceCreatingDateTime = presence.PresenceCreatingDateTime,
+                            PresenceLeavingDateTime = null,
+                            FaceDetected = true,
+                            FaceRecognized = false
+                        };
+                        await apiService_Presence.Update<Model.Presence>(presence.Id, presenceInsertRequest);
+
+
                     }
-                    //lblAction.Text = act.ToString();
-                    //face_recognition.Dispose();
-                    //scaning_Interval.Start();
                 }
             }
+            FaceRecognitionTotalTicks += 1;
+            if (FaceRecognitionTotalTicks >= 20)
+            {
+                FaceRecognitionTicks = 0;
+                FaceRecognitionTotalTicks = 0;
+                act = action.idle;
+                lblAction.Text = act.ToString();
+                face_recognition.Dispose();
+
+                var presenceInsertRequest = new PresenceInsertRequest()
+                {
+                    AttendedWholeEvent = null,
+                    EventId = Event.Id,
+                    UserId = user.Id,
+                    Image = null,
+                    Notes = "",
+                    PresenceAttendingDateTime = DateTime.Now,
+                    PresenceCreatingDateTime = presence.PresenceCreatingDateTime,
+                    PresenceLeavingDateTime = null,
+                    FaceDetected = false,
+                    FaceRecognized = false
+                };
+                await apiService_Presence.Update<Model.Presence>(presence.Id, presenceInsertRequest);
+
+
+            }
+        }
+
+        private void metroPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private async void metroButton1_Click(object sender, EventArgs e)
+        {
+
+            Image ig = pbUser.Image;
+            var r = ImageToByte2(ig);
+
+
+            var insert1 = new Model.AuthUserFace() { AuthUserId = user.Id, Face = r };
+            var r11 = await apiService_AuthUserFace.Insert<object>(insert1);
         }
     }
 }

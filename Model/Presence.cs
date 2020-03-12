@@ -15,6 +15,9 @@ namespace Model
         public int UserId { get; set; }
         public int EventId { get; set; }
         public byte[] Image { get; set; }
+        public bool FaceRecognized { get; set; }
+        public bool FaceDetected { get; set; }
+
 
         public virtual Event Event { get; set; }
         public virtual AuthUser User { get; set; }

@@ -19,8 +19,8 @@ namespace Auth
     public partial class frmUsers : MetroForm
     {
         private APIService apiService = new APIService("AuthUser");
-        private APIService apiService_authUserImage = new APIService("AuthUserImage");
-        private APIService apiService_authUserFace = new APIService("AuthUserFace");
+        private APIService apiService_authUserImage = new APIService("AuthUserImages");
+        private APIService apiService_authUserFace = new APIService("AuthUserFaces");
         private LoadComboBoxes loadComboBoxes = new LoadComboBoxes();
         CascadeClassifier face = new CascadeClassifier("haarcascade_frontalface_default.xml");
         private int? userId = null;
@@ -68,7 +68,7 @@ namespace Auth
             else
             {
                 var result = await apiService.Insert<Model.AuthUser>(user);
-                var insert = new Model.InsertRequests.AuthUserFaceInsertRequest() { AuthUserId = result.Id, Face = authUserImage.AuthUserImage1 };
+                var insert = new Model.AuthUserImage() { AuthUserId = result.Id, AuthUserImage1 = authUserImage.AuthUserImage1 };
                 await apiService_authUserImage.Insert<Model.AuthUserImage>(insert);
 
 
@@ -79,8 +79,8 @@ namespace Auth
                     imageFaceFound = true;
                     var r = cutImage(img1, (Rectangle)rect);
                     Image<Gray, byte> img = r.Copy().Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
-                    var insert1 = new Model.InsertRequests.AuthUserFaceInsertRequest() { AuthUserId = result.Id, Face = ImageToByte2(img.Bitmap) };
-                    await apiService_authUserImage.Insert<Model.AuthUserImage>(insert);
+                    var insert1 = new Model.AuthUserImage() { AuthUserId = result.Id, AuthUserImage1 = ImageToByte2(img.Bitmap)};
+                    var r1 = await apiService_authUserFace.Insert<object>(insert1);
                 }
 
 
@@ -199,5 +199,10 @@ namespace Auth
             }
         }
 
+        private async void metroButton1_Click(object sender, EventArgs e)
+        {
+            var insert = new Model.AuthUserImage() {AuthUserImage1 = ImageToByte2(pbImage.Image),AuthUserId = 2020 };
+            await apiService_authUserImage.Insert<Model.AuthUserImage>(insert);
+        }
     }
 }

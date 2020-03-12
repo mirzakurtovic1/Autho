@@ -326,6 +326,7 @@
     <None Include="Properties\DataSources\Model.InsertRequests.PresenceInsertRequest.datasource" />
     <None Include="Properties\DataSources\Model.ObjectExtension.datasource" />
     <None Include="Properties\DataSources\Model.Presence.datasource" />
+    <None Include="Properties\DataSources\Model.PresenceAdvenced.datasource" />
     <None Include="Properties\DataSources\Model.presenceBasic.datasource" />
     <None Include="Properties\DataSources\Model.Role.datasource" />
     <None Include="Properties\DataSources\Model.RoleEnterance.datasource" />

@@ -38,6 +38,7 @@
             this.pbUser = new System.Windows.Forms.PictureBox();
             this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel2 = new MetroFramework.Controls.MetroPanel();
+            this.metroButton1 = new MetroFramework.Controls.MetroButton();
             this.btnScan = new MetroFramework.Controls.MetroButton();
             this.lblEvent = new MetroFramework.Controls.MetroLabel();
             this.lblTicks = new MetroFramework.Controls.MetroLabel();
@@ -68,7 +69,7 @@
             this.pbCamera.Image = ((System.Drawing.Image)(resources.GetObject("pbCamera.Image")));
             this.pbCamera.Location = new System.Drawing.Point(4, 41);
             this.pbCamera.Name = "pbCamera";
-            this.pbCamera.Size = new System.Drawing.Size(499, 424);
+            this.pbCamera.Size = new System.Drawing.Size(588, 466);
             this.pbCamera.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbCamera.TabIndex = 0;
             this.pbCamera.TabStop = false;
@@ -84,7 +85,7 @@
             this.metroPanel1.HorizontalScrollbarBarColor = true;
             this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel1.HorizontalScrollbarSize = 10;
-            this.metroPanel1.Location = new System.Drawing.Point(520, 41);
+            this.metroPanel1.Location = new System.Drawing.Point(613, 41);
             this.metroPanel1.Name = "metroPanel1";
             this.metroPanel1.Size = new System.Drawing.Size(333, 204);
             this.metroPanel1.TabIndex = 6;
@@ -146,6 +147,9 @@
             // 
             // metroPanel2
             // 
+            this.metroPanel2.Controls.Add(this.lblAfter);
+            this.metroPanel2.Controls.Add(this.lblBefore);
+            this.metroPanel2.Controls.Add(this.metroButton1);
             this.metroPanel2.Controls.Add(this.btnScan);
             this.metroPanel2.Controls.Add(this.lblEvent);
             this.metroPanel2.Controls.Add(this.lblTicks);
@@ -161,13 +165,23 @@
             this.metroPanel2.HorizontalScrollbarBarColor = true;
             this.metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel2.HorizontalScrollbarSize = 10;
-            this.metroPanel2.Location = new System.Drawing.Point(520, 251);
+            this.metroPanel2.Location = new System.Drawing.Point(613, 251);
             this.metroPanel2.Name = "metroPanel2";
-            this.metroPanel2.Size = new System.Drawing.Size(333, 214);
+            this.metroPanel2.Size = new System.Drawing.Size(333, 256);
             this.metroPanel2.TabIndex = 7;
             this.metroPanel2.VerticalScrollbarBarColor = true;
             this.metroPanel2.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel2.VerticalScrollbarSize = 10;
+            this.metroPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.metroPanel2_Paint);
+            // 
+            // metroButton1
+            // 
+            this.metroButton1.Location = new System.Drawing.Point(12, 210);
+            this.metroButton1.Name = "metroButton1";
+            this.metroButton1.Size = new System.Drawing.Size(156, 29);
+            this.metroButton1.TabIndex = 28;
+            this.metroButton1.Text = "add to db";
+            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
             // 
             // btnScan
             // 
@@ -292,7 +306,7 @@
             // lblBefore
             // 
             this.lblBefore.AutoSize = true;
-            this.lblBefore.Location = new System.Drawing.Point(520, 479);
+            this.lblBefore.Location = new System.Drawing.Point(207, 182);
             this.lblBefore.Name = "lblBefore";
             this.lblBefore.Size = new System.Drawing.Size(40, 19);
             this.lblBefore.TabIndex = 25;
@@ -301,7 +315,7 @@
             // lblAfter
             // 
             this.lblAfter.AutoSize = true;
-            this.lblAfter.Location = new System.Drawing.Point(520, 507);
+            this.lblAfter.Location = new System.Drawing.Point(207, 210);
             this.lblAfter.Name = "lblAfter";
             this.lblAfter.Size = new System.Drawing.Size(40, 19);
             this.lblAfter.TabIndex = 26;
@@ -316,9 +330,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(866, 530);
-            this.Controls.Add(this.lblAfter);
-            this.Controls.Add(this.lblBefore);
+            this.ClientSize = new System.Drawing.Size(957, 524);
             this.Controls.Add(this.metroPanel2);
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.pbCamera);
@@ -333,7 +345,6 @@
             this.metroPanel2.ResumeLayout(false);
             this.metroPanel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -364,5 +375,6 @@
         private MetroFramework.Controls.MetroLabel lblAfter;
         private MetroFramework.Controls.MetroButton btnScan;
         private System.Windows.Forms.Timer face_recognition;
+        private MetroFramework.Controls.MetroButton metroButton1;
     }
 }

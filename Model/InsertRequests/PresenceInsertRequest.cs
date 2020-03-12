@@ -14,5 +14,7 @@ namespace Model.InsertRequests
         public int UserId { get; set; }
         public int EventId { get; set; }
         public byte[] Image { get; set; }
+        public bool FaceRecognized { get; set; }
+        public bool FaceDetected { get; set; }
     }
 }

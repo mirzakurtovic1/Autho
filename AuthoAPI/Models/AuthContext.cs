@@ -75,19 +75,20 @@ namespace AuthoAPI.Models
 
             modelBuilder.Entity<AuthUserFace>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.HasOne(d => d.AuthUser)
                     .WithMany(p => p.AuthUserFace)
                     .HasForeignKey(d => d.AuthUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__AuthUserF__AuthU__3E1D39E1");
+
+                entity.HasOne(d => d.Presence)
+                    .WithMany(p => p.AuthUserFace)
+                    .HasForeignKey(d => d.PresenceId)
+                    .HasConstraintName("FK__AuthUserF__Prese__57DD0BE4");
             });
 
             modelBuilder.Entity<AuthUserImage>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.AuthUserImage1).HasColumnName("AuthUserImage");
 
                 entity.HasOne(d => d.AuthUser)

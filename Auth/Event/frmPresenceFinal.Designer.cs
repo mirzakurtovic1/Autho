@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblEventGroupId = new MetroFramework.Controls.MetroLabel();
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
@@ -42,7 +44,25 @@
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.btnFilter = new MetroFramework.Controls.MetroButton();
             this.dgvPresence = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.presenceIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.userNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.displayDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.attendedEventDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.attendedWholeEventDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.haNotesDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.faceDetectedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.faceRecognizedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.faceDataGridViewImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.scannedFaceDataGridViewImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.trainingData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.presenceAdvencedBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPresence)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.presenceAdvencedBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblEventGroupId
@@ -155,27 +175,166 @@
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(248, 29);
             this.btnFilter.TabIndex = 47;
-            this.btnFilter.Text = "Filter";
+            this.btnFilter.Text = "Refresh";
             // 
             // dgvPresence
             // 
             this.dgvPresence.AllowUserToAddRows = false;
             this.dgvPresence.AllowUserToDeleteRows = false;
-            this.dgvPresence.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvPresence.AutoGenerateColumns = false;
             this.dgvPresence.BackgroundColor = System.Drawing.Color.White;
+            this.dgvPresence.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.dgvPresence.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPresence.Location = new System.Drawing.Point(23, 321);
+            this.dgvPresence.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn,
+            this.presenceIdDataGridViewTextBoxColumn,
+            this.firstNameDataGridViewTextBoxColumn,
+            this.lastNameDataGridViewTextBoxColumn,
+            this.userNameDataGridViewTextBoxColumn,
+            this.displayDataGridViewTextBoxColumn,
+            this.attendedEventDataGridViewCheckBoxColumn,
+            this.attendedWholeEventDataGridViewCheckBoxColumn,
+            this.haNotesDataGridViewCheckBoxColumn,
+            this.faceDetectedDataGridViewCheckBoxColumn,
+            this.faceRecognizedDataGridViewCheckBoxColumn,
+            this.faceDataGridViewImageColumn,
+            this.scannedFaceDataGridViewImageColumn,
+            this.trainingData});
+            this.dgvPresence.DataSource = this.presenceAdvencedBindingSource;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.NullValue = "-";
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPresence.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvPresence.GridColor = System.Drawing.Color.White;
+            this.dgvPresence.Location = new System.Drawing.Point(23, 293);
             this.dgvPresence.MultiSelect = false;
             this.dgvPresence.Name = "dgvPresence";
+            this.dgvPresence.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this.dgvPresence.RowTemplate.Height = 110;
+            this.dgvPresence.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvPresence.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPresence.Size = new System.Drawing.Size(737, 254);
+            this.dgvPresence.Size = new System.Drawing.Size(881, 299);
             this.dgvPresence.TabIndex = 60;
+            this.dgvPresence.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPresence_CellValueChanged);
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.FillWeight = 80F;
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.Visible = false;
+            this.idDataGridViewTextBoxColumn.Width = 80;
+            // 
+            // presenceIdDataGridViewTextBoxColumn
+            // 
+            this.presenceIdDataGridViewTextBoxColumn.DataPropertyName = "presenceId";
+            this.presenceIdDataGridViewTextBoxColumn.HeaderText = "presenceId";
+            this.presenceIdDataGridViewTextBoxColumn.Name = "presenceIdDataGridViewTextBoxColumn";
+            this.presenceIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // firstNameDataGridViewTextBoxColumn
+            // 
+            this.firstNameDataGridViewTextBoxColumn.DataPropertyName = "FirstName";
+            this.firstNameDataGridViewTextBoxColumn.HeaderText = "FirstName";
+            this.firstNameDataGridViewTextBoxColumn.Name = "firstNameDataGridViewTextBoxColumn";
+            this.firstNameDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // lastNameDataGridViewTextBoxColumn
+            // 
+            this.lastNameDataGridViewTextBoxColumn.DataPropertyName = "LastName";
+            this.lastNameDataGridViewTextBoxColumn.HeaderText = "LastName";
+            this.lastNameDataGridViewTextBoxColumn.Name = "lastNameDataGridViewTextBoxColumn";
+            this.lastNameDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // userNameDataGridViewTextBoxColumn
+            // 
+            this.userNameDataGridViewTextBoxColumn.DataPropertyName = "UserName";
+            this.userNameDataGridViewTextBoxColumn.HeaderText = "UserName";
+            this.userNameDataGridViewTextBoxColumn.Name = "userNameDataGridViewTextBoxColumn";
+            this.userNameDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // displayDataGridViewTextBoxColumn
+            // 
+            this.displayDataGridViewTextBoxColumn.DataPropertyName = "Display";
+            this.displayDataGridViewTextBoxColumn.HeaderText = "Display";
+            this.displayDataGridViewTextBoxColumn.Name = "displayDataGridViewTextBoxColumn";
+            this.displayDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // attendedEventDataGridViewCheckBoxColumn
+            // 
+            this.attendedEventDataGridViewCheckBoxColumn.DataPropertyName = "AttendedEvent";
+            this.attendedEventDataGridViewCheckBoxColumn.HeaderText = "AttendedEvent";
+            this.attendedEventDataGridViewCheckBoxColumn.Name = "attendedEventDataGridViewCheckBoxColumn";
+            // 
+            // attendedWholeEventDataGridViewCheckBoxColumn
+            // 
+            this.attendedWholeEventDataGridViewCheckBoxColumn.DataPropertyName = "AttendedWholeEvent";
+            this.attendedWholeEventDataGridViewCheckBoxColumn.HeaderText = "AttendedWholeEvent";
+            this.attendedWholeEventDataGridViewCheckBoxColumn.Name = "attendedWholeEventDataGridViewCheckBoxColumn";
+            // 
+            // haNotesDataGridViewCheckBoxColumn
+            // 
+            this.haNotesDataGridViewCheckBoxColumn.DataPropertyName = "HaNotes";
+            this.haNotesDataGridViewCheckBoxColumn.FillWeight = 55F;
+            this.haNotesDataGridViewCheckBoxColumn.HeaderText = "Has notes";
+            this.haNotesDataGridViewCheckBoxColumn.Name = "haNotesDataGridViewCheckBoxColumn";
+            this.haNotesDataGridViewCheckBoxColumn.Width = 55;
+            // 
+            // faceDetectedDataGridViewCheckBoxColumn
+            // 
+            this.faceDetectedDataGridViewCheckBoxColumn.DataPropertyName = "FaceDetected";
+            this.faceDetectedDataGridViewCheckBoxColumn.HeaderText = "FaceDetected";
+            this.faceDetectedDataGridViewCheckBoxColumn.Name = "faceDetectedDataGridViewCheckBoxColumn";
+            // 
+            // faceRecognizedDataGridViewCheckBoxColumn
+            // 
+            this.faceRecognizedDataGridViewCheckBoxColumn.DataPropertyName = "FaceRecognized";
+            this.faceRecognizedDataGridViewCheckBoxColumn.HeaderText = "FaceRecognized";
+            this.faceRecognizedDataGridViewCheckBoxColumn.Name = "faceRecognizedDataGridViewCheckBoxColumn";
+            // 
+            // faceDataGridViewImageColumn
+            // 
+            this.faceDataGridViewImageColumn.DataPropertyName = "Face";
+            this.faceDataGridViewImageColumn.HeaderText = "Face";
+            this.faceDataGridViewImageColumn.Name = "faceDataGridViewImageColumn";
+            // 
+            // scannedFaceDataGridViewImageColumn
+            // 
+            this.scannedFaceDataGridViewImageColumn.DataPropertyName = "ScannedFace";
+            this.scannedFaceDataGridViewImageColumn.HeaderText = "ScannedFace";
+            this.scannedFaceDataGridViewImageColumn.Name = "scannedFaceDataGridViewImageColumn";
+            // 
+            // trainingData
+            // 
+            this.trainingData.HeaderText = "training data";
+            this.trainingData.Name = "trainingData";
+            // 
+            // presenceAdvencedBindingSource
+            // 
+            this.presenceAdvencedBindingSource.DataSource = typeof(Model.PresenceAdvenced);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(570, 97);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(327, 158);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 61;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // frmPresenceFinal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 598);
+            this.ClientSize = new System.Drawing.Size(920, 598);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dgvPresence);
             this.Controls.Add(this.lblEventGroupId);
             this.Controls.Add(this.metroLabel6);
@@ -194,6 +353,8 @@
             this.Text = "Event presence";
             this.Load += new System.EventHandler(this.frmPresenceFinal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPresence)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.presenceAdvencedBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,5 +376,21 @@
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroButton btnFilter;
         private System.Windows.Forms.DataGridView dgvPresence;
+        private System.Windows.Forms.BindingSource presenceAdvencedBindingSource;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn presenceIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn firstNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lastNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn userNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn displayDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn attendedEventDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn attendedWholeEventDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn haNotesDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn faceDetectedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn faceRecognizedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewImageColumn faceDataGridViewImageColumn;
+        private System.Windows.Forms.DataGridViewImageColumn scannedFaceDataGridViewImageColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn trainingData;
     }
 }
