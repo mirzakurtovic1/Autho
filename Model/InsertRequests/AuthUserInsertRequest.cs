@@ -13,5 +13,7 @@ namespace Model.InsertRequests
         public DateTime? BirthDate { get; set; }
         public DateTime? AccountCreatingDate { get; set; }
         public int RoleId { get; set; }
+        public string QrCode { get; set; }
+
     }
 }

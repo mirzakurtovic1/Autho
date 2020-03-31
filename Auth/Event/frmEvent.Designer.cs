@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEvent));
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.txtName = new MetroFramework.Controls.MetroTextBox();
@@ -66,11 +67,13 @@
             this.nudEvents = new System.Windows.Forms.NumericUpDown();
             this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
             this.lblEventGroupId = new MetroFramework.Controls.MetroLabel();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numUserCanEnterBefore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUserCanEnterAfter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelMultipleDates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudEvents)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // metroLabel1
@@ -88,6 +91,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(159, 23);
             this.txtName.TabIndex = 1;
+            this.txtName.Validating += new System.ComponentModel.CancelEventHandler(this.txtName_Validating);
             // 
             // txtDescription
             // 
@@ -139,22 +143,32 @@
             // 
             this.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDate.Location = new System.Drawing.Point(27, 360);
+            this.dtpDate.MaxDate = new System.DateTime(2100, 12, 31, 0, 0, 0, 0);
+            this.dtpDate.MinDate = new System.DateTime(1920, 1, 1, 0, 0, 0, 0);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(155, 20);
             this.dtpDate.TabIndex = 13;
             // 
             // dtpStartingTime
             // 
-            this.dtpStartingTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpStartingTime.CustomFormat = "HH:mm";
+            this.dtpStartingTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpStartingTime.Location = new System.Drawing.Point(27, 425);
             this.dtpStartingTime.Name = "dtpStartingTime";
             this.dtpStartingTime.ShowUpDown = true;
-            this.dtpStartingTime.Size = new System.Drawing.Size(155, 20);
+            this.dtpStartingTime.Size = new System.Drawing.Size(81, 20);
             this.dtpStartingTime.TabIndex = 14;
+            this.dtpStartingTime.Value = new System.DateTime(1950, 1, 1, 17, 34, 0, 0);
+            this.dtpStartingTime.Validating += new System.ComponentModel.CancelEventHandler(this.dtpStartingTime_Validating);
             // 
             // numUserCanEnterBefore
             // 
             this.numUserCanEnterBefore.Location = new System.Drawing.Point(27, 556);
+            this.numUserCanEnterBefore.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
             this.numUserCanEnterBefore.Name = "numUserCanEnterBefore";
             this.numUserCanEnterBefore.Size = new System.Drawing.Size(155, 20);
             this.numUserCanEnterBefore.TabIndex = 15;
@@ -162,6 +176,11 @@
             // numUserCanEnterAfter
             // 
             this.numUserCanEnterAfter.Location = new System.Drawing.Point(27, 600);
+            this.numUserCanEnterAfter.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
             this.numUserCanEnterAfter.Name = "numUserCanEnterAfter";
             this.numUserCanEnterAfter.Size = new System.Drawing.Size(155, 20);
             this.numUserCanEnterAfter.TabIndex = 17;
@@ -201,6 +220,7 @@
             this.btnViewAttendees.Size = new System.Drawing.Size(156, 29);
             this.btnViewAttendees.TabIndex = 21;
             this.btnViewAttendees.Text = "view/add attendees";
+            this.btnViewAttendees.Click += new System.EventHandler(this.btnViewAttendees_Click);
             // 
             // pictureBox1
             // 
@@ -234,6 +254,7 @@
             // 
             // btnViewQRCode
             // 
+            this.btnViewQRCode.Enabled = false;
             this.btnViewQRCode.Location = new System.Drawing.Point(188, 661);
             this.btnViewQRCode.Name = "btnViewQRCode";
             this.btnViewQRCode.Size = new System.Drawing.Size(156, 29);
@@ -261,12 +282,14 @@
             // 
             // dtpEndingTime
             // 
-            this.dtpEndingTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpEndingTime.CustomFormat = "HH:mm";
+            this.dtpEndingTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpEndingTime.Location = new System.Drawing.Point(27, 470);
             this.dtpEndingTime.Name = "dtpEndingTime";
             this.dtpEndingTime.ShowUpDown = true;
-            this.dtpEndingTime.Size = new System.Drawing.Size(155, 20);
+            this.dtpEndingTime.Size = new System.Drawing.Size(84, 20);
             this.dtpEndingTime.TabIndex = 29;
+            this.dtpEndingTime.Validating += new System.ComponentModel.CancelEventHandler(this.dtpEndingTime_Validating);
             // 
             // metroLabel6
             // 
@@ -442,11 +465,16 @@
             this.lblEventGroupId.Text = "-";
             this.lblEventGroupId.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // frmEvent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(654, 725);
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.ClientSize = new System.Drawing.Size(635, 694);
             this.Controls.Add(this.lblEventGroupId);
             this.Controls.Add(this.panelMultipleDates);
             this.Controls.Add(this.lblEventGroup);
@@ -485,6 +513,7 @@
             this.panelMultipleDates.ResumeLayout(false);
             this.panelMultipleDates.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudEvents)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -529,5 +558,6 @@
         private MetroFramework.Controls.MetroLabel metroLabel12;
         private System.Windows.Forms.NumericUpDown nudEvents;
         private MetroFramework.Controls.MetroLabel lblEventGroupId;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

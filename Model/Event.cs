@@ -20,5 +20,7 @@ namespace Model
         public virtual EventType EventType { get; set; }
 
         public string EventStartingTimeShortString { get { return EventStartingTime.ToString("hh:mm");} }
+        public string EventTypeString { get { if (EventType != null) return EventType.Name; return "unknown"; } }
+        //public string EventRoom { get { if (EventType != null) return EventType.Name; return "unknown"; } }
     }
 }

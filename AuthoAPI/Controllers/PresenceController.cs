@@ -24,8 +24,12 @@ namespace AuthoAPI.Controllers
         }
 
         // GET: api/Presence
+        //[HttpGet]
+        //public async Task<ActionResult<List<Model.Event>>> Get([FromQuery] EventSearchRequest search)
+
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Model.Presence>>> GetPresence([FromQuery]PresenceSearchRequest search)
+        public async Task<ActionResult<List<Model.Presence>>> Get([FromQuery] Model.SearchRequest.PresenceSearchRequest search)
         {
             var presence = await _context.Presence.Include(u =>u.User).ToListAsync();
 

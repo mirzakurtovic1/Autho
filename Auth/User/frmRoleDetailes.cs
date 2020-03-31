@@ -9,7 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Auth.Role
+namespace Auth
+
 {
     public partial class frmRoleDetailes : MetroForm
     {

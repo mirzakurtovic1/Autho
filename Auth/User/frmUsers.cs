@@ -22,13 +22,16 @@ namespace Auth
         private APIService apiService_authUserImage = new APIService("AuthUserImages");
         private APIService apiService_authUserFace = new APIService("AuthUserFaces");
         private LoadComboBoxes loadComboBoxes = new LoadComboBoxes();
+        private Validation validation = new Validation();
         CascadeClassifier face = new CascadeClassifier("haarcascade_frontalface_default.xml");
+        QRCodeHelper qRCodeHelper = new QRCodeHelper();
         private int? userId = null;
         byte[] Img = null;
         Model.AuthUserImage authUserImage= new Model.AuthUserImage();
+        Model.AuthUser authUser = null;
         bool imageFaceFound = false;
         bool imageUploaded = false;
-        public frmUsers(int? userId = null)
+        public frmUsers(int? userId = 2044)
         {
             this.userId = userId;
 
@@ -38,11 +41,16 @@ namespace Auth
 
         private async void frmUsers_Load(object sender, EventArgs e)
         {
-            loadComboBoxes.loadRoles(cbRole);
-
+            loadComboBoxes.loadRoles(cbRole,false);
+            if (cbRole.Items.Count <= 0)
+            {
+                //MessageBox.error.
+                //this.Close();
+            }
             if (userId != null)
             {
                 var user = await apiService.GetById<Model.AuthUser>(userId);
+                authUser = user;
                 writeFields(user);
 
                 var userImageList = await apiService_authUserImage.Get<List<Model.AuthUserImage>>(new AuthUserFaceSearchRequest() { AuthUserId = (int)userId });
@@ -51,43 +59,70 @@ namespace Auth
                     authUserImage = userImageList[0];
                     pbImage.Image = ByteToImage(authUserImage.AuthUserImage1);
                 }
+                pbQrCode.Image = ByteToImage(qRCodeHelper.GenerateQRCode(user.QrCode));
             }
         }
 
         private async void btnSubmit_Click(object sender, EventArgs e)
         {
-            var user = readFields();
 
-
-
-            if (userId != null)
+            if (this.ValidateChildren())
             {
-                await apiService.Update<Model.AuthUser>(userId, user);
-
-            }
-            else
-            {
-                var result = await apiService.Insert<Model.AuthUser>(user);
-                var insert = new Model.AuthUserImage() { AuthUserId = result.Id, AuthUserImage1 = authUserImage.AuthUserImage1 };
-                await apiService_authUserImage.Insert<Model.AuthUserImage>(insert);
-
-
-                Image<Gray, byte> img1 = new Image<Gray, byte>((Bitmap)pbImage.Image);
-                var rect = detectFace(img1);
-                if (rect != null)
+                //reading fields from form
+                var user = readFields();
+                //updating existing user
+                if (userId != null)
                 {
-                    imageFaceFound = true;
-                    var r = cutImage(img1, (Rectangle)rect);
-                    Image<Gray, byte> img = r.Copy().Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
-                    var insert1 = new Model.AuthUserImage() { AuthUserId = result.Id, AuthUserImage1 = ImageToByte2(img.Bitmap)};
-                    var r1 = await apiService_authUserFace.Insert<object>(insert1);
+                    //updating user
+                    user.QrCode = authUser.QrCode;
+                    await apiService.Update<Model.AuthUser>(userId, user);
+                    //updating user image
+                    if (!string.IsNullOrEmpty(txtImageSource.Text))
+                    {
+                        var result = await apiService_authUserImage.Get<List<Model.AuthUserImage>>(new AuthUserFaceSearchRequest() { AuthUserId = authUser.Id});
+                        if (result.Count > 0)
+                        {
+                            var update = new Model.AuthUserImage() { AuthUserId = (int)userId, AuthUserImage1 = ImageToByte2(pbImage.Image) };
+                            await apiService_authUserImage.Update<Model.AuthUserImage>(result[0].Id,update);
+                        }
+                    }
                 }
+                else
+                {
+                    //generating new qr code until its unique
+                    var findNewCode = true;
+                    do
+                    {
+                        var qrCodeText = qRCodeHelper.GenerateRandomString(15);
+                        var userSearchRequest = new AuthUserSearchRequest() { qrCode = qrCodeText };
+                        var qrResult = await apiService.Get<List<Model.AuthUser>>(userSearchRequest);
+                        findNewCode = qrResult.Count > 0;
+                        if (findNewCode == false)
+                            user.QrCode = qrCodeText;
+                    } while (findNewCode == true);
+                    //inserting new user into db
+                    var result = await apiService.Insert<Model.AuthUser>(user);
+                    //inserting new user image
+                    var insert = new Model.AuthUserImage() { AuthUserId = (int)result.Id, AuthUserImage1 = ImageToByte2(pbImage.Image) };
+                    await apiService_authUserImage.Insert<Model.AuthUserImage>(insert);
+
+                    //cutting and inserting face from image into db.
+                    Image<Gray, byte> img1 = new Image<Gray, byte>((Bitmap)pbImage.Image);
+                    var rect = detectFace(img1);
+                    if (rect != null)
+                    {
+                        imageFaceFound = true;
+                        var r = cutImage(img1, (Rectangle)rect);
+                        Image<Gray, byte> img = r.Copy().Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
+                        var insert1 = new Model.AuthUserFace() { AuthUserId = result.Id, Face = ImageToByte2(img.Bitmap) };
+                        var r1 = await apiService_authUserFace.Insert<object>(insert1);
+                    }
 
 
 
+                }
+                this.Close();
             }
-            this.Close();
-
         }
 
         private void writeFields(Model.AuthUser authUser)
@@ -120,16 +155,6 @@ namespace Auth
             return newUser;
         }
 
-        private void btnGeneratePassword_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void metroTextBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnUploadImage_Click(object sender, EventArgs e)
         {
             // open file dialog   
@@ -156,7 +181,96 @@ namespace Auth
                     imageFaceFound = true;
                 }
             }
+
+
+            this.ValidateChildren();
+            //need to validate only image stuff.. fix
         }
+        private async void metroButton1_Click(object sender, EventArgs e)
+        {
+            var insert = new Model.AuthUserImage() {AuthUserImage1 = ImageToByte2(pbImage.Image),AuthUserId = 2020 };
+            await apiService_authUserImage.Insert<Model.AuthUserImage>(insert);
+        }
+
+
+
+        #region validation
+        private void txtFirstName_Validating(object sender, CancelEventArgs e)
+        {
+            if (validation.Required(sender, e, errorProvider1))
+                if (validation.IsLetterOnly(sender, e, errorProvider1))
+                     validation.MinMaxLength(sender, e, errorProvider1, 2, 30);
+        }
+
+        private void txtLastName_Validating(object sender, CancelEventArgs e)
+        {
+            if (validation.Required(sender, e, errorProvider1))
+                if (validation.IsLetterOnly(sender, e, errorProvider1))
+                    validation.MinMaxLength(sender, e, errorProvider1, 2, 30);
+        }
+
+        private void txtUserName_Validating(object sender, CancelEventArgs e)
+        {
+            if (validation.Required(sender, e, errorProvider1))
+                if (validation.IsLetterOnly(sender, e, errorProvider1))
+                    validation.MinMaxLength(sender, e, errorProvider1, 5, 30);
+        }
+
+        private void dtpBirthDate_Validating(object sender, CancelEventArgs e)
+        {
+            if (dtpBirthDate.Value >= DateTime.Now.AddDays(-1))
+            {
+                e.Cancel = true;
+                //dtpBirthDate.Focus();
+                errorProvider1.SetError(dtpBirthDate, "Date not valid!");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(dtpBirthDate, null);
+            }
+        }
+
+        private void txtImageSource_Validating(object sender, CancelEventArgs e)
+        {
+            if (userId == null)
+            {
+                validation.Required(sender, e, errorProvider1);
+
+                if (pbImage.Image != null)
+                {
+                    var image = (Bitmap)pbImage.Image;
+                    Image<Gray, Byte> eImage = new Image<Gray, Byte>(image);
+                    var result = detectFace(eImage);
+                    if (result != null)
+                    {
+                        e.Cancel = false;
+                        errorProvider1.SetError(pbImage, null);
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                        errorProvider1.SetError(pbImage, "Face not found, please upload another image!");
+                    }
+                }
+                else
+                {
+                    e.Cancel = true;
+                    errorProvider1.SetError(pbImage, "User image required!");
+                }
+            }
+        }
+        private void frmUsers_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = false;
+        }
+        private void pbImage_Validating(object sender, CancelEventArgs e)
+        {
+
+        }
+        #endregion validation
+
+        #region helpers
         //https://stackoverflow.com/questions/9576868/how-to-put-image-in-a-picture-box-from-a-byte-in-c-sharp
         public static Bitmap ByteToImage(byte[] blob)
         {
@@ -167,7 +281,6 @@ namespace Auth
             mStream.Dispose();
             return bm;
         }
-
         private Rectangle? detectFace(Image<Gray, Byte> img)
         {
 
@@ -198,11 +311,15 @@ namespace Auth
                 return stream.ToArray();
             }
         }
+        #endregion helpers
 
-        private async void metroButton1_Click(object sender, EventArgs e)
+        private void btnGeneratePassword_Click(object sender, EventArgs e)
         {
-            var insert = new Model.AuthUserImage() {AuthUserImage1 = ImageToByte2(pbImage.Image),AuthUserId = 2020 };
-            await apiService_authUserImage.Insert<Model.AuthUserImage>(insert);
+
+        }
+        private void metroTextBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

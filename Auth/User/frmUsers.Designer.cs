@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUsers));
             this.txtFirstName = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
@@ -49,12 +50,13 @@
             this.txtPassword = new MetroFramework.Controls.MetroTextBox();
             this.btnChangePassword = new MetroFramework.Controls.MetroButton();
             this.btnGeneratePassword = new MetroFramework.Controls.MetroButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.pbQrCode = new System.Windows.Forms.PictureBox();
+            this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbQrCode)).BeginInit();
             this.SuspendLayout();
             // 
             // txtFirstName
@@ -63,6 +65,7 @@
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(135, 23);
             this.txtFirstName.TabIndex = 0;
+            this.txtFirstName.Validating += new System.ComponentModel.CancelEventHandler(this.txtFirstName_Validating);
             // 
             // metroLabel1
             // 
@@ -88,6 +91,7 @@
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(135, 23);
             this.txtLastName.TabIndex = 2;
+            this.txtLastName.Validating += new System.ComponentModel.CancelEventHandler(this.txtLastName_Validating);
             // 
             // metroLabel3
             // 
@@ -104,14 +108,18 @@
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(135, 23);
             this.txtUserName.TabIndex = 4;
+            this.txtUserName.Validating += new System.ComponentModel.CancelEventHandler(this.txtUserName_Validating);
             // 
             // dtpBirthDate
             // 
             this.dtpBirthDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpBirthDate.Location = new System.Drawing.Point(23, 221);
+            this.dtpBirthDate.MaxDate = new System.DateTime(2100, 12, 31, 0, 0, 0, 0);
+            this.dtpBirthDate.MinDate = new System.DateTime(1920, 1, 1, 0, 0, 0, 0);
             this.dtpBirthDate.Name = "dtpBirthDate";
             this.dtpBirthDate.Size = new System.Drawing.Size(135, 20);
             this.dtpBirthDate.TabIndex = 6;
+            this.dtpBirthDate.Validating += new System.ComponentModel.CancelEventHandler(this.dtpBirthDate_Validating);
             // 
             // metroLabel4
             // 
@@ -133,6 +141,7 @@
             // 
             // dtpAccountCreationDate
             // 
+            this.dtpAccountCreationDate.Enabled = false;
             this.dtpAccountCreationDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpAccountCreationDate.Location = new System.Drawing.Point(23, 264);
             this.dtpAccountCreationDate.Name = "dtpAccountCreationDate";
@@ -169,25 +178,27 @@
             // pbImage
             // 
             this.pbImage.Image = ((System.Drawing.Image)(resources.GetObject("pbImage.Image")));
-            this.pbImage.Location = new System.Drawing.Point(231, 84);
+            this.pbImage.Location = new System.Drawing.Point(221, 84);
             this.pbImage.Name = "pbImage";
             this.pbImage.Size = new System.Drawing.Size(128, 128);
             this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbImage.TabIndex = 14;
             this.pbImage.TabStop = false;
+            this.pbImage.Validating += new System.ComponentModel.CancelEventHandler(this.pbImage_Validating);
             // 
             // txtImageSource
             // 
-            this.txtImageSource.Location = new System.Drawing.Point(231, 218);
+            this.txtImageSource.Location = new System.Drawing.Point(221, 218);
             this.txtImageSource.Name = "txtImageSource";
             this.txtImageSource.ReadOnly = true;
             this.txtImageSource.Size = new System.Drawing.Size(128, 23);
             this.txtImageSource.TabIndex = 15;
             this.txtImageSource.Click += new System.EventHandler(this.metroTextBox1_Click);
+            this.txtImageSource.Validating += new System.ComponentModel.CancelEventHandler(this.txtImageSource_Validating);
             // 
             // btnUploadImage
             // 
-            this.btnUploadImage.Location = new System.Drawing.Point(231, 247);
+            this.btnUploadImage.Location = new System.Drawing.Point(221, 247);
             this.btnUploadImage.Name = "btnUploadImage";
             this.btnUploadImage.Size = new System.Drawing.Size(128, 27);
             this.btnUploadImage.TabIndex = 16;
@@ -205,6 +216,7 @@
             // 
             // txtPassword
             // 
+            this.txtPassword.Enabled = false;
             this.txtPassword.Location = new System.Drawing.Point(23, 308);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(135, 23);
@@ -212,6 +224,7 @@
             // 
             // btnChangePassword
             // 
+            this.btnChangePassword.Enabled = false;
             this.btnChangePassword.Location = new System.Drawing.Point(283, 308);
             this.btnChangePassword.Name = "btnChangePassword";
             this.btnChangePassword.Size = new System.Drawing.Size(113, 23);
@@ -220,6 +233,7 @@
             // 
             // btnGeneratePassword
             // 
+            this.btnGeneratePassword.Enabled = false;
             this.btnGeneratePassword.Location = new System.Drawing.Point(164, 308);
             this.btnGeneratePassword.Name = "btnGeneratePassword";
             this.btnGeneratePassword.Size = new System.Drawing.Size(113, 23);
@@ -227,46 +241,41 @@
             this.btnGeneratePassword.Text = "generate password";
             this.btnGeneratePassword.Click += new System.EventHandler(this.btnGeneratePassword_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(379, 84);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 25;
-            this.pictureBox1.TabStop = false;
-            // 
-            // metroLabel7
-            // 
-            this.metroLabel7.AutoSize = true;
-            this.metroLabel7.Location = new System.Drawing.Point(379, 222);
-            this.metroLabel7.Name = "metroLabel7";
-            this.metroLabel7.Size = new System.Drawing.Size(100, 19);
-            this.metroLabel7.TabIndex = 26;
-            this.metroLabel7.Text = "Active QR code";
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // metroButton1
+            // errorProvider1
             // 
-            this.metroButton1.Location = new System.Drawing.Point(379, 244);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(128, 27);
-            this.metroButton1.TabIndex = 27;
-            this.metroButton1.Text = "Upload image";
-            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // pbQrCode
+            // 
+            this.pbQrCode.Image = ((System.Drawing.Image)(resources.GetObject("pbQrCode.Image")));
+            this.pbQrCode.Location = new System.Drawing.Point(395, 84);
+            this.pbQrCode.Name = "pbQrCode";
+            this.pbQrCode.Size = new System.Drawing.Size(231, 218);
+            this.pbQrCode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbQrCode.TabIndex = 25;
+            this.pbQrCode.TabStop = false;
+            // 
+            // metroLabel7
+            // 
+            this.metroLabel7.AutoSize = true;
+            this.metroLabel7.Location = new System.Drawing.Point(402, 305);
+            this.metroLabel7.Name = "metroLabel7";
+            this.metroLabel7.Size = new System.Drawing.Size(55, 19);
+            this.metroLabel7.TabIndex = 26;
+            this.metroLabel7.Text = "qr code";
             // 
             // frmUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 426);
-            this.Controls.Add(this.metroButton1);
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.ClientSize = new System.Drawing.Size(797, 565);
             this.Controls.Add(this.metroLabel7);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pbQrCode);
             this.Controls.Add(this.btnGeneratePassword);
             this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.metroLabel8);
@@ -290,9 +299,11 @@
             this.Name = "frmUsers";
             this.Text = "User detailes";
             this.TransparencyKey = System.Drawing.Color.Lavender;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmUsers_FormClosing);
             this.Load += new System.EventHandler(this.frmUsers_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbQrCode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,9 +331,9 @@
         private MetroFramework.Controls.MetroTextBox txtPassword;
         private MetroFramework.Controls.MetroButton btnChangePassword;
         private MetroFramework.Controls.MetroButton btnGeneratePassword;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private MetroFramework.Controls.MetroLabel metroLabel7;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private MetroFramework.Controls.MetroButton metroButton1;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.PictureBox pbQrCode;
+        private MetroFramework.Controls.MetroLabel metroLabel7;
     }
 }

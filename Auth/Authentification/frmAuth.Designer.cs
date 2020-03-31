@@ -38,6 +38,8 @@
             this.pbUser = new System.Windows.Forms.PictureBox();
             this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel2 = new MetroFramework.Controls.MetroPanel();
+            this.lblAfter = new MetroFramework.Controls.MetroLabel();
+            this.lblBefore = new MetroFramework.Controls.MetroLabel();
             this.metroButton1 = new MetroFramework.Controls.MetroButton();
             this.btnScan = new MetroFramework.Controls.MetroButton();
             this.lblEvent = new MetroFramework.Controls.MetroLabel();
@@ -53,8 +55,6 @@
             this.btnCameraStart = new MetroFramework.Controls.MetroButton();
             this.scaning = new System.Windows.Forms.Timer(this.components);
             this.scaning_Interval = new System.Windows.Forms.Timer(this.components);
-            this.lblBefore = new MetroFramework.Controls.MetroLabel();
-            this.lblAfter = new MetroFramework.Controls.MetroLabel();
             this.face_recognition = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbCamera)).BeginInit();
             this.metroPanel1.SuspendLayout();
@@ -67,10 +67,10 @@
             // 
             this.pbCamera.BackColor = System.Drawing.Color.White;
             this.pbCamera.Image = ((System.Drawing.Image)(resources.GetObject("pbCamera.Image")));
-            this.pbCamera.Location = new System.Drawing.Point(4, 41);
+            this.pbCamera.Location = new System.Drawing.Point(23, 41);
             this.pbCamera.Name = "pbCamera";
-            this.pbCamera.Size = new System.Drawing.Size(588, 466);
-            this.pbCamera.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbCamera.Size = new System.Drawing.Size(547, 466);
+            this.pbCamera.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pbCamera.TabIndex = 0;
             this.pbCamera.TabStop = false;
             // 
@@ -173,6 +173,24 @@
             this.metroPanel2.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel2.VerticalScrollbarSize = 10;
             this.metroPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.metroPanel2_Paint);
+            // 
+            // lblAfter
+            // 
+            this.lblAfter.AutoSize = true;
+            this.lblAfter.Location = new System.Drawing.Point(207, 210);
+            this.lblAfter.Name = "lblAfter";
+            this.lblAfter.Size = new System.Drawing.Size(40, 19);
+            this.lblAfter.TabIndex = 26;
+            this.lblAfter.Text = "Event";
+            // 
+            // lblBefore
+            // 
+            this.lblBefore.AutoSize = true;
+            this.lblBefore.Location = new System.Drawing.Point(207, 182);
+            this.lblBefore.Name = "lblBefore";
+            this.lblBefore.Size = new System.Drawing.Size(40, 19);
+            this.lblBefore.TabIndex = 25;
+            this.lblBefore.Text = "Event";
             // 
             // metroButton1
             // 
@@ -302,24 +320,6 @@
             // 
             this.scaning_Interval.Interval = 250;
             this.scaning_Interval.Tick += new System.EventHandler(this.scaning_Interval_Tick);
-            // 
-            // lblBefore
-            // 
-            this.lblBefore.AutoSize = true;
-            this.lblBefore.Location = new System.Drawing.Point(207, 182);
-            this.lblBefore.Name = "lblBefore";
-            this.lblBefore.Size = new System.Drawing.Size(40, 19);
-            this.lblBefore.TabIndex = 25;
-            this.lblBefore.Text = "Event";
-            // 
-            // lblAfter
-            // 
-            this.lblAfter.AutoSize = true;
-            this.lblAfter.Location = new System.Drawing.Point(207, 210);
-            this.lblAfter.Name = "lblAfter";
-            this.lblAfter.Size = new System.Drawing.Size(40, 19);
-            this.lblAfter.TabIndex = 26;
-            this.lblAfter.Text = "Event";
             // 
             // face_recognition
             // 

@@ -8,6 +8,7 @@ namespace Model.InsertRequests
     {
         public DateTime? PresenceCreatingDateTime { get; set; }
         public DateTime? PresenceAttendingDateTime { get; set; }
+        public bool? AttendedEvent { get; set; }
         public bool? AttendedWholeEvent { get; set; }
         public DateTime? PresenceLeavingDateTime { get; set; }
         public string Notes { get; set; }

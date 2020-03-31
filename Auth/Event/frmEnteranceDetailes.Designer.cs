@@ -1,4 +1,4 @@
-﻿namespace Auth.Enterance
+﻿namespace Auth.Event
 {
     partial class frmEnteranceDetailes
     {

@@ -375,7 +375,8 @@ namespace Auth.Authentification
                         if (act == action.face_recognition)
                         {
                             await trainRecognizer(user.Id);
-                            var presenceList = await apiService_Presence.Get<List<Model.Presence>>(new PresenceSearchRequest() { EventId = eventId, UserId = user.Id });
+                            var search = new Model.SearchRequest.PresenceSearchRequest() { EventId = (int)eventId, UserId = user.Id };
+                            var presenceList = await apiService_Presence.Get<List<Model.Presence>>(search);
                             presence = presenceList[0];
                             face_recognition.Start();
                         }

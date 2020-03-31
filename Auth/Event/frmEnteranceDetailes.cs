@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Auth.Enterance
+namespace Auth.Event
 {
     public partial class frmEnteranceDetailes : MetroForm
     {

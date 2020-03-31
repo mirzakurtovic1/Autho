@@ -20,6 +20,7 @@ namespace AuthoAPI.Mappers
             CreateMap<AuthoAPI.Models.AuthUserFace, Model.AuthUserFace>().ReverseMap();
             CreateMap<AuthoAPI.Models.AuthUserImage, Model.AuthUserImage>().ReverseMap();
             CreateMap<AuthoAPI.Models.AuthUserFace, Model.AuthUserFace>().ReverseMap();
+            CreateMap<AuthoAPI.Models.AuthUser, Model.InsertRequests.AuthUserInsertRequest>().ReverseMap();
             //...
         }
     }

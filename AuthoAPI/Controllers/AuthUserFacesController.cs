@@ -37,6 +37,10 @@ namespace AuthoAPI.Controllers
                 {
                     result = result.Where(r => r.AuthUserId == search.AuthUserId).ToList();
                 }
+                if (search.PresenceId > 0)
+                {
+                    result = result.Where(r => r.PresenceId == search.PresenceId).ToList();
+                }
                 if (search.onlyOne != null)
                 {
                     if (search.onlyOne == true)

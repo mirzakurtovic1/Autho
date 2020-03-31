@@ -1,4 +1,4 @@
-﻿namespace Auth.Role
+﻿namespace Auth
 {
     partial class frmRoleDetailes
     {

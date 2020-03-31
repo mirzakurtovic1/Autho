@@ -126,7 +126,7 @@ namespace AuthoAPI.Models
 
             modelBuilder.Entity<Event>(entity =>
             {
-                entity.Property(e => e.EventDate).HasColumnType("date");
+                entity.Property(e => e.EventDate).HasColumnType("datetime");
 
                 entity.Property(e => e.EventDescription).HasMaxLength(256);
 

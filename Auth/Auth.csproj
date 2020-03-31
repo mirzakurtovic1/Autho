@@ -51,6 +51,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AdvancedDataGridView, Version=1.1.24312.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\DG.AdvancedDataGridView.1.1.24312.6\lib\net40\AdvancedDataGridView.dll</HintPath>
+    </Reference>
     <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
       <HintPath>packages\AForge.2.2.5\lib\AForge.dll</HintPath>
     </Reference>
@@ -173,10 +176,10 @@
     <Compile Include="Authentification\frmFaceRecognition.Designer.cs">
       <DependentUpon>frmFaceRecognition.cs</DependentUpon>
     </Compile>
-    <Compile Include="Enterance\frmEnteranceDetailes.cs">
+    <Compile Include="Event\frmEnteranceDetailes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Enterance\frmEnteranceDetailes.Designer.cs">
+    <Compile Include="Event\frmEnteranceDetailes.Designer.cs">
       <DependentUpon>frmEnteranceDetailes.cs</DependentUpon>
     </Compile>
     <Compile Include="Event\frmEvent.cs">
@@ -228,6 +231,12 @@
       <DependentUpon>frmPresenceDetailes.cs</DependentUpon>
     </Compile>
     <Compile Include="QRCodeHelper.cs" />
+    <Compile Include="User\frmUserList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User\frmUserList.Designer.cs">
+      <DependentUpon>frmUserList.cs</DependentUpon>
+    </Compile>
     <Compile Include="User\frmUsers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,12 +252,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Role\frmRoleDetailes.cs">
+    <Compile Include="User\frmRoleDetailes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Role\frmRoleDetailes.Designer.cs">
+    <Compile Include="User\frmRoleDetailes.Designer.cs">
       <DependentUpon>frmRoleDetailes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Validation.cs" />
     <EmbeddedResource Include="Authentification\frmAuth.resx">
       <DependentUpon>frmAuth.cs</DependentUpon>
     </EmbeddedResource>
@@ -258,7 +268,7 @@
     <EmbeddedResource Include="Authentification\frmFaceRecognition.resx">
       <DependentUpon>frmFaceRecognition.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Enterance\frmEnteranceDetailes.resx">
+    <EmbeddedResource Include="Event\frmEnteranceDetailes.resx">
       <DependentUpon>frmEnteranceDetailes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Event\frmEvent.resx">
@@ -285,6 +295,9 @@
     <EmbeddedResource Include="Event\frmPresenceDetailes.resx">
       <DependentUpon>frmPresenceDetailes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\frmUserList.resx">
+      <DependentUpon>frmUserList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="User\frmUsers.resx">
       <DependentUpon>frmUsers.cs</DependentUpon>
     </EmbeddedResource>
@@ -299,8 +312,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Role\frmRoleDetailes.resx">
+    <EmbeddedResource Include="User\frmRoleDetailes.resx">
       <DependentUpon>frmRoleDetailes.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="AuthDataSet.xsc">
@@ -349,6 +363,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icons8-people-100.png" />
     <None Include="Authentification\haarcascade_frontalface_default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

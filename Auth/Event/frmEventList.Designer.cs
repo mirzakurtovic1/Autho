@@ -29,100 +29,342 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.gridDataBoundGrid1 = new Syncfusion.Windows.Forms.Grid.GridDataBoundGrid();
-            this.authDataSet = new Auth.AuthDataSet();
-            this.events1BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.events1TableAdapter = new Auth.AuthDataSetTableAdapters.Events1TableAdapter();
-            ((System.ComponentModel.ISupportInitialize)(this.gridDataBoundGrid1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.authDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.events1BindingSource)).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEventList));
+            this.dgvEvents = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventDescriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventStartingTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventEndingTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.anyoneCanEnterDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.userCanEnterBeforeEventMiDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.userCanEnterAfterEventStaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventTypeIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventGroupIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventStartingTimeShortStringDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventTypeStringDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.btnFilter = new MetroFramework.Controls.MetroButton();
+            this.txtName = new MetroFramework.Controls.MetroTextBox();
+            this.dtpDate = new System.Windows.Forms.DateTimePicker();
+            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
+            this.dtpCheckBox = new MetroFramework.Controls.MetroCheckBox();
+            this.cbType = new MetroFramework.Controls.MetroComboBox();
+            this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
+            this.Room = new MetroFramework.Controls.MetroLabel();
+            this.cbGroup = new MetroFramework.Controls.MetroComboBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEvents)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eventBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // gridDataBoundGrid1
+            // dgvEvents
             // 
-            this.gridDataBoundGrid1.AllowDragSelectedCols = true;
-            this.gridDataBoundGrid1.DataSource = this.events1BindingSource;
-            this.gridDataBoundGrid1.Location = new System.Drawing.Point(12, 191);
-            this.gridDataBoundGrid1.Name = "gridDataBoundGrid1";
-            this.gridDataBoundGrid1.OptimizeInsertRemoveCells = true;
-            this.gridDataBoundGrid1.ShowCurrentCellBorderBehavior = Syncfusion.Windows.Forms.Grid.GridShowCurrentCellBorder.GrayWhenLostFocus;
-            this.gridDataBoundGrid1.Size = new System.Drawing.Size(757, 247);
-            this.gridDataBoundGrid1.SmartSizeBox = false;
-            this.gridDataBoundGrid1.SortBehavior = Syncfusion.Windows.Forms.Grid.GridSortBehavior.DoubleClick;
-            this.gridDataBoundGrid1.TabIndex = 0;
-            this.gridDataBoundGrid1.Text = "gridDataBoundGrid1";
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ArrowButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ArrowButtonBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ArrowButtonDisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ArrowButtonDisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ArrowButtonHoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(114)))), ((int)(((byte)(114)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ArrowButtonHoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(94)))), ((int)(((byte)(94)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ArrowButtonPressedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ArrowButtonPressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ScrollBarBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ThumbBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ThumbColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ThumbDisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ThumbDisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ThumbHoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ThumbHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(197)))), ((int)(((byte)(197)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ThumbPressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.gridDataBoundGrid1.ThemeStyle.HorizontalScrollBarStyle.ThumbPressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(197)))), ((int)(((byte)(197)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ArrowButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ArrowButtonBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ArrowButtonDisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ArrowButtonDisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ArrowButtonHoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(114)))), ((int)(((byte)(114)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ArrowButtonHoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(94)))), ((int)(((byte)(94)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ArrowButtonPressedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ArrowButtonPressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ScrollBarBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ThumbBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ThumbColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ThumbDisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ThumbDisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ThumbHoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ThumbHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(197)))), ((int)(((byte)(197)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ThumbPressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.gridDataBoundGrid1.ThemeStyle.VerticalScrollBarStyle.ThumbPressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(197)))), ((int)(((byte)(197)))));
-            this.gridDataBoundGrid1.UseListChangedEvent = true;
-            this.gridDataBoundGrid1.UseRightToLeftCompatibleTextBox = true;
+            this.dgvEvents.AllowUserToAddRows = false;
+            this.dgvEvents.AllowUserToDeleteRows = false;
+            this.dgvEvents.AllowUserToOrderColumns = true;
+            this.dgvEvents.AutoGenerateColumns = false;
+            this.dgvEvents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvEvents.BackgroundColor = System.Drawing.Color.White;
+            this.dgvEvents.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvEvents.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvEvents.ColumnHeadersHeight = 35;
+            this.dgvEvents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvEvents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn,
+            this.eventNameDataGridViewTextBoxColumn,
+            this.eventDescriptionDataGridViewTextBoxColumn,
+            this.eventDateDataGridViewTextBoxColumn,
+            this.eventStartingTimeDataGridViewTextBoxColumn,
+            this.eventEndingTimeDataGridViewTextBoxColumn,
+            this.anyoneCanEnterDataGridViewCheckBoxColumn,
+            this.userCanEnterBeforeEventMiDataGridViewTextBoxColumn,
+            this.userCanEnterAfterEventStaDataGridViewTextBoxColumn,
+            this.eventTypeIdDataGridViewTextBoxColumn,
+            this.eventGroupIdDataGridViewTextBoxColumn,
+            this.eventTypeDataGridViewTextBoxColumn,
+            this.eventStartingTimeShortStringDataGridViewTextBoxColumn,
+            this.eventTypeStringDataGridViewTextBoxColumn});
+            this.dgvEvents.DataSource = this.eventBindingSource;
+            this.dgvEvents.Location = new System.Drawing.Point(23, 207);
+            this.dgvEvents.Name = "dgvEvents";
+            this.dgvEvents.ReadOnly = true;
+            this.dgvEvents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvEvents.Size = new System.Drawing.Size(762, 261);
+            this.dgvEvents.TabIndex = 0;
+            this.dgvEvents.DoubleClick += new System.EventHandler(this.dgvEvents_DoubleClick);
             // 
-            // authDataSet
+            // idDataGridViewTextBoxColumn
             // 
-            this.authDataSet.DataSetName = "AuthDataSet";
-            this.authDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Visible = false;
             // 
-            // events1BindingSource
+            // eventNameDataGridViewTextBoxColumn
             // 
-            this.events1BindingSource.DataMember = "Events1";
-            this.events1BindingSource.DataSource = this.authDataSet;
+            this.eventNameDataGridViewTextBoxColumn.DataPropertyName = "EventName";
+            this.eventNameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.eventNameDataGridViewTextBoxColumn.Name = "eventNameDataGridViewTextBoxColumn";
+            this.eventNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.eventNameDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
-            // events1TableAdapter
+            // eventDescriptionDataGridViewTextBoxColumn
             // 
-            this.events1TableAdapter.ClearBeforeFill = true;
+            this.eventDescriptionDataGridViewTextBoxColumn.DataPropertyName = "EventDescription";
+            this.eventDescriptionDataGridViewTextBoxColumn.HeaderText = "EventDescription";
+            this.eventDescriptionDataGridViewTextBoxColumn.Name = "eventDescriptionDataGridViewTextBoxColumn";
+            this.eventDescriptionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.eventDescriptionDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // eventDateDataGridViewTextBoxColumn
+            // 
+            this.eventDateDataGridViewTextBoxColumn.DataPropertyName = "EventDate";
+            this.eventDateDataGridViewTextBoxColumn.HeaderText = "Date";
+            this.eventDateDataGridViewTextBoxColumn.Name = "eventDateDataGridViewTextBoxColumn";
+            this.eventDateDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // eventStartingTimeDataGridViewTextBoxColumn
+            // 
+            this.eventStartingTimeDataGridViewTextBoxColumn.DataPropertyName = "EventStartingTime";
+            this.eventStartingTimeDataGridViewTextBoxColumn.HeaderText = "Starting time";
+            this.eventStartingTimeDataGridViewTextBoxColumn.Name = "eventStartingTimeDataGridViewTextBoxColumn";
+            this.eventStartingTimeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // eventEndingTimeDataGridViewTextBoxColumn
+            // 
+            this.eventEndingTimeDataGridViewTextBoxColumn.DataPropertyName = "EventEndingTime";
+            this.eventEndingTimeDataGridViewTextBoxColumn.HeaderText = "Ending time";
+            this.eventEndingTimeDataGridViewTextBoxColumn.Name = "eventEndingTimeDataGridViewTextBoxColumn";
+            this.eventEndingTimeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // anyoneCanEnterDataGridViewCheckBoxColumn
+            // 
+            this.anyoneCanEnterDataGridViewCheckBoxColumn.DataPropertyName = "AnyoneCanEnter";
+            this.anyoneCanEnterDataGridViewCheckBoxColumn.HeaderText = "AnyoneCanEnter";
+            this.anyoneCanEnterDataGridViewCheckBoxColumn.Name = "anyoneCanEnterDataGridViewCheckBoxColumn";
+            this.anyoneCanEnterDataGridViewCheckBoxColumn.ReadOnly = true;
+            this.anyoneCanEnterDataGridViewCheckBoxColumn.Visible = false;
+            // 
+            // userCanEnterBeforeEventMiDataGridViewTextBoxColumn
+            // 
+            this.userCanEnterBeforeEventMiDataGridViewTextBoxColumn.DataPropertyName = "UserCanEnterBeforeEventMi";
+            this.userCanEnterBeforeEventMiDataGridViewTextBoxColumn.HeaderText = "UserCanEnterBeforeEventMi";
+            this.userCanEnterBeforeEventMiDataGridViewTextBoxColumn.Name = "userCanEnterBeforeEventMiDataGridViewTextBoxColumn";
+            this.userCanEnterBeforeEventMiDataGridViewTextBoxColumn.ReadOnly = true;
+            this.userCanEnterBeforeEventMiDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // userCanEnterAfterEventStaDataGridViewTextBoxColumn
+            // 
+            this.userCanEnterAfterEventStaDataGridViewTextBoxColumn.DataPropertyName = "UserCanEnterAfterEventSta";
+            this.userCanEnterAfterEventStaDataGridViewTextBoxColumn.HeaderText = "UserCanEnterAfterEventSta";
+            this.userCanEnterAfterEventStaDataGridViewTextBoxColumn.Name = "userCanEnterAfterEventStaDataGridViewTextBoxColumn";
+            this.userCanEnterAfterEventStaDataGridViewTextBoxColumn.ReadOnly = true;
+            this.userCanEnterAfterEventStaDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // eventTypeIdDataGridViewTextBoxColumn
+            // 
+            this.eventTypeIdDataGridViewTextBoxColumn.DataPropertyName = "EventTypeId";
+            this.eventTypeIdDataGridViewTextBoxColumn.HeaderText = "EventTypeId";
+            this.eventTypeIdDataGridViewTextBoxColumn.Name = "eventTypeIdDataGridViewTextBoxColumn";
+            this.eventTypeIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.eventTypeIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // eventGroupIdDataGridViewTextBoxColumn
+            // 
+            this.eventGroupIdDataGridViewTextBoxColumn.DataPropertyName = "EventGroupId";
+            this.eventGroupIdDataGridViewTextBoxColumn.HeaderText = "EventGroupId";
+            this.eventGroupIdDataGridViewTextBoxColumn.Name = "eventGroupIdDataGridViewTextBoxColumn";
+            this.eventGroupIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.eventGroupIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // eventTypeDataGridViewTextBoxColumn
+            // 
+            this.eventTypeDataGridViewTextBoxColumn.DataPropertyName = "EventType";
+            this.eventTypeDataGridViewTextBoxColumn.HeaderText = "EventType";
+            this.eventTypeDataGridViewTextBoxColumn.Name = "eventTypeDataGridViewTextBoxColumn";
+            this.eventTypeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.eventTypeDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // eventStartingTimeShortStringDataGridViewTextBoxColumn
+            // 
+            this.eventStartingTimeShortStringDataGridViewTextBoxColumn.DataPropertyName = "EventStartingTimeShortString";
+            this.eventStartingTimeShortStringDataGridViewTextBoxColumn.HeaderText = "EventStartingTimeShortString";
+            this.eventStartingTimeShortStringDataGridViewTextBoxColumn.Name = "eventStartingTimeShortStringDataGridViewTextBoxColumn";
+            this.eventStartingTimeShortStringDataGridViewTextBoxColumn.ReadOnly = true;
+            this.eventStartingTimeShortStringDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // eventTypeStringDataGridViewTextBoxColumn
+            // 
+            this.eventTypeStringDataGridViewTextBoxColumn.DataPropertyName = "EventTypeString";
+            this.eventTypeStringDataGridViewTextBoxColumn.HeaderText = "Type";
+            this.eventTypeStringDataGridViewTextBoxColumn.Name = "eventTypeStringDataGridViewTextBoxColumn";
+            this.eventTypeStringDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // eventBindingSource
+            // 
+            this.eventBindingSource.DataSource = typeof(Model.Event);
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.Location = new System.Drawing.Point(23, 70);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(45, 19);
+            this.metroLabel1.TabIndex = 1;
+            this.metroLabel1.Text = "Name";
+            // 
+            // btnFilter
+            // 
+            this.btnFilter.Location = new System.Drawing.Point(23, 178);
+            this.btnFilter.Name = "btnFilter";
+            this.btnFilter.Size = new System.Drawing.Size(101, 23);
+            this.btnFilter.TabIndex = 2;
+            this.btnFilter.Text = "Filter";
+            // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(23, 92);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(101, 29);
+            this.txtName.TabIndex = 3;
+            // 
+            // dtpDate
+            // 
+            this.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDate.Location = new System.Drawing.Point(23, 152);
+            this.dtpDate.Name = "dtpDate";
+            this.dtpDate.Size = new System.Drawing.Size(101, 20);
+            this.dtpDate.TabIndex = 4;
+            // 
+            // metroLabel2
+            // 
+            this.metroLabel2.AutoSize = true;
+            this.metroLabel2.Location = new System.Drawing.Point(23, 130);
+            this.metroLabel2.Name = "metroLabel2";
+            this.metroLabel2.Size = new System.Drawing.Size(36, 19);
+            this.metroLabel2.TabIndex = 5;
+            this.metroLabel2.Text = "Date";
+            // 
+            // dtpCheckBox
+            // 
+            this.dtpCheckBox.AutoSize = true;
+            this.dtpCheckBox.Location = new System.Drawing.Point(130, 155);
+            this.dtpCheckBox.Name = "dtpCheckBox";
+            this.dtpCheckBox.Size = new System.Drawing.Size(68, 15);
+            this.dtpCheckBox.TabIndex = 6;
+            this.dtpCheckBox.Text = " Enabled";
+            this.dtpCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // cbType
+            // 
+            this.cbType.DropDownWidth = 121;
+            this.cbType.FormattingEnabled = true;
+            this.cbType.ItemHeight = 23;
+            this.cbType.Location = new System.Drawing.Point(130, 92);
+            this.cbType.Name = "cbType";
+            this.cbType.Size = new System.Drawing.Size(121, 29);
+            this.cbType.TabIndex = 7;
+            // 
+            // metroLabel3
+            // 
+            this.metroLabel3.AutoSize = true;
+            this.metroLabel3.Location = new System.Drawing.Point(130, 70);
+            this.metroLabel3.Name = "metroLabel3";
+            this.metroLabel3.Size = new System.Drawing.Size(36, 19);
+            this.metroLabel3.TabIndex = 8;
+            this.metroLabel3.Text = "Type";
+            // 
+            // Room
+            // 
+            this.Room.AutoSize = true;
+            this.Room.Location = new System.Drawing.Point(257, 70);
+            this.Room.Name = "Room";
+            this.Room.Size = new System.Drawing.Size(45, 19);
+            this.Room.TabIndex = 10;
+            this.Room.Text = "Name";
+            // 
+            // cbGroup
+            // 
+            this.cbGroup.DropDownWidth = 121;
+            this.cbGroup.FormattingEnabled = true;
+            this.cbGroup.ItemHeight = 23;
+            this.cbGroup.Location = new System.Drawing.Point(257, 92);
+            this.cbGroup.Name = "cbGroup";
+            this.cbGroup.Size = new System.Drawing.Size(121, 29);
+            this.cbGroup.TabIndex = 9;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(635, 51);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(150, 150);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
             // 
             // frmEventList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(911, 450);
-            this.Controls.Add(this.gridDataBoundGrid1);
+            this.ClientSize = new System.Drawing.Size(808, 480);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.Room);
+            this.Controls.Add(this.cbGroup);
+            this.Controls.Add(this.metroLabel3);
+            this.Controls.Add(this.cbType);
+            this.Controls.Add(this.dtpCheckBox);
+            this.Controls.Add(this.metroLabel2);
+            this.Controls.Add(this.dtpDate);
+            this.Controls.Add(this.txtName);
+            this.Controls.Add(this.btnFilter);
+            this.Controls.Add(this.metroLabel1);
+            this.Controls.Add(this.dgvEvents);
             this.Name = "frmEventList";
-            this.Text = "frmEventList";
+            this.Text = "Events";
             this.Load += new System.EventHandler(this.frmEventList_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.gridDataBoundGrid1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.authDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.events1BindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEvents)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eventBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private Syncfusion.Windows.Forms.Grid.GridDataBoundGrid gridDataBoundGrid1;
-        private AuthDataSet authDataSet;
-        private System.Windows.Forms.BindingSource events1BindingSource;
-        private AuthDataSetTableAdapters.Events1TableAdapter events1TableAdapter;
+        private System.Windows.Forms.DataGridView dgvEvents;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
+        private MetroFramework.Controls.MetroButton btnFilter;
+        private MetroFramework.Controls.MetroTextBox txtName;
+        private System.Windows.Forms.DateTimePicker dtpDate;
+        private MetroFramework.Controls.MetroLabel metroLabel2;
+        private MetroFramework.Controls.MetroCheckBox dtpCheckBox;
+        private MetroFramework.Controls.MetroComboBox cbType;
+        private MetroFramework.Controls.MetroLabel metroLabel3;
+        private MetroFramework.Controls.MetroLabel Room;
+        private MetroFramework.Controls.MetroComboBox cbGroup;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.BindingSource eventBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn eventNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn eventDescriptionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn eventDateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn eventStartingTimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn eventEndingTimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn anyoneCanEnterDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn userCanEnterBeforeEventMiDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn userCanEnterAfterEventStaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn eventTypeIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn eventGroupIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn eventTypeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn eventStartingTimeShortStringDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn eventTypeStringDataGridViewTextBoxColumn;
     }
 }

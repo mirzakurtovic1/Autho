@@ -27,7 +27,9 @@ namespace AuthoAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Model.AuthUser>>> Get([FromQuery]Model.SearchRequest.AuthUserSearchRequest search)
         {
-            var authUsers =  _context.AuthUser.ToList();
+            var authUsers =  _context.AuthUser
+                            .Include(u => u.Role)                     
+                            .ToList();
             #region search
             if (search != null)
             {
@@ -68,21 +70,15 @@ namespace AuthoAPI.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<ActionResult<Model.AuthUser>> Put(int id, Model.AuthUser authUser)
+        public async Task<ActionResult<Model.AuthUser>> Put(int id, Model.InsertRequests.AuthUserInsertRequest insert)
         {
+            Models.AuthUser authUser = _mapper.Map<Models.AuthUser>(insert);
             authUser.Id = id;
 
 
 
             try
             {
-                //var input = _mapper.Map<AuthoAPI.Models.Role>(role);
-                //_context.Entry(input).State = EntityState.Modified;
-                //var result = await _context.Role.FindAsync(id);
-                //await _context.SaveChangesAsync();
-                //return _mapper.Map<Model.Role>(result);
-
-
                 var input = _mapper.Map<AuthoAPI.Models.AuthUser>(authUser);
                 _context.Entry(input).State = EntityState.Modified;
                 var result = await _context.AuthUser.FindAsync(id);
@@ -101,8 +97,6 @@ namespace AuthoAPI.Controllers
                     throw;
                 }
             }
-
-            return NoContent();
         }
 
         private bool AuthUserExists(int id)
@@ -114,10 +108,9 @@ namespace AuthoAPI.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Model.AuthUser>> PostAuthUser(Model.AuthUser authUser)
+        public async Task<ActionResult<Model.AuthUser>> PostAuthUser(Model.AuthUser insert)
         {
-
-            var input = _mapper.Map<AuthoAPI.Models.AuthUser>(authUser);
+            Models.AuthUser input = _mapper.Map<Models.AuthUser>(insert);
 
             _context.AuthUser.Add(input);
             await _context.SaveChangesAsync();

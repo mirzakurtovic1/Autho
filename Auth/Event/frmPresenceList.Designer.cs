@@ -51,9 +51,9 @@
             this.lblEventGroupId = new MetroFramework.Controls.MetroLabel();
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.panelMultipleDates = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.cblDates = new System.Windows.Forms.CheckedListBox();
             this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPresence)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presenceBasicBindingSource)).BeginInit();
             this.panelMultipleDates.SuspendLayout();
@@ -182,7 +182,7 @@
             this.dgvPresence.MultiSelect = false;
             this.dgvPresence.Name = "dgvPresence";
             this.dgvPresence.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPresence.Size = new System.Drawing.Size(557, 188);
+            this.dgvPresence.Size = new System.Drawing.Size(557, 186);
             this.dgvPresence.TabIndex = 15;
             this.dgvPresence.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPresence_CellContentClick);
             this.dgvPresence.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPresence_CellValueChanged);
@@ -258,6 +258,17 @@
             this.panelMultipleDates.TabIndex = 47;
             this.panelMultipleDates.Visible = false;
             // 
+            // label1
+            // 
+            this.label1.AllowDrop = true;
+            this.label1.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(3, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(249, 53);
+            this.label1.TabIndex = 39;
+            this.label1.Text = "Changes to this event will be applied to all selected events(from same event grou" +
+    "p)";
+            // 
             // cblDates
             // 
             this.cblDates.FormattingEnabled = true;
@@ -275,17 +286,6 @@
             this.metroLabel11.TabIndex = 38;
             this.metroLabel11.Text = "Event dates";
             this.metroLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label1
-            // 
-            this.label1.AllowDrop = true;
-            this.label1.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(3, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(249, 53);
-            this.label1.TabIndex = 39;
-            this.label1.Text = "Changes to this event will be applied to all selected events(from same event grou" +
-    "p)";
             // 
             // frmPresenceList
             // 

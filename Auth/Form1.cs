@@ -35,8 +35,8 @@ namespace Auth
         #region calling new forms
         private void btnEvents_Click(object sender, EventArgs e)
         {
-            //var frm = new Event.frmEventList();
-            //frm.Show();
+            var frm = new Event.frmEventList();
+            frm.Show();
         }
         private void btnMinimize_Click(object sender, EventArgs e)
         {
@@ -97,5 +97,10 @@ namespace Auth
         }
         #endregion move form
 
+        private void btnUsers_Click(object sender, EventArgs e)
+        {
+            var frm = new User.frmUserList();
+            frm.Show();
+        }
     }
 }

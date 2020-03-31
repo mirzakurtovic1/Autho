@@ -20,11 +20,12 @@ namespace Auth.Event
         private APIService apiService = new APIService("Event");
         private LoadComboBoxes loadComboBoxes = new LoadComboBoxes();
         QRCodeHelper QRCodeHelper = new QRCodeHelper();
+        Validation validation = new Validation();
         List<DateBasic> dates = new List<DateBasic>();
         private int? userEventId = null;
         #endregion variables
 
-        public frmEvent(int? id = 2)
+        public frmEvent(int? id = null)
         {
             this.userEventId = id;
             InitializeComponent();
@@ -53,62 +54,65 @@ namespace Auth.Event
         }
         private async void btnSumbit_Click(object sender, EventArgs e)
         {
-            //Reading fields from form
-            var newEvent = readFields();
-            //If event exists we update it
-            if (userEventId != null)
+            if (this.ValidateChildren())
             {
-                //We update every event which has same group
-                var search = new EventSearchRequest() {EventGroupId = newEvent.EventGroupId};
-                var events = await apiService.Get<List<Model.Event>>(search);
-                if (events.Count > 0)
+                //Reading fields from form
+                var newEvent = readFields();
+                //If event exists we update it
+                if (userEventId != null)
                 {
-                    foreach (var x in events)
-                    {
-                        newEvent.EventDate = x.EventDate;
-                        await apiService.Update<Model.Event>(x.Id, newEvent);
-                    }
-                }
-                else
-                {
-                    //If there is only one event.
-                    await apiService.Update<Model.Event>(userEventId, newEvent);
-                }
-
-
-            }
-            else
-            {
-                var unique = false;
-                var eventGroupCode = "";
-                while (unique != true)
-                {
-                    eventGroupCode = QRCodeHelper.GenerateRandomString(32);
-                    var search = new EventSearchRequest() { EventGroupId = eventGroupCode };
+                    //We update every event which has same group
+                    var search = new EventSearchRequest() { EventGroupId = newEvent.EventGroupId };
                     var events = await apiService.Get<List<Model.Event>>(search);
-                    if (events.Count == 0) unique = true;
-                }
-                //if there are multiple events.
-                if (dates.Count > 0)
-                {
-                    foreach (var date in dates)
+                    if (events.Count > 0)
                     {
-                        newEvent.EventDate = date.Date;
-                        newEvent.EventGroupId = eventGroupCode;
-                         await apiService.Insert<Model.Event>(newEvent);
+                        foreach (var x in events)
+                        {
+                            newEvent.EventDate = x.EventDate;
+                            await apiService.Update<Model.Event>(x.Id, newEvent);
+                        }
                     }
+                    else
+                    {
+                        //If there is only one event.
+                        await apiService.Update<Model.Event>(userEventId, newEvent);
+                    }
+
+
                 }
                 else
                 {
-                    //If there is only one event.
-                    newEvent.EventGroupId = eventGroupCode;
-                    await apiService.Insert<Model.Event>(newEvent);
+                    var unique = false;
+                    var eventGroupCode = "";
+                    while (unique != true)
+                    {
+                        eventGroupCode = QRCodeHelper.GenerateRandomString(32);
+                        var search = new EventSearchRequest() { EventGroupId = eventGroupCode };
+                        var events = await apiService.Get<List<Model.Event>>(search);
+                        if (events.Count == 0) unique = true;
+                    }
+                    //if there are multiple events.
+                    if (dates.Count > 0)
+                    {
+                        foreach (var date in dates)
+                        {
+                            newEvent.EventDate = date.Date;
+                            newEvent.EventGroupId = eventGroupCode;
+                            await apiService.Insert<Model.Event>(newEvent);
+                        }
+                    }
+                    else
+                    {
+                        //If there is only one event.
+                        newEvent.EventGroupId = eventGroupCode;
+                        await apiService.Insert<Model.Event>(newEvent);
+                    }
+
+
                 }
-
-
+                //message and erro catch needed...
+                this.Close();
             }
-            //message and erro catch needed...
-            this.Close();
         }
         private void btnStartEvent_Click(object sender, EventArgs e)
         {
@@ -148,9 +152,9 @@ namespace Auth.Event
             {
                 EventName = txtName.Text,
                 EventDescription = txtDescription.Text,
-                EventDate = dtpDate.Value,
-                EventStartingTime = dtpStartingTime.Value,
-                EventEndingTime = dtpEndingTime.Value,
+                //EventDate = dtpDate.Value,
+                //EventStartingTime = dtpStartingTime.Value,
+                //EventEndingTime = dtpEndingTime.Value,
                 AnyoneCanEnter = cbEveryoneCanEnter.Checked,
                 UserCanEnterBeforeEventMi = (int)numUserCanEnterBefore.Value,
                 UserCanEnterAfterEventSta = (int)numUserCanEnterAfter.Value,
@@ -158,6 +162,11 @@ namespace Auth.Event
                 EventTypeId = (int)cbEventType.SelectedValue,
                 EventGroupId = lblEventGroupId.Text.ToString()
             };
+            newEvent.EventDate = new DateTime(dtpDate.Value.Year, dtpDate.Value.Month, dtpDate.Value.Day, 0, 0, 0);
+            newEvent.EventStartingTime = new DateTime(dtpDate.Value.Year, dtpDate.Value.Month, dtpDate.Value.Day, dtpStartingTime.Value.Hour, dtpStartingTime.Value.Minute, 0, 0);
+            newEvent.EventEndingTime = new DateTime(dtpDate.Value.Year, dtpDate.Value.Month, dtpDate.Value.Day, dtpEndingTime.Value.Hour, dtpEndingTime.Value.Minute, 0, 0);
+
+
 
             return newEvent;
         }
@@ -273,6 +282,93 @@ namespace Auth.Event
         {
 
         }
-            #endregion delete
+        #endregion delete
+
+        #region validation
+        private void txtName_Validating(object sender, CancelEventArgs e)
+        {
+            if (validation.Required(sender, e, errorProvider1))
+                    validation.MinMaxLength(sender, e, errorProvider1, 2, 64);
+        }
+        #endregion validation
+
+
+
+        private void dtpStartingTime_Validating(object sender, CancelEventArgs e)
+        {
+            DateTime startingTime = new DateTime(dtpDate.Value.Year, dtpDate.Value.Month, dtpDate.Value.Day, dtpStartingTime.Value.Hour, dtpStartingTime.Value.Minute, 0,0);
+            DateTime endingTime = new DateTime(dtpDate.Value.Year, dtpDate.Value.Month, dtpDate.Value.Day, dtpEndingTime.Value.Hour, dtpEndingTime.Value.Minute, 0,0);
+
+            //Checking if starting time is smaller than ending time
+            if (startingTime >= endingTime)
+            {
+                e.Cancel = true;
+                errorProvider1.SetError(dtpStartingTime, "Starting time cant't be bigger than ending time!");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(dtpStartingTime, null);
+            }
+        }
+        private async void dtpEndingTime_Validating(object sender, CancelEventArgs e)
+        {
+            var multipleEvents = cbCreateMultipleEvents.Checked;
+            List<Model.Event> list = null;
+            DateTime eventDate = new DateTime(dtpDate.Value.Year, dtpDate.Value.Month, dtpDate.Value.Day, 0, 0, 0, 0);
+            DateTime startingTime = new DateTime(eventDate.Year, eventDate.Month, eventDate.Day,dtpStartingTime.Value.Hour, dtpStartingTime.Value.Minute, 0,0);
+            DateTime endingTime = new DateTime(eventDate.Year, eventDate.Month, eventDate.Day, dtpEndingTime.Value.Hour, dtpEndingTime.Value.Minute, 0,0);
+            
+            //Checking if starting time is smaller than ending time
+            if (startingTime >= endingTime)
+            {
+                e.Cancel = true;
+                errorProvider1.SetError(dtpEndingTime, "Ending time can't be smaller than starting time!");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(dtpEndingTime, null);
+            }
+
+            //Checking if there is allready event on current date and time
+            if (multipleEvents == false)
+            {
+
+                list = await isEventDateUnique(eventDate, startingTime, endingTime);
+                if (list.Count > 0)
+                {
+                    e.Cancel = true;
+                    errorProvider1.SetError(dtpEndingTime, "An event in a given time period("+list[0].EventStartingTime.ToString("hh:mm") +" - "+ list[0].EventEndingTime.ToString("hh:mm") + ")already exists!");
+                }
+            }
+            else
+            { 
+            //check for all events??!!!
+            }
+        }
+
+
+        private async Task<List<Model.Event>> isEventDateUnique(DateTime eventDate, DateTime startingTime, DateTime endingTime)
+        {
+            //Checking if there is allready event on current date and time
+            List<Model.Event> list = new List<Model.Event>();
+
+            var search = new EventSearchRequest()
+            {
+
+                EventDate = eventDate,
+                EventStartingTime = startingTime,
+                EventEndingTime = endingTime
+            };
+            list = await apiService.Get<List<Model.Event>>(search);
+            return list;
+        }
+
+        private void btnViewAttendees_Click(object sender, EventArgs e)
+        {
+            var frm = new frmPresenceList((int)userEventId);
+            frm.Show();
+        }
     }
 }

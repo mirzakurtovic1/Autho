@@ -41,23 +41,29 @@ namespace Auth
             combo.ValueMember = "Id";
             combo.DropDownStyle = ComboBoxStyle.DropDownList;
         }
-        public async void loadRoles(object sender)
+        public async void loadRoles(object sender,bool addAll = true)
         {
             var combo = (ComboBox)sender;
             var data = await apiservice_role.Get<List<Model.Role>>(null);
-            Model.Role role = new Model.Role() { Id = 0, Name = "All roles" };
-            data.Insert(0, role);
+            if (addAll == true)
+            {
+                Model.Role role = new Model.Role() { Id = 0, Name = "All roles" };
+                data.Insert(0, role);
+            }
             combo.DataSource = data;
             combo.DisplayMember = "Name";
             combo.ValueMember = "Id";
             combo.DropDownStyle = ComboBoxStyle.DropDownList;
         }
-        public async void loadGroups(object sender)
+        public async void loadGroups(object sender,bool addAll = true)
         {
             var combo = (ComboBox)sender;
             var data = await apiservice_group.Get<List<Model.UserGroup>>(null);
-            Model.UserGroup group = new Model.UserGroup() { Id = 0, Name = "All groups" };
-            data.Insert(0, group);
+            if (addAll == true)
+            {
+                Model.UserGroup group = new Model.UserGroup() { Id = 0, Name = "All groups" };
+                data.Insert(0, group);
+            }
             combo.DataSource = data;
             combo.DisplayMember = "Name";
             combo.ValueMember = "Id";
