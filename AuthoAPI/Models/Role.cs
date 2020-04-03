@@ -8,7 +8,6 @@ namespace AuthoAPI.Models
         public Role()
         {
             AuthUser = new HashSet<AuthUser>();
-            RoleEnterance = new HashSet<RoleEnterance>();
         }
 
         public int Id { get; set; }
@@ -17,6 +16,5 @@ namespace AuthoAPI.Models
         public bool? CanAttendEvent { get; set; }
 
         public virtual ICollection<AuthUser> AuthUser { get; set; }
-        public virtual ICollection<RoleEnterance> RoleEnterance { get; set; }
     }
 }

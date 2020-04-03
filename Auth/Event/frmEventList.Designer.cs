@@ -54,9 +54,9 @@
             this.dtpCheckBox = new MetroFramework.Controls.MetroCheckBox();
             this.cbType = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
-            this.Room = new MetroFramework.Controls.MetroLabel();
-            this.cbGroup = new MetroFramework.Controls.MetroComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnNewEvent = new MetroFramework.Controls.MetroButton();
+            this.cbOnlyFuture = new MetroFramework.Controls.MetroCheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.eventBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -90,11 +90,11 @@
             this.eventStartingTimeShortStringDataGridViewTextBoxColumn,
             this.eventTypeStringDataGridViewTextBoxColumn});
             this.dgvEvents.DataSource = this.eventBindingSource;
-            this.dgvEvents.Location = new System.Drawing.Point(23, 207);
+            this.dgvEvents.Location = new System.Drawing.Point(23, 222);
             this.dgvEvents.Name = "dgvEvents";
             this.dgvEvents.ReadOnly = true;
             this.dgvEvents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEvents.Size = new System.Drawing.Size(762, 261);
+            this.dgvEvents.Size = new System.Drawing.Size(762, 304);
             this.dgvEvents.TabIndex = 0;
             this.dgvEvents.DoubleClick += new System.EventHandler(this.dgvEvents_DoubleClick);
             // 
@@ -221,23 +221,24 @@
             // 
             // btnFilter
             // 
-            this.btnFilter.Location = new System.Drawing.Point(23, 178);
+            this.btnFilter.Location = new System.Drawing.Point(23, 193);
             this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(101, 23);
+            this.btnFilter.Size = new System.Drawing.Size(143, 23);
             this.btnFilter.TabIndex = 2;
-            this.btnFilter.Text = "Filter";
+            this.btnFilter.Text = "Refresh";
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
             // 
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(23, 92);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(101, 29);
+            this.txtName.Size = new System.Drawing.Size(121, 29);
             this.txtName.TabIndex = 3;
             // 
             // dtpDate
             // 
             this.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDate.Location = new System.Drawing.Point(23, 152);
+            this.dtpDate.Location = new System.Drawing.Point(23, 145);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(101, 20);
             this.dtpDate.TabIndex = 4;
@@ -245,7 +246,7 @@
             // metroLabel2
             // 
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(23, 130);
+            this.metroLabel2.Location = new System.Drawing.Point(23, 123);
             this.metroLabel2.Name = "metroLabel2";
             this.metroLabel2.Size = new System.Drawing.Size(36, 19);
             this.metroLabel2.TabIndex = 5;
@@ -254,19 +255,20 @@
             // dtpCheckBox
             // 
             this.dtpCheckBox.AutoSize = true;
-            this.dtpCheckBox.Location = new System.Drawing.Point(130, 155);
+            this.dtpCheckBox.Location = new System.Drawing.Point(130, 148);
             this.dtpCheckBox.Name = "dtpCheckBox";
             this.dtpCheckBox.Size = new System.Drawing.Size(68, 15);
             this.dtpCheckBox.TabIndex = 6;
             this.dtpCheckBox.Text = " Enabled";
             this.dtpCheckBox.UseVisualStyleBackColor = true;
+            this.dtpCheckBox.CheckedChanged += new System.EventHandler(this.dtpCheckBox_CheckedChanged);
             // 
             // cbType
             // 
             this.cbType.DropDownWidth = 121;
             this.cbType.FormattingEnabled = true;
             this.cbType.ItemHeight = 23;
-            this.cbType.Location = new System.Drawing.Point(130, 92);
+            this.cbType.Location = new System.Drawing.Point(150, 92);
             this.cbType.Name = "cbType";
             this.cbType.Size = new System.Drawing.Size(121, 29);
             this.cbType.TabIndex = 7;
@@ -274,49 +276,52 @@
             // metroLabel3
             // 
             this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(130, 70);
+            this.metroLabel3.Location = new System.Drawing.Point(150, 70);
             this.metroLabel3.Name = "metroLabel3";
             this.metroLabel3.Size = new System.Drawing.Size(36, 19);
             this.metroLabel3.TabIndex = 8;
             this.metroLabel3.Text = "Type";
             // 
-            // Room
-            // 
-            this.Room.AutoSize = true;
-            this.Room.Location = new System.Drawing.Point(257, 70);
-            this.Room.Name = "Room";
-            this.Room.Size = new System.Drawing.Size(45, 19);
-            this.Room.TabIndex = 10;
-            this.Room.Text = "Name";
-            // 
-            // cbGroup
-            // 
-            this.cbGroup.DropDownWidth = 121;
-            this.cbGroup.FormattingEnabled = true;
-            this.cbGroup.ItemHeight = 23;
-            this.cbGroup.Location = new System.Drawing.Point(257, 92);
-            this.cbGroup.Name = "cbGroup";
-            this.cbGroup.Size = new System.Drawing.Size(121, 29);
-            this.cbGroup.TabIndex = 9;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(635, 51);
+            this.pictureBox1.Location = new System.Drawing.Point(642, 49);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(150, 150);
+            this.pictureBox1.Size = new System.Drawing.Size(143, 139);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 11;
             this.pictureBox1.TabStop = false;
+            // 
+            // btnNewEvent
+            // 
+            this.btnNewEvent.Location = new System.Drawing.Point(642, 193);
+            this.btnNewEvent.Name = "btnNewEvent";
+            this.btnNewEvent.Size = new System.Drawing.Size(143, 23);
+            this.btnNewEvent.Style = MetroFramework.MetroColorStyle.Green;
+            this.btnNewEvent.TabIndex = 12;
+            this.btnNewEvent.Text = "Add new event";
+            this.btnNewEvent.Click += new System.EventHandler(this.btnNewEvent_Click);
+            // 
+            // cbOnlyFuture
+            // 
+            this.cbOnlyFuture.AutoSize = true;
+            this.cbOnlyFuture.Checked = true;
+            this.cbOnlyFuture.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbOnlyFuture.Location = new System.Drawing.Point(23, 173);
+            this.cbOnlyFuture.Name = "cbOnlyFuture";
+            this.cbOnlyFuture.Size = new System.Drawing.Size(150, 15);
+            this.cbOnlyFuture.TabIndex = 13;
+            this.cbOnlyFuture.Text = "Show only future events";
+            this.cbOnlyFuture.UseVisualStyleBackColor = true;
             // 
             // frmEventList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(808, 480);
+            this.ClientSize = new System.Drawing.Size(808, 539);
+            this.Controls.Add(this.cbOnlyFuture);
+            this.Controls.Add(this.btnNewEvent);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.Room);
-            this.Controls.Add(this.cbGroup);
             this.Controls.Add(this.metroLabel3);
             this.Controls.Add(this.cbType);
             this.Controls.Add(this.dtpCheckBox);
@@ -348,8 +353,6 @@
         private MetroFramework.Controls.MetroCheckBox dtpCheckBox;
         private MetroFramework.Controls.MetroComboBox cbType;
         private MetroFramework.Controls.MetroLabel metroLabel3;
-        private MetroFramework.Controls.MetroLabel Room;
-        private MetroFramework.Controls.MetroComboBox cbGroup;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.BindingSource eventBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
@@ -366,5 +369,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn eventTypeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn eventStartingTimeShortStringDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn eventTypeStringDataGridViewTextBoxColumn;
+        private MetroFramework.Controls.MetroButton btnNewEvent;
+        private MetroFramework.Controls.MetroCheckBox cbOnlyFuture;
     }
 }

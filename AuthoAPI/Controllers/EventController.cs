@@ -36,21 +36,22 @@ namespace AuthoAPI.Controllers
             //Search request
             if (search != null)
             {
+                if (search.EventName != null)
+                    list = list.Where(e => e.EventName.ToLower().StartsWith(search.EventName.ToLower())).ToList();
+                if (search.EventMasterId != null)
+                    list = list.Where(e => e.EventMasterId == search.EventMasterId).ToList();
                 if (search.EventDate != null)
                 {
                     DateTime temp = (DateTime)search.EventDate;
                     search.EventDate = new DateTime(temp.Year, temp.Month, temp.Day, 0, 0, 0, 0);
-                
                 }
                 if (search.EventGroupId != null)
                     list = list.Where(e => e.EventGroupId == search.EventGroupId).ToList();
                 if (search.EventDate != null)
                     list = list.Where(e => e.EventDate == search.EventDate).ToList();
-
                 //searching for specifi time
                 if (search.EventStartingTime != null && search.EventEndingTime != null)
                 {
-                    //
                     var list1 = list.Where(e => e.EventStartingTime <= search.EventStartingTime && e.EventEndingTime <= search.EventEndingTime).ToList(); //  x event x
                     var list2 = list.Where(e => e.EventStartingTime >= search.EventStartingTime && e.EventEndingTime >= search.EventEndingTime).ToList();// event x event
                     var list3 = list.Where(e => e.EventStartingTime <= search.EventStartingTime && e.EventStartingTime <= search.EventEndingTime).ToList();// x event_start x
@@ -67,7 +68,9 @@ namespace AuthoAPI.Controllers
                                 .ToList();
                     return _mapper.Map<List<Model.Event>>(finalList);
                 }
-
+                if (search.showOnlyFutureEvents == true)
+                    list = list.Where(e => e.EventDate >= DateTime.Now).ToList();
+                //searching for specific event creator
             }
 
             return _mapper.Map<List<Model.Event>>(list);

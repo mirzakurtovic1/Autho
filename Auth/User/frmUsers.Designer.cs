@@ -193,7 +193,6 @@
             this.txtImageSource.ReadOnly = true;
             this.txtImageSource.Size = new System.Drawing.Size(128, 23);
             this.txtImageSource.TabIndex = 15;
-            this.txtImageSource.Click += new System.EventHandler(this.metroTextBox1_Click);
             this.txtImageSource.Validating += new System.ComponentModel.CancelEventHandler(this.txtImageSource_Validating);
             // 
             // btnUploadImage
@@ -239,7 +238,6 @@
             this.btnGeneratePassword.Size = new System.Drawing.Size(113, 23);
             this.btnGeneratePassword.TabIndex = 24;
             this.btnGeneratePassword.Text = "generate password";
-            this.btnGeneratePassword.Click += new System.EventHandler(this.btnGeneratePassword_Click);
             // 
             // openFileDialog1
             // 
@@ -252,9 +250,9 @@
             // pbQrCode
             // 
             this.pbQrCode.Image = ((System.Drawing.Image)(resources.GetObject("pbQrCode.Image")));
-            this.pbQrCode.Location = new System.Drawing.Point(395, 84);
+            this.pbQrCode.Location = new System.Drawing.Point(366, 63);
             this.pbQrCode.Name = "pbQrCode";
-            this.pbQrCode.Size = new System.Drawing.Size(231, 218);
+            this.pbQrCode.Size = new System.Drawing.Size(170, 170);
             this.pbQrCode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbQrCode.TabIndex = 25;
             this.pbQrCode.TabStop = false;
@@ -262,7 +260,7 @@
             // metroLabel7
             // 
             this.metroLabel7.AutoSize = true;
-            this.metroLabel7.Location = new System.Drawing.Point(402, 305);
+            this.metroLabel7.Location = new System.Drawing.Point(388, 214);
             this.metroLabel7.Name = "metroLabel7";
             this.metroLabel7.Size = new System.Drawing.Size(55, 19);
             this.metroLabel7.TabIndex = 26;
@@ -273,7 +271,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.ClientSize = new System.Drawing.Size(797, 565);
+            this.ClientSize = new System.Drawing.Size(559, 434);
             this.Controls.Add(this.metroLabel7);
             this.Controls.Add(this.pbQrCode);
             this.Controls.Add(this.btnGeneratePassword);

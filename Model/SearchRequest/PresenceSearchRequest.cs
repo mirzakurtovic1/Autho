@@ -8,8 +8,10 @@ namespace Model.SearchRequest
     {
         public bool? hasNotes { get; set; }
         public int? UserId { get; set; }
-    public int? EventId { get; set; }
-    public bool? FaceRecognized { get; set; }
+        public int? EventId { get; set; }
+        public bool? FaceRecognized { get; set; }
         public bool? FaceDetected { get; set; }
+        public int? EventMasterId { get; set; }
+
     }
 }

@@ -45,8 +45,6 @@
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.btnFilter = new MetroFramework.Controls.MetroButton();
             this.dgvPresence = new System.Windows.Forms.DataGridView();
-            this.presenceAdvencedBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.presenceIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,6 +60,8 @@
             this.scannedFaceDataGridViewImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
             this.trainingData = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.userImageFaceId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.presenceAdvencedBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPresence)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presenceAdvencedBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -226,22 +226,6 @@
             this.dgvPresence.TabIndex = 60;
             this.dgvPresence.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPresence_CellValueChanged);
             // 
-            // presenceAdvencedBindingSource
-            // 
-            this.presenceAdvencedBindingSource.DataSource = typeof(Model.PresenceAdvenced);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(839, 87);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(200, 200);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 61;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
@@ -343,6 +327,22 @@
             // 
             this.userImageFaceId.HeaderText = "userImageFaceId";
             this.userImageFaceId.Name = "userImageFaceId";
+            // 
+            // presenceAdvencedBindingSource
+            // 
+            this.presenceAdvencedBindingSource.DataSource = typeof(Model.PresenceAdvenced);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(839, 87);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(200, 200);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 61;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // frmPresenceFinal
             // 

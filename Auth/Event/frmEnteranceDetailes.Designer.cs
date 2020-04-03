@@ -35,6 +35,9 @@
             this.cbActive = new System.Windows.Forms.CheckBox();
             this.txtName = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.dgvUsers = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
             // 
             // metroButton2
@@ -96,11 +99,39 @@
             this.metroLabel1.TabIndex = 11;
             this.metroLabel1.Text = "Name";
             // 
+            // dgvUsers
+            // 
+            this.dgvUsers.AllowUserToAddRows = false;
+            this.dgvUsers.AllowUserToDeleteRows = false;
+            this.dgvUsers.AllowUserToOrderColumns = true;
+            this.dgvUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvUsers.BackgroundColor = System.Drawing.Color.White;
+            this.dgvUsers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvUsers.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvUsers.ColumnHeadersHeight = 35;
+            this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvUsers.Location = new System.Drawing.Point(23, 276);
+            this.dgvUsers.Name = "dgvUsers";
+            this.dgvUsers.ReadOnly = true;
+            this.dgvUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvUsers.Size = new System.Drawing.Size(445, 211);
+            this.dgvUsers.TabIndex = 19;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Gray;
+            this.panel1.Location = new System.Drawing.Point(24, 268);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(444, 2);
+            this.panel1.TabIndex = 20;
+            // 
             // frmEnteranceDetailes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(299, 274);
+            this.ClientSize = new System.Drawing.Size(493, 502);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.dgvUsers);
             this.Controls.Add(this.metroButton2);
             this.Controls.Add(this.metroButton1);
             this.Controls.Add(this.txtDescription);
@@ -109,8 +140,9 @@
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.metroLabel1);
             this.Name = "frmEnteranceDetailes";
-            this.Text = "Enterance detailes";
+            this.Text = "Room detailes";
             this.Load += new System.EventHandler(this.frmEnteranceDetailes_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,5 +156,7 @@
         private System.Windows.Forms.CheckBox cbActive;
         private MetroFramework.Controls.MetroTextBox txtName;
         private MetroFramework.Controls.MetroLabel metroLabel1;
+        private System.Windows.Forms.DataGridView dgvUsers;
+        private System.Windows.Forms.Panel panel1;
     }
 }

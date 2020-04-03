@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -39,6 +36,9 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.sidePanel = new System.Windows.Forms.Panel();
             this.lblUserName = new System.Windows.Forms.Label();
             this.pbUserImage = new System.Windows.Forms.PictureBox();
@@ -54,23 +54,21 @@
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartEventsWeek = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
-            this.metroComboBox1 = new MetroFramework.Controls.MetroComboBox();
+            this.cbSearch = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
-            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartPresence = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
+            this.charEventTypes = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.sidePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartEventsWeek)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartPresence)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.charEventTypes)).BeginInit();
             this.SuspendLayout();
             // 
             // sidePanel
@@ -170,6 +168,7 @@
             this.btnEnterances.TabIndex = 7;
             this.btnEnterances.Text = "Enterances";
             this.btnEnterances.UseVisualStyleBackColor = false;
+            this.btnEnterances.Click += new System.EventHandler(this.btnEnterances_Click);
             // 
             // btnEventTypes
             // 
@@ -184,6 +183,7 @@
             this.btnEventTypes.TabIndex = 6;
             this.btnEventTypes.Text = "Event types";
             this.btnEventTypes.UseVisualStyleBackColor = false;
+            this.btnEventTypes.Click += new System.EventHandler(this.btnEventTypes_Click);
             // 
             // btnEvents
             // 
@@ -213,6 +213,7 @@
             this.btnRoles.TabIndex = 4;
             this.btnRoles.Text = "Roles";
             this.btnRoles.UseVisualStyleBackColor = false;
+            this.btnRoles.Click += new System.EventHandler(this.btnRoles_Click);
             // 
             // btnUsers
             // 
@@ -265,78 +266,54 @@
             this.metroLabel3.TabIndex = 5;
             this.metroLabel3.Text = "5";
             // 
-            // chart1
-            // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
-            this.chart1.Location = new System.Drawing.Point(751, 124);
-            this.chart1.Name = "chart1";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chart1.Series.Add(series4);
-            this.chart1.Size = new System.Drawing.Size(231, 195);
-            this.chart1.TabIndex = 6;
-            this.chart1.Text = "chart1";
-            // 
-            // chart2
+            // chartEventsWeek
             // 
             chartArea4.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea4);
+            this.chartEventsWeek.ChartAreas.Add(chartArea4);
             legend4.Name = "Legend1";
-            this.chart2.Legends.Add(legend4);
-            this.chart2.Location = new System.Drawing.Point(200, 119);
-            this.chart2.Name = "chart2";
+            this.chartEventsWeek.Legends.Add(legend4);
+            this.chartEventsWeek.Location = new System.Drawing.Point(206, 413);
+            this.chartEventsWeek.Name = "chartEventsWeek";
+            this.chartEventsWeek.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             series5.ChartArea = "ChartArea1";
             series5.Legend = "Legend1";
-            series5.Name = "Number of events";
+            series5.Name = "Events";
             series6.ChartArea = "ChartArea1";
             series6.Legend = "Legend1";
-            series6.Name = "number of attendees";
-            this.chart2.Series.Add(series5);
-            this.chart2.Series.Add(series6);
-            this.chart2.Size = new System.Drawing.Size(545, 205);
-            this.chart2.TabIndex = 7;
-            this.chart2.Text = "chart2";
+            series6.Name = "Attendes";
+            this.chartEventsWeek.Series.Add(series5);
+            this.chartEventsWeek.Series.Add(series6);
+            this.chartEventsWeek.Size = new System.Drawing.Size(786, 221);
+            this.chartEventsWeek.TabIndex = 7;
+            this.chartEventsWeek.Text = "chart2";
+            this.chartEventsWeek.Click += new System.EventHandler(this.chartEventsWeek_Click);
             // 
             // metroLabel4
             // 
             this.metroLabel4.AutoSize = true;
             this.metroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.metroLabel4.Location = new System.Drawing.Point(230, 97);
+            this.metroLabel4.Location = new System.Drawing.Point(236, 391);
             this.metroLabel4.Name = "metroLabel4";
             this.metroLabel4.Size = new System.Drawing.Size(190, 19);
             this.metroLabel4.TabIndex = 8;
             this.metroLabel4.Text = "events sorted by weekdays";
             // 
-            // metroLabel5
+            // cbSearch
             // 
-            this.metroLabel5.AutoSize = true;
-            this.metroLabel5.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.metroLabel5.Location = new System.Drawing.Point(751, 97);
-            this.metroLabel5.Name = "metroLabel5";
-            this.metroLabel5.Size = new System.Drawing.Size(154, 19);
-            this.metroLabel5.TabIndex = 9;
-            this.metroLabel5.Text = "events sorted by type";
-            // 
-            // metroComboBox1
-            // 
-            this.metroComboBox1.FormattingEnabled = true;
-            this.metroComboBox1.ItemHeight = 23;
-            this.metroComboBox1.Items.AddRange(new object[] {
+            this.cbSearch.FormattingEnabled = true;
+            this.cbSearch.ItemHeight = 23;
+            this.cbSearch.Items.AddRange(new object[] {
             "All upcoming days",
             "Upcoming 1 day",
             "Upcoming 3 days",
             "Upcoming 7 days",
             "Upcoming 30 days",
             "Upcoming 60 days"});
-            this.metroComboBox1.Location = new System.Drawing.Point(230, 65);
-            this.metroComboBox1.Name = "metroComboBox1";
-            this.metroComboBox1.Size = new System.Drawing.Size(134, 29);
-            this.metroComboBox1.TabIndex = 10;
+            this.cbSearch.Location = new System.Drawing.Point(230, 65);
+            this.cbSearch.Name = "cbSearch";
+            this.cbSearch.Size = new System.Drawing.Size(173, 29);
+            this.cbSearch.TabIndex = 10;
+            this.cbSearch.SelectedValueChanged += new System.EventHandler(this.cbSearch_SelectedValueChanged);
             // 
             // metroLabel6
             // 
@@ -347,16 +324,6 @@
             this.metroLabel6.TabIndex = 11;
             this.metroLabel6.Text = "Show events in";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(813, 416);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(360, 360);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 16;
-            this.pictureBox1.TabStop = false;
-            // 
             // btnMinimize
             // 
             this.btnMinimize.BackColor = System.Drawing.Color.White;
@@ -364,7 +331,7 @@
             this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMinimize.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnMinimize.ForeColor = System.Drawing.Color.Black;
-            this.btnMinimize.Location = new System.Drawing.Point(962, 12);
+            this.btnMinimize.Location = new System.Drawing.Point(957, 12);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(35, 35);
             this.btnMinimize.TabIndex = 18;
@@ -379,7 +346,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnClose.ForeColor = System.Drawing.Color.Black;
-            this.btnClose.Location = new System.Drawing.Point(1003, 12);
+            this.btnClose.Location = new System.Drawing.Point(998, 12);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(35, 35);
             this.btnClose.TabIndex = 17;
@@ -391,46 +358,75 @@
             // 
             this.metroLabel7.AutoSize = true;
             this.metroLabel7.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.metroLabel7.Location = new System.Drawing.Point(230, 356);
+            this.metroLabel7.Location = new System.Drawing.Point(230, 101);
             this.metroLabel7.Name = "metroLabel7";
             this.metroLabel7.Size = new System.Drawing.Size(101, 19);
-            this.metroLabel7.TabIndex = 20;
+            this.metroLabel7.TabIndex = 24;
             this.metroLabel7.Text = "user presence";
             // 
-            // chart3
+            // chartPresence
             // 
             chartArea5.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea5);
+            this.chartPresence.ChartAreas.Add(chartArea5);
             legend5.Name = "Legend1";
-            this.chart3.Legends.Add(legend5);
-            this.chart3.Location = new System.Drawing.Point(230, 383);
-            this.chart3.Name = "chart3";
+            this.chartPresence.Legends.Add(legend5);
+            this.chartPresence.Location = new System.Drawing.Point(230, 128);
+            this.chartPresence.Name = "chartPresence";
+            this.chartPresence.PaletteCustomColors = new System.Drawing.Color[] {
+        System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(145)))), ((int)(((byte)(82))))),
+        System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))))};
             series7.ChartArea = "ChartArea1";
             series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
             series7.Legend = "Legend1";
-            series7.Name = "Series1";
-            this.chart3.Series.Add(series7);
-            this.chart3.Size = new System.Drawing.Size(231, 195);
-            this.chart3.TabIndex = 19;
-            this.chart3.Text = "chart3";
+            series7.Name = "s1";
+            this.chartPresence.Series.Add(series7);
+            this.chartPresence.Size = new System.Drawing.Size(381, 220);
+            this.chartPresence.TabIndex = 23;
+            this.chartPresence.Text = "chart3";
+            // 
+            // metroLabel5
+            // 
+            this.metroLabel5.AutoSize = true;
+            this.metroLabel5.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel5.Location = new System.Drawing.Point(617, 101);
+            this.metroLabel5.Name = "metroLabel5";
+            this.metroLabel5.Size = new System.Drawing.Size(154, 19);
+            this.metroLabel5.TabIndex = 22;
+            this.metroLabel5.Text = "events sorted by type";
+            // 
+            // charEventTypes
+            // 
+            chartArea6.Name = "ChartArea1";
+            this.charEventTypes.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.charEventTypes.Legends.Add(legend6);
+            this.charEventTypes.Location = new System.Drawing.Point(617, 128);
+            this.charEventTypes.Name = "charEventTypes";
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series8.Legend = "Legend1";
+            series8.Name = "s1";
+            this.charEventTypes.Series.Add(series8);
+            this.charEventTypes.Size = new System.Drawing.Size(407, 220);
+            this.charEventTypes.TabIndex = 21;
+            this.charEventTypes.Text = "chart1";
             // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1050, 646);
+            this.ClientSize = new System.Drawing.Size(1036, 646);
             this.Controls.Add(this.metroLabel7);
-            this.Controls.Add(this.chart3);
+            this.Controls.Add(this.chartPresence);
+            this.Controls.Add(this.metroLabel5);
+            this.Controls.Add(this.charEventTypes);
             this.Controls.Add(this.btnMinimize);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.metroLabel6);
-            this.Controls.Add(this.metroComboBox1);
-            this.Controls.Add(this.metroLabel5);
+            this.Controls.Add(this.cbSearch);
             this.Controls.Add(this.metroLabel4);
-            this.Controls.Add(this.chart2);
-            this.Controls.Add(this.chart1);
+            this.Controls.Add(this.chartEventsWeek);
             this.Controls.Add(this.Events);
             this.Controls.Add(this.metroLabel3);
             this.Controls.Add(this.metroLabel1);
@@ -444,10 +440,9 @@
             this.sidePanel.ResumeLayout(false);
             this.sidePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartEventsWeek)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartPresence)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.charEventTypes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -470,17 +465,16 @@
         private System.Windows.Forms.Button btnQRCode;
         private System.Windows.Forms.PictureBox pbUserImage;
         private System.Windows.Forms.Label lblUserName;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartEventsWeek;
         private MetroFramework.Controls.MetroLabel metroLabel4;
-        private MetroFramework.Controls.MetroLabel metroLabel5;
-        private MetroFramework.Controls.MetroComboBox metroComboBox1;
+        private MetroFramework.Controls.MetroComboBox cbSearch;
         private MetroFramework.Controls.MetroLabel metroLabel6;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnMinimize;
         private System.Windows.Forms.Button btnClose;
         private MetroFramework.Controls.MetroLabel metroLabel7;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartPresence;
+        private MetroFramework.Controls.MetroLabel metroLabel5;
+        private System.Windows.Forms.DataVisualization.Charting.Chart charEventTypes;
     }
 }
 

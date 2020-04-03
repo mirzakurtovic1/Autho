@@ -42,6 +42,7 @@ namespace AuthoAPI.Controllers
                 if (search.UserName != null)
                     authUsers = authUsers.Where(au => au.UserName.ToLower().StartsWith(search.UserName.ToLower())).ToList();
                 if (search.RoleId != null)
+                    if(search.RoleId != 0)
                     authUsers = authUsers.Where(au => au.RoleId == search.RoleId).ToList();
                 //search throught groups...
             }

@@ -18,25 +18,37 @@ namespace Auth
 {
     public partial class frmUsers : MetroForm
     {
+        #region variables
+        //comunication with api
         private APIService apiService = new APIService("AuthUser");
         private APIService apiService_authUserImage = new APIService("AuthUserImages");
         private APIService apiService_authUserFace = new APIService("AuthUserFaces");
+        //filling comboboxes
         private LoadComboBoxes loadComboBoxes = new LoadComboBoxes();
+        //form validation
         private Validation validation = new Validation();
+        //face detection
         CascadeClassifier face = new CascadeClassifier("haarcascade_frontalface_default.xml");
+        //for qr code generator
         QRCodeHelper qRCodeHelper = new QRCodeHelper();
+        
+        //current user
         private int? userId = null;
         byte[] Img = null;
         Model.AuthUserImage authUserImage= new Model.AuthUserImage();
         Model.AuthUser authUser = null;
-        bool imageFaceFound = false;
-        bool imageUploaded = false;
-        public frmUsers(int? userId = 2044)
+
+        public bool imageFaceFound { get; set; } = false;
+        public bool imageUploaded { get; set; } = false;
+        #endregion variables
+
+        public frmUsers(int? userId = null)
         {
-            this.userId = userId;
-
-
             InitializeComponent();
+
+            this.userId = userId;
+            if (userId != null)
+                cbRole.Enabled = false;
         }
 
         private async void frmUsers_Load(object sender, EventArgs e)
@@ -49,9 +61,8 @@ namespace Auth
             }
             if (userId != null)
             {
-                var user = await apiService.GetById<Model.AuthUser>(userId);
-                authUser = user;
-                writeFields(user);
+                authUser = await apiService.GetById<Model.AuthUser>(userId);
+                writeFields(authUser);
 
                 var userImageList = await apiService_authUserImage.Get<List<Model.AuthUserImage>>(new AuthUserFaceSearchRequest() { AuthUserId = (int)userId });
                 if (userImageList.Count > 0)
@@ -59,7 +70,7 @@ namespace Auth
                     authUserImage = userImageList[0];
                     pbImage.Image = ByteToImage(authUserImage.AuthUserImage1);
                 }
-                pbQrCode.Image = ByteToImage(qRCodeHelper.GenerateQRCode(user.QrCode));
+                pbQrCode.Image = ByteToImage(qRCodeHelper.GenerateQRCode(authUser.QrCode));
             }
         }
 
@@ -125,20 +136,21 @@ namespace Auth
             }
         }
 
+        private async void metroButton1_Click(object sender, EventArgs e)
+        {
+            var insert = new Model.AuthUserImage() {AuthUserImage1 = ImageToByte2(pbImage.Image),AuthUserId = 2020 };
+            await apiService_authUserImage.Insert<Model.AuthUserImage>(insert);
+        }
+
+        #region read - write
         private void writeFields(Model.AuthUser authUser)
         {
             txtFirstName.Text = authUser.FirstName;
             txtLastName.Text = authUser.LastName;
             txtUserName.Text = authUser.UserName;
-            dtpAccountCreationDate.Value =(DateTime)authUser.AccountCreatingDate;
+            dtpAccountCreationDate.Value = (DateTime)authUser.AccountCreatingDate;
             dtpBirthDate.Value = (DateTime)authUser.BirthDate;
             cbRole.SelectedValue = authUser.RoleId;
-
-            //image stuff...
-            if (pbImage.Image != null)
-            { 
-            
-            }
         }
         private Model.InsertRequests.AuthUserInsertRequest readFields()
         {
@@ -154,45 +166,7 @@ namespace Auth
 
             return newUser;
         }
-
-        private void btnUploadImage_Click(object sender, EventArgs e)
-        {
-            // open file dialog   
-            var open = openFileDialog1;
-            // image filters  
-            open.Filter = "Image Files(*.jpg; *.jpeg; *.bmp; *.png)|*.jpg; *.jpeg; *.bmp; *.png";
-            if (open.ShowDialog() == DialogResult.OK)
-            {
-                var fileName = openFileDialog1.FileName;
-
-                var file = File.ReadAllBytes(fileName);
-                Img = file;
-
-                txtImageSource.Text = fileName;
-
-                Bitmap image =(Bitmap)Image.FromFile(fileName);
-                pbImage.Image = image;
-                imageUploaded = true;
-                authUserImage.AuthUserImage1 = file;
-                Image<Gray, Byte> eImage = new Image<Gray, Byte>(image);
-                var result = detectFace(eImage);
-                if (result != null)
-                {
-                    imageFaceFound = true;
-                }
-            }
-
-
-            this.ValidateChildren();
-            //need to validate only image stuff.. fix
-        }
-        private async void metroButton1_Click(object sender, EventArgs e)
-        {
-            var insert = new Model.AuthUserImage() {AuthUserImage1 = ImageToByte2(pbImage.Image),AuthUserId = 2020 };
-            await apiService_authUserImage.Insert<Model.AuthUserImage>(insert);
-        }
-
-
+        #endregion read - write
 
         #region validation
         private void txtFirstName_Validating(object sender, CancelEventArgs e)
@@ -230,7 +204,6 @@ namespace Auth
                 errorProvider1.SetError(dtpBirthDate, null);
             }
         }
-
         private void txtImageSource_Validating(object sender, CancelEventArgs e)
         {
             if (userId == null)
@@ -259,6 +232,25 @@ namespace Auth
                     errorProvider1.SetError(pbImage, "User image required!");
                 }
             }
+            else
+            {
+                if (txtImageSource.Text != null & pbImage != null)
+                {
+                    var image = (Bitmap)pbImage.Image;
+                    Image<Gray, Byte> eImage = new Image<Gray, Byte>(image);
+                    var result = detectFace(eImage);
+                    if (result != null)
+                    {
+                        e.Cancel = false;
+                        errorProvider1.SetError(pbImage, null);
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                        errorProvider1.SetError(pbImage, "Face not found, please upload another image!");
+                    }
+                }
+            }
         }
         private void frmUsers_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -271,7 +263,6 @@ namespace Auth
         #endregion validation
 
         #region helpers
-        //https://stackoverflow.com/questions/9576868/how-to-put-image-in-a-picture-box-from-a-byte-in-c-sharp
         public static Bitmap ByteToImage(byte[] blob)
         {
             MemoryStream mStream = new MemoryStream();
@@ -311,15 +302,37 @@ namespace Auth
                 return stream.ToArray();
             }
         }
+
+        private void btnUploadImage_Click(object sender, EventArgs e)
+        {
+            // open file dialog   
+            var open = openFileDialog1;
+            // image filters  
+            open.Filter = "Image Files(*.jpg; *.jpeg; *.bmp; *.png)|*.jpg; *.jpeg; *.bmp; *.png";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                var fileName = openFileDialog1.FileName;
+
+                var file = File.ReadAllBytes(fileName);
+                Img = file;
+
+                txtImageSource.Text = fileName;
+
+                Bitmap image = (Bitmap)Image.FromFile(fileName);
+                pbImage.Image = image;
+                imageUploaded = true;
+                authUserImage.AuthUserImage1 = file;
+                Image<Gray, Byte> eImage = new Image<Gray, Byte>(image);
+                var result = detectFace(eImage);
+                if (result != null)
+                {
+                    imageFaceFound = true;
+                }
+            }
+            this.ValidateChildren();
+            //need to validate only image stuff.. fix
+        }
         #endregion helpers
 
-        private void btnGeneratePassword_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void metroTextBox1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -10,9 +10,8 @@ namespace AuthoAPI.Models
             AuthUserFace = new HashSet<AuthUserFace>();
             AuthUserImage = new HashSet<AuthUserImage>();
             AuthUserUserGroup = new HashSet<AuthUserUserGroup>();
-            EventMaster = new HashSet<EventMaster>();
+            Event = new HashSet<Event>();
             Presence = new HashSet<Presence>();
-            UserEnterance = new HashSet<UserEnterance>();
         }
 
         public int Id { get; set; }
@@ -30,8 +29,7 @@ namespace AuthoAPI.Models
         public virtual ICollection<AuthUserFace> AuthUserFace { get; set; }
         public virtual ICollection<AuthUserImage> AuthUserImage { get; set; }
         public virtual ICollection<AuthUserUserGroup> AuthUserUserGroup { get; set; }
-        public virtual ICollection<EventMaster> EventMaster { get; set; }
+        public virtual ICollection<Event> Event { get; set; }
         public virtual ICollection<Presence> Presence { get; set; }
-        public virtual ICollection<UserEnterance> UserEnterance { get; set; }
     }
 }

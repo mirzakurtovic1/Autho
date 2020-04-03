@@ -15,7 +15,7 @@ namespace Model
         public int RoleId { get; set; }
         public string QrCode { get; set; }
         public virtual Role Role { get; set; }
-        public string Display { get { return FirstName + " " + LastName + "#" + Id; } }
+        public string Display { get { return FirstName + " " + LastName + " #" + Id; } }
         public string RoleString { get { if (Role != null) return Role.Name; return "unknown"; } }
     }
 }

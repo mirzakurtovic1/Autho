@@ -19,7 +19,7 @@ namespace Auth
             //Application.Run(new Home());
             //Application.Run(new Authentification.frmAuth());
             // Application.Run(new Event.frmEventList());
-            Application.Run(new Event.frmPresenceFinal(38));
+            Application.Run(new frmLogin());
 
         }
     }

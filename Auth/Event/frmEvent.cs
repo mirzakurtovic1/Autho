@@ -56,6 +56,9 @@ namespace Auth.Event
         {
             if (this.ValidateChildren())
             {
+                //..
+                //MessageBox.Show("Do you want to apply these changes to all events from the same group?","Warning",MessageBoxButtons.)
+
                 //Reading fields from form
                 var newEvent = readFields();
                 //If event exists we update it
@@ -68,7 +71,7 @@ namespace Auth.Event
                     {
                         foreach (var x in events)
                         {
-                            newEvent.EventDate = x.EventDate;
+                            newEvent.EventDate = new DateTime(x.EventDate.Year, x.EventDate.Month, x.EventDate.Day,0,0,0,0);
                             await apiService.Update<Model.Event>(x.Id, newEvent);
                         }
                     }
@@ -96,7 +99,7 @@ namespace Auth.Event
                     {
                         foreach (var date in dates)
                         {
-                            newEvent.EventDate = date.Date;
+                            newEvent.EventDate = new DateTime(date.Date.Year, date.Date.Month, date.Date.Day, 0, 0, 0, 0);
                             newEvent.EventGroupId = eventGroupCode;
                             await apiService.Insert<Model.Event>(newEvent);
                         }
@@ -142,7 +145,7 @@ namespace Auth.Event
             cbEveryoneCanEnter.Checked = (bool)userEvent.AnyoneCanEnter;
             numUserCanEnterBefore.Value = (decimal)userEvent.UserCanEnterBeforeEventMi;
             numUserCanEnterAfter.Value = (decimal)userEvent.UserCanEnterAfterEventSta;
-            //cbEventMaster.SelectedValue = userEvent.EventMasterId;
+            cbEventMaster.SelectedValue = userEvent.EventMasterId;
             cbEventType.SelectedValue = userEvent.EventTypeId;
             lblEventGroupId.Text = userEvent.EventGroupId;
         }
@@ -158,7 +161,7 @@ namespace Auth.Event
                 AnyoneCanEnter = cbEveryoneCanEnter.Checked,
                 UserCanEnterBeforeEventMi = (int)numUserCanEnterBefore.Value,
                 UserCanEnterAfterEventSta = (int)numUserCanEnterAfter.Value,
-                //EventMasterId=cbEventMaster.SelectedValue,
+                EventMasterId=(int)cbEventMaster.SelectedValue,
                 EventTypeId = (int)cbEventType.SelectedValue,
                 EventGroupId = lblEventGroupId.Text.ToString()
             };

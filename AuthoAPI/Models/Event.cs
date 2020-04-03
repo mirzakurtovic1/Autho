@@ -8,7 +8,6 @@ namespace AuthoAPI.Models
         public Event()
         {
             Enterance = new HashSet<Enterance>();
-            EventMaster = new HashSet<EventMaster>();
             Presence = new HashSet<Presence>();
         }
 
@@ -23,10 +22,11 @@ namespace AuthoAPI.Models
         public int UserCanEnterAfterEventSta { get; set; }
         public int EventTypeId { get; set; }
         public string EventGroupId { get; set; }
+        public int? EventMasterId { get; set; }
 
+        public virtual AuthUser EventMaster { get; set; }
         public virtual EventType EventType { get; set; }
         public virtual ICollection<Enterance> Enterance { get; set; }
-        public virtual ICollection<EventMaster> EventMaster { get; set; }
         public virtual ICollection<Presence> Presence { get; set; }
     }
 }

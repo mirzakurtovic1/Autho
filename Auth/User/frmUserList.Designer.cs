@@ -35,12 +35,6 @@
             this.btnFilter = new MetroFramework.Controls.MetroButton();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.dgvUsers = new System.Windows.Forms.DataGridView();
-            this.metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
-            this.metroTextBox2 = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
-            this.metroTextBox3 = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
-            this.authUserBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,6 +46,13 @@
             this.qrCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.roleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.displayDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.authUserBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.txtFirstName = new MetroFramework.Controls.MetroTextBox();
+            this.txtLastName = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
+            this.txtUserName = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
+            this.metroButton1 = new MetroFramework.Controls.MetroButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.authUserBindingSource)).BeginInit();
@@ -60,9 +61,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Auth.Properties.Resources.icons8_people_100;
-            this.pictureBox1.Location = new System.Drawing.Point(465, 41);
+            this.pictureBox1.Location = new System.Drawing.Point(496, 63);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(150, 150);
+            this.pictureBox1.Size = new System.Drawing.Size(118, 121);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 23;
             this.pictureBox1.TabStop = false;
@@ -70,7 +71,7 @@
             // metroLabel3
             // 
             this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(23, 108);
+            this.metroLabel3.Location = new System.Drawing.Point(23, 158);
             this.metroLabel3.Name = "metroLabel3";
             this.metroLabel3.Size = new System.Drawing.Size(35, 19);
             this.metroLabel3.TabIndex = 20;
@@ -81,18 +82,19 @@
             this.cbType.DropDownWidth = 121;
             this.cbType.FormattingEnabled = true;
             this.cbType.ItemHeight = 23;
-            this.cbType.Location = new System.Drawing.Point(23, 130);
+            this.cbType.Location = new System.Drawing.Point(23, 180);
             this.cbType.Name = "cbType";
-            this.cbType.Size = new System.Drawing.Size(121, 29);
+            this.cbType.Size = new System.Drawing.Size(115, 29);
             this.cbType.TabIndex = 19;
             // 
             // btnFilter
             // 
-            this.btnFilter.Location = new System.Drawing.Point(23, 165);
+            this.btnFilter.Location = new System.Drawing.Point(22, 223);
             this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(121, 29);
+            this.btnFilter.Size = new System.Drawing.Size(143, 23);
             this.btnFilter.TabIndex = 14;
-            this.btnFilter.Text = "Filter";
+            this.btnFilter.Text = "Refresh";
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
             // 
             // metroLabel1
             // 
@@ -128,55 +130,13 @@
             this.roleDataGridViewTextBoxColumn,
             this.displayDataGridViewTextBoxColumn});
             this.dgvUsers.DataSource = this.authUserBindingSource;
-            this.dgvUsers.Location = new System.Drawing.Point(23, 197);
+            this.dgvUsers.Location = new System.Drawing.Point(22, 249);
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.ReadOnly = true;
             this.dgvUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvUsers.Size = new System.Drawing.Size(592, 262);
             this.dgvUsers.TabIndex = 12;
-            // 
-            // metroTextBox1
-            // 
-            this.metroTextBox1.Location = new System.Drawing.Point(23, 82);
-            this.metroTextBox1.Name = "metroTextBox1";
-            this.metroTextBox1.Size = new System.Drawing.Size(115, 23);
-            this.metroTextBox1.TabIndex = 24;
-            // 
-            // metroTextBox2
-            // 
-            this.metroTextBox2.Location = new System.Drawing.Point(144, 82);
-            this.metroTextBox2.Name = "metroTextBox2";
-            this.metroTextBox2.Size = new System.Drawing.Size(115, 23);
-            this.metroTextBox2.TabIndex = 26;
-            // 
-            // metroLabel2
-            // 
-            this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(144, 60);
-            this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(68, 19);
-            this.metroLabel2.TabIndex = 25;
-            this.metroLabel2.Text = "Last name";
-            // 
-            // metroTextBox3
-            // 
-            this.metroTextBox3.Location = new System.Drawing.Point(265, 82);
-            this.metroTextBox3.Name = "metroTextBox3";
-            this.metroTextBox3.Size = new System.Drawing.Size(115, 23);
-            this.metroTextBox3.TabIndex = 28;
-            // 
-            // metroLabel4
-            // 
-            this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(265, 60);
-            this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(72, 19);
-            this.metroLabel4.TabIndex = 27;
-            this.metroLabel4.Text = "User name";
-            // 
-            // authUserBindingSource
-            // 
-            this.authUserBindingSource.DataSource = typeof(Model.AuthUser);
+            this.dgvUsers.DoubleClick += new System.EventHandler(this.dgvUsers_DoubleClick);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -262,16 +222,69 @@
             this.displayDataGridViewTextBoxColumn.ReadOnly = true;
             this.displayDataGridViewTextBoxColumn.Visible = false;
             // 
+            // authUserBindingSource
+            // 
+            this.authUserBindingSource.DataSource = typeof(Model.AuthUser);
+            // 
+            // txtFirstName
+            // 
+            this.txtFirstName.Location = new System.Drawing.Point(23, 82);
+            this.txtFirstName.Name = "txtFirstName";
+            this.txtFirstName.Size = new System.Drawing.Size(115, 23);
+            this.txtFirstName.TabIndex = 24;
+            // 
+            // txtLastName
+            // 
+            this.txtLastName.Location = new System.Drawing.Point(144, 82);
+            this.txtLastName.Name = "txtLastName";
+            this.txtLastName.Size = new System.Drawing.Size(115, 23);
+            this.txtLastName.TabIndex = 26;
+            // 
+            // metroLabel2
+            // 
+            this.metroLabel2.AutoSize = true;
+            this.metroLabel2.Location = new System.Drawing.Point(144, 60);
+            this.metroLabel2.Name = "metroLabel2";
+            this.metroLabel2.Size = new System.Drawing.Size(68, 19);
+            this.metroLabel2.TabIndex = 25;
+            this.metroLabel2.Text = "Last name";
+            // 
+            // txtUserName
+            // 
+            this.txtUserName.Location = new System.Drawing.Point(23, 131);
+            this.txtUserName.Name = "txtUserName";
+            this.txtUserName.Size = new System.Drawing.Size(115, 23);
+            this.txtUserName.TabIndex = 28;
+            // 
+            // metroLabel4
+            // 
+            this.metroLabel4.AutoSize = true;
+            this.metroLabel4.Location = new System.Drawing.Point(23, 109);
+            this.metroLabel4.Name = "metroLabel4";
+            this.metroLabel4.Size = new System.Drawing.Size(72, 19);
+            this.metroLabel4.TabIndex = 27;
+            this.metroLabel4.Text = "User name";
+            // 
+            // metroButton1
+            // 
+            this.metroButton1.Location = new System.Drawing.Point(471, 223);
+            this.metroButton1.Name = "metroButton1";
+            this.metroButton1.Size = new System.Drawing.Size(143, 23);
+            this.metroButton1.TabIndex = 29;
+            this.metroButton1.Text = "add new user";
+            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
+            // 
             // frmUserList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(637, 468);
-            this.Controls.Add(this.metroTextBox3);
+            this.ClientSize = new System.Drawing.Size(640, 519);
+            this.Controls.Add(this.metroButton1);
+            this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.metroLabel4);
-            this.Controls.Add(this.metroTextBox2);
+            this.Controls.Add(this.txtLastName);
             this.Controls.Add(this.metroLabel2);
-            this.Controls.Add(this.metroTextBox1);
+            this.Controls.Add(this.txtFirstName);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.metroLabel3);
             this.Controls.Add(this.cbType);
@@ -297,10 +310,10 @@
         private MetroFramework.Controls.MetroButton btnFilter;
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private System.Windows.Forms.DataGridView dgvUsers;
-        private MetroFramework.Controls.MetroTextBox metroTextBox1;
-        private MetroFramework.Controls.MetroTextBox metroTextBox2;
+        private MetroFramework.Controls.MetroTextBox txtFirstName;
+        private MetroFramework.Controls.MetroTextBox txtLastName;
         private MetroFramework.Controls.MetroLabel metroLabel2;
-        private MetroFramework.Controls.MetroTextBox metroTextBox3;
+        private MetroFramework.Controls.MetroTextBox txtUserName;
         private MetroFramework.Controls.MetroLabel metroLabel4;
         private System.Windows.Forms.BindingSource authUserBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
@@ -314,5 +327,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn qrCodeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn roleDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn displayDataGridViewTextBoxColumn;
+        private MetroFramework.Controls.MetroButton metroButton1;
     }
 }

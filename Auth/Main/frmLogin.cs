@@ -27,5 +27,13 @@ namespace Auth
         {
 
         }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            //Elmir
+            var frm = new Home(2041);
+            frm.Show();
+
+        }
     }
 }

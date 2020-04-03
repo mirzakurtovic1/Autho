@@ -31,8 +31,8 @@ namespace AuthoAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Model.Presence>>> Get([FromQuery] Model.SearchRequest.PresenceSearchRequest search)
         {
-            var presence = await _context.Presence.Include(u =>u.User).ToListAsync();
-
+            List<Presence> presence = await _context.Presence.Include(u =>u.User).ToListAsync();
+            
 
             if (search != null)
             {
@@ -42,7 +42,15 @@ namespace AuthoAPI.Controllers
                     presence = presence.Where(p => p.EventId == search.EventId).ToList();
                 if(search.hasNotes != null)
                     presence = presence.Where(p => p.Notes != null).ToList();
-
+                if (search.EventMasterId != null)
+                {
+                    presence = await _context.Presence
+                            .Where(p => p.Event.EventMasterId == search.EventMasterId)
+                            .Include(u => u.User)
+                            .Include(e => e.Event)
+                            .ToListAsync();
+                }
+            
             }
 
             var result = _mapper.Map<List<Model.Presence>>(presence);

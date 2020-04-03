@@ -18,6 +18,7 @@ namespace Model
         public int EventTypeId { get; set; }
         public string EventGroupId { get; set; }
         public virtual EventType EventType { get; set; }
+        public int? EventMasterId { get; set; }
 
         public string EventStartingTimeShortString { get { return EventStartingTime.ToString("hh:mm");} }
         public string EventTypeString { get { if (EventType != null) return EventType.Name; return "unknown"; } }

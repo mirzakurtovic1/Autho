@@ -152,12 +152,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APIService.cs" />
-    <Compile Include="AuthDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AuthDataSet.xsd</DependentUpon>
-    </Compile>
+    <Compile Include="Helpers\APIService.cs" />
     <Compile Include="Authentification\frmAuth.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,11 +201,11 @@
     <Compile Include="Event\frmPresenceList.Designer.cs">
       <DependentUpon>frmPresenceList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="Main\Home.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Main\Home.Designer.cs">
+      <DependentUpon>Home.cs</DependentUpon>
     </Compile>
     <Compile Include="Event\frmEventType.cs">
       <SubType>Form</SubType>
@@ -218,10 +213,10 @@
     <Compile Include="Event\frmEventType.Designer.cs">
       <DependentUpon>frmEventType.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmLogin.cs">
+    <Compile Include="Main\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmLogin.Designer.cs">
+    <Compile Include="Main\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Event\frmPresenceDetailes.cs">
@@ -230,7 +225,7 @@
     <Compile Include="Event\frmPresenceDetailes.Designer.cs">
       <DependentUpon>frmPresenceDetailes.cs</DependentUpon>
     </Compile>
-    <Compile Include="QRCodeHelper.cs" />
+    <Compile Include="Helpers\QRCodeHelper.cs" />
     <Compile Include="User\frmUserList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,13 +238,7 @@
     <Compile Include="User\frmUsers.Designer.cs">
       <DependentUpon>frmUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoadComboBoxes.cs" />
-    <Compile Include="Main.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Helpers\LoadComboBoxes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User\frmRoleDetailes.cs">
@@ -258,7 +247,7 @@
     <Compile Include="User\frmRoleDetailes.Designer.cs">
       <DependentUpon>frmRoleDetailes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Validation.cs" />
+    <Compile Include="Helpers\Validation.cs" />
     <EmbeddedResource Include="Authentification\frmAuth.resx">
       <DependentUpon>frmAuth.cs</DependentUpon>
     </EmbeddedResource>
@@ -283,13 +272,13 @@
     <EmbeddedResource Include="Event\frmPresenceList.resx">
       <DependentUpon>frmPresenceList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Main\Home.resx">
+      <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Event\frmEventType.resx">
       <DependentUpon>frmEventType.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmLogin.resx">
+    <EmbeddedResource Include="Main\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Event\frmPresenceDetailes.resx">
@@ -300,9 +289,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User\frmUsers.resx">
       <DependentUpon>frmUsers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -317,17 +303,6 @@
     <EmbeddedResource Include="User\frmRoleDetailes.resx">
       <DependentUpon>frmRoleDetailes.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="AuthDataSet.xsc">
-      <DependentUpon>AuthDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="AuthDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>AuthDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="AuthDataSet.xss">
-      <DependentUpon>AuthDataSet.xsd</DependentUpon>
-    </None>
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Model.AuthUser.datasource" />
@@ -376,8 +351,8 @@
     <None Include="Authentification\data\haarcascade_frontalface_default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="License-LGPL.txt" />
-    <Content Include="MetroFramework.txt" />
+    <Content Include="Licences\License-LGPL.txt" />
+    <Content Include="Licences\MetroFramework.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

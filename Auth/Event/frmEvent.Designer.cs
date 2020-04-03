@@ -68,6 +68,7 @@
             this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
             this.lblEventGroupId = new MetroFramework.Controls.MetroLabel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.metroLabel13 = new MetroFramework.Controls.MetroLabel();
             ((System.ComponentModel.ISupportInitialize)(this.numUserCanEnterBefore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUserCanEnterAfter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -407,6 +408,7 @@
             // 
             // panelMultipleDates
             // 
+            this.panelMultipleDates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelMultipleDates.Controls.Add(this.nudEvents);
             this.panelMultipleDates.Controls.Add(this.metroLabel12);
             this.panelMultipleDates.Controls.Add(this.btnCustomDate);
@@ -417,7 +419,7 @@
             this.panelMultipleDates.Controls.Add(this.cbRepeatType);
             this.panelMultipleDates.Location = new System.Drawing.Point(226, 333);
             this.panelMultipleDates.Name = "panelMultipleDates";
-            this.panelMultipleDates.Size = new System.Drawing.Size(406, 199);
+            this.panelMultipleDates.Size = new System.Drawing.Size(405, 199);
             this.panelMultipleDates.TabIndex = 41;
             this.panelMultipleDates.Visible = false;
             this.panelMultipleDates.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
@@ -469,12 +471,24 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // metroLabel13
+            // 
+            this.metroLabel13.AutoSize = true;
+            this.metroLabel13.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel13.Location = new System.Drawing.Point(226, 311);
+            this.metroLabel13.Name = "metroLabel13";
+            this.metroLabel13.Size = new System.Drawing.Size(166, 19);
+            this.metroLabel13.TabIndex = 43;
+            this.metroLabel13.Text = "Repeatable event setup";
+            this.metroLabel13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // frmEvent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(635, 694);
+            this.Controls.Add(this.metroLabel13);
             this.Controls.Add(this.lblEventGroupId);
             this.Controls.Add(this.panelMultipleDates);
             this.Controls.Add(this.lblEventGroup);
@@ -559,5 +573,6 @@
         private System.Windows.Forms.NumericUpDown nudEvents;
         private MetroFramework.Controls.MetroLabel lblEventGroupId;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private MetroFramework.Controls.MetroLabel metroLabel13;
     }
 }

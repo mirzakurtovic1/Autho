@@ -61,9 +61,9 @@
             // 
             // btnFilter
             // 
-            this.btnFilter.Location = new System.Drawing.Point(23, 258);
+            this.btnFilter.Location = new System.Drawing.Point(23, 253);
             this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(248, 29);
+            this.btnFilter.Size = new System.Drawing.Size(121, 23);
             this.btnFilter.TabIndex = 1;
             this.btnFilter.Text = "Filter";
             this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
@@ -117,7 +117,7 @@
             // 
             // txtFirstName
             // 
-            this.txtFirstName.Location = new System.Drawing.Point(23, 173);
+            this.txtFirstName.Location = new System.Drawing.Point(23, 178);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(121, 23);
             this.txtFirstName.TabIndex = 9;
@@ -125,7 +125,7 @@
             // metroLabel2
             // 
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(23, 151);
+            this.metroLabel2.Location = new System.Drawing.Point(23, 156);
             this.metroLabel2.Name = "metroLabel2";
             this.metroLabel2.Size = new System.Drawing.Size(70, 19);
             this.metroLabel2.TabIndex = 10;
@@ -134,7 +134,7 @@
             // metroLabel3
             // 
             this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(150, 151);
+            this.metroLabel3.Location = new System.Drawing.Point(150, 156);
             this.metroLabel3.Name = "metroLabel3";
             this.metroLabel3.Size = new System.Drawing.Size(68, 19);
             this.metroLabel3.TabIndex = 12;
@@ -142,7 +142,7 @@
             // 
             // txtLastName
             // 
-            this.txtLastName.Location = new System.Drawing.Point(150, 173);
+            this.txtLastName.Location = new System.Drawing.Point(150, 178);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(121, 23);
             this.txtLastName.TabIndex = 11;
@@ -150,7 +150,7 @@
             // metroLabel4
             // 
             this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(23, 197);
+            this.metroLabel4.Location = new System.Drawing.Point(23, 202);
             this.metroLabel4.Name = "metroLabel4";
             this.metroLabel4.Size = new System.Drawing.Size(72, 19);
             this.metroLabel4.TabIndex = 14;
@@ -158,7 +158,7 @@
             // 
             // txtUserName
             // 
-            this.txtUserName.Location = new System.Drawing.Point(23, 219);
+            this.txtUserName.Location = new System.Drawing.Point(23, 224);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(121, 23);
             this.txtUserName.TabIndex = 13;
@@ -291,7 +291,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(604, 532);
+            this.ClientSize = new System.Drawing.Size(607, 532);
             this.Controls.Add(this.panelMultipleDates);
             this.Controls.Add(this.lblEventGroupId);
             this.Controls.Add(this.metroLabel6);

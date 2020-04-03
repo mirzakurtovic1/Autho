@@ -10,7 +10,7 @@ namespace Model.SearchRequest
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserName { get; set; }
-        public int? RoleId = null;
-        public int? UserGroupId = null;
+        public int? RoleId { get; set; } = null;
+        public int? UserGroupId { get; set; } = null;
     }
 }
